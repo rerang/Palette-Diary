@@ -1,0 +1,27 @@
+body {
+    background-image: url(/public/img/basicBackground.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+}
+.bodyArea{
+    background-color: rgba(255, 255, 255);
+    box-shadow: 0 0.5rem 0.5rem rgb(177, 177, 177);
+}
+.infoArea{
+    background-color: #eef1ff;
+}
+.formInputArea{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    column-gap: 2rem;
+    vertical-align: middle;
+    align-items: center;
+    width: 100%;
+}
+.signUpInput{
+    border: rgb(0, 0, 0) 2px solid;
+    border-radius: 20px;
+    height: 2.5rem;
+    padding: 0 10px;
+}
