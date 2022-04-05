@@ -502,6 +502,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
+.col-start-5 {
+  grid-column-start: 5;
+}
+
+.row-start-5 {
+  grid-row-start: 5;
+}
+
+.row-start-6 {
+  grid-row-start: 6;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -516,24 +528,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mt-\[2rem\] {
-  margin-top: 2rem;
-}
-
-.mb-\[2rem\] {
-  margin-bottom: 2rem;
+.mt-\[3rem\] {
+  margin-top: 3rem;
 }
 
 .mb-\[4rem\] {
   margin-bottom: 4rem;
 }
 
-.mt-\[3rem\] {
-  margin-top: 3rem;
+.mt-auto {
+  margin-top: auto;
+}
+
+.mt-\[4rem\] {
+  margin-top: 4rem;
+}
+
+.mb-\[2rem\] {
+  margin-bottom: 2rem;
 }
 
 .flex {
@@ -552,16 +564,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 10rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .w-\[20rem\] {
   width: 20rem;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-\[5rem\] {
-  width: 5rem;
 }
 
 .w-\[40\%\] {
@@ -572,32 +584,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-rows-3 {
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-}
-
-.grid-rows-4 {
-  grid-template-rows: repeat(4, minmax(0, 1fr));
-}
-
 .grid-rows-6 {
   grid-template-rows: repeat(6, minmax(0, 1fr));
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-col {
   flex-direction: column;
-}
-
-.content-center {
-  align-content: center;
 }
 
 .justify-center {
@@ -657,19 +649,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 1rem;
 }
 
-.px-\[7rem\] {
-  padding-left: 7rem;
-  padding-right: 7rem;
-}
-
-.py-\[9rem\] {
-  padding-top: 9rem;
-  padding-bottom: 9rem;
-}
-
-.px-\[8rem\] {
-  padding-left: 8rem;
-  padding-right: 8rem;
+.py-\[3rem\] {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .px-\[6rem\] {
@@ -677,9 +659,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 6rem;
 }
 
-.py-\[3rem\] {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.py-\[4rem\] {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .text-center {
