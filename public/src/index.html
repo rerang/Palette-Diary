@@ -10,35 +10,53 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/index.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <div class="container p-[80px] mx-auto">
-        <article class="bodyArea grid grid-cols-2 align-middle justify-center rounded-[10px]">
-            <div class="infoArea flex flex-col justify-center py-[7rem] px-[5rem] rounded-l-[10px] gap-8">
-                <div class="w-[20rem] h-[20rem] m-auto">
+    <div class="container p-[50px] mx-auto h-full font-basic">
+        <article class="bodyArea mx-auto grid grid-cols-2 align-middle justify-center rounded-[10px] w-[calc(1200px+9%)]">
+            <div class="infoArea flex flex-col justify-center py-[7rem] px-[5rem] rounded-l-[10px] gap-6">
+                <div class="w-[13rem] h-[13rem] mx-auto my-[1.5rem]">
                     <img src="/public/img/logo.png" class="w-full"> 
                 </div>
-                <div class="h-[10rem] flex flex-col gap-8 text-center py-4">
+                <div class="flex flex-col gap-5 text-center py-3 text-xs">
                     <p>자신의 기분을 다양한 색으로 나타내 보세요.</p>
                     <p>소중한 하루를 기록해 보세요.</p>
                     <p>오늘, 이번주, 이번 달의 나는 무슨 색일까요?</p>
                 </div>
             </div>
-            <div class="signInArea py-[4rem] px-[6rem] flex flex-col h-full">
-                <div class="signInAreaTitle text-center text-[1.5rem] mt-[4rem] mb-[2rem]">회원가입</div>
-                <form class="grid grid-rows-6 gap-4 text-right my-8 font-bold justify-items-center" action="url", method="post">
+            <div class="signInArea pb-[4rem] pt-[8rem] px-[6rem] flex flex-col h-full">
+                <div class="signInAreaTitle text-center text-[1.5rem] mb-[4rem]">회원가입</div>
+                <form class="grid grid-rows-[1fr_1fr_1fr_0.5fr_1.5fr] gap-3 text-right my-2  justify-items-center text-[0.8rem] " action="url", method="post">
                     <div class="formInputArea"><span>이메일</span><input class="signUpInput" type="email"></div>
                     <div class="formInputArea"><span>비밀번호</span><input class="signUpInput" type="password"></div>
                     <div class="formInputArea"><span>비밀번호 확인</span><input class="signUpInput" type="password"></div>
                     <div class="errorArea text-red-500"></div>
-                    <input type="submit" action="post" class="bg-[#cbd8ff] rounded-[20px] w-[40%] mt-10px row-start-6" value="나의 다이어리 만들기">
+                    <div class="formSubmitArea w-full mt-10px row-start-5 flex flex-row justify-center py-2">
+                        <input type="submit" action="post" class="bg-[#cbd8ff] rounded-[20px] w-[32%]" value="나의 다이어리 만들기">
+                    </div>
                 </form>
-                <div class="mt-auto text-center"><a>관리자 회원가입</a></div>
+                <div class="mt-auto text-center text-[0.8rem]"><a>관리자 회원가입</a></div>
             </div> 
         </article>
     </div>
+
     <footer class="">
+        <div id="footerContent">
+            <p id="footer_logo">happy_diary | <span>swag sweb</span></p>
+            <ul id="sns">
+                <li>문의사항 SNS</li>
+                <li>- 인스타그램<a href="http://1.co.kr/%22%3E(http://1.co.kr)"></a></li>
+                <li>- 오픈카카오톡<a href="http://www.2.or.kr/%22%3E(http://www.2.or.kr)"></a></li>
+            </ul>
+            <ul id="author">
+                <li>저자 문의 메일</li>
+                <li>- 메일 주소 : admin@admin.com</li>
+            </ul>
+        </div>
     </footer>
     <script src="/src/ajjeogu.js"></script>
 </body>
