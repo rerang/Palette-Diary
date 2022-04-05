@@ -1,0 +1,16 @@
+
+.signUpFormInputArea{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
+    vertical-align: middle;
+    align-items: center;
+    width: 100%;
+}
+.signUpInput{
+    border: rgb(136, 136, 136) 1px solid;
+    border-radius: 20px;
+    height: 2rem;
+    padding: 0 10px;
+    width: 80%;
+}

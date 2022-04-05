@@ -9,17 +9,20 @@
     
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
+    <link href="/public/src/global/global.css" rel="stylesheet">
     <link href="/public/src/index.css" rel="stylesheet">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <div class="container p-[50px] mx-auto h-full font-basic">
         <article class="bodyArea mx-auto grid grid-cols-2 align-middle justify-center rounded-[10px] w-[calc(1200px+9%)]">
             <div class="infoArea flex flex-col justify-center py-[7rem] px-[5rem] rounded-l-[10px] gap-6">
-                <div class="w-[13rem] h-[13rem] mx-auto my-[1.5rem]">
+                <div class="goLoginLogo w-[13rem] h-[13rem] mx-auto my-[1.5rem]">
                     <img src="/public/img/logo.png" class="w-full"> 
                 </div>
                 <div class="flex flex-col gap-5 text-center py-3 text-xs">
@@ -28,18 +31,24 @@
                     <p>오늘, 이번주, 이번 달의 나는 무슨 색일까요?</p>
                 </div>
             </div>
-            <div class="signInArea pb-[4rem] pt-[8rem] px-[6rem] flex flex-col h-full">
-                <div class="signInAreaTitle text-center text-[1.5rem] mb-[4rem]">회원가입</div>
-                <form class="grid grid-rows-[1fr_1fr_1fr_0.5fr_1.5fr] gap-3 text-right my-2  justify-items-center text-[0.8rem] " action="url", method="post">
-                    <div class="formInputArea"><span>이메일</span><input class="signUpInput" type="email"></div>
-                    <div class="formInputArea"><span>비밀번호</span><input class="signUpInput" type="password"></div>
-                    <div class="formInputArea"><span>비밀번호 확인</span><input class="signUpInput" type="password"></div>
-                    <div class="errorArea text-red-500"></div>
-                    <div class="formSubmitArea w-full mt-10px row-start-5 flex flex-row justify-center py-2">
-                        <input type="submit" action="post" class="bg-[#cbd8ff] rounded-[20px] w-[32%]" value="나의 다이어리 만들기">
+            <div class="signInArea pb-[4rem] pt-[9rem] px-[6rem] flex flex-col h-full">
+                <div class="signInAreaTitle text-center text-[1.5rem] mb-[5rem]">로그인</div>
+                <form class="grid grid-rows-[2fr_1fr] mx-[4rem] my-2 justify-items-center text-[0.8rem]" action="url", method="post">
+                    <div class="signInFormArea grid grid-cols-[4fr_1fr] gap-3 w-full">
+                        <div class="signInFormInputArea grid grid-rows-2 gap-3 w-full">
+                            <input class="signInInput" type="email" placeholder="이메일을 입력하세요.">
+                            <input class="signInInput" type="password" placeholder="비밀번호를 입력하세요.">
+                        </div>
+                        <div class="signInFormSubmitArea w-full h-[4.75rem]">
+                            <input type="submit" action="post " class="bg-[#cbd8ff] rounded-[20px] w-full h-full" value="로그인">
+                        </div>
                     </div>
+                    <div class="errorArea text-red-500"></div>
                 </form>
-                <div class="mt-auto text-center text-[0.8rem]"><a>관리자 회원가입</a></div>
+                <div class="signInBtnArea text-[0.8rem] flex flex-row gap-3 justify-center items-center">
+                    <span class="leading-none">계정이 없으신가요?</span>
+                    <button class="bg-[#cbd8ff] rounded-[20px] px-[2rem] h-[1.5rem]" onclick="location.href='/public/src/signUp/signUp.html'">회원가입</button>
+                </div>
             </div> 
         </article>
     </div>
@@ -58,6 +67,6 @@
             </ul>
         </div>
     </footer>
-    <script src="/src/ajjeogu.js"></script>
+    <script src="/public/src/global/global.js"></script>
 </body>
 </html>
