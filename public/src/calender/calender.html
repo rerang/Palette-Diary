@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette Diary</title>
+    <link href="/public/img/icon.ico" rel="shortcut icon" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/public/src/global/reset.css">
+    <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
+    <link href="/public/src/global/global.css" rel="stylesheet">
+    <link href="/public/src/calender/calender.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container p-[50px] mx-auto h-full font-basic">
+        <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row  py-[2rem]">
+            <nav class="flex flex-col items-center px-[1rem]">
+                <div class="goCalenderLogo">
+                    <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]">
+                    <span>색깔 통계</span>
+                    <img src="/public/img/statsIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]">
+                    <span>해피 저금통</span>
+                    <img src="/public/img/happyBankIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]">
+                    <span>설정</span>
+                    <img src="/public/img/setthingIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+            </nav>
+            <div class="calenderArea flex flex-row justify-center">
+                <div class="calender w-[50rem] px-[3rem]">
+                    <div class="monthSelectArea flex flex-row justify-center">
+                        <div class="calenderMonthArrowArea"><img src=""></div>
+                        <div>2022年 3月</div>
+                        <div class="calenderMonthArrowArea"><img src=""></div>
+                    </div>
+                    <div class="dayOfTheWeekArea grid grid-cols-7 justify-items-center">
+                        <div>SUN</div>
+                        <div>MON</div>
+                        <div>TUE</div>
+                        <div>WED</div>
+                        <div>THU</div>
+                        <div>FRI</div>
+                        <div>SAT</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <footer class="px-[50px] mb-[2rem]">
+        <div class="footerContent w-[calc(1200px+9%)] mx-auto rounded-[10px] grid grid-cols-3 px-[2rem] py-[1rem]">
+            <div class="inquiryArea flex flex-col text-[0.8rem]">
+                <span class="text-[1rem] font-bold">관련문의</span>
+                <span>email: palette@gmail.com</span>
+                <span>instagram: @palette_diary</span>
+            </div>
+            <div class="devInfoArea grid grid-row-[2fr_1fr] justify-items-center text-center items-center">
+                <span class="text-[1rem] self-end">PALETTE DIARY</span>
+                <span class="text-[0.5rem]">Design - HyunSeo / FE - rerang / BK - MinGyeong, WanSu</span>
+            </div>
+            <div class="footerLogoArea flex flex-row justify-end">
+                <img src="/public/img/logo.png" class="w-[3.5rem] h-[3.5rem]">
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/public/src/global/global.js"></script>
+</body>
+</html>
