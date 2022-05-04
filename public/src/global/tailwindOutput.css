@@ -502,6 +502,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
 .row-start-5 {
   grid-row-start: 5;
 }
@@ -516,39 +532,91 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1.5rem;
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.mx-\[3rem\] {
-  margin-left: 3rem;
-  margin-right: 3rem;
-}
-
 .mx-\[4rem\] {
   margin-left: 4rem;
   margin-right: 4rem;
 }
 
-.mb-\[4rem\] {
-  margin-bottom: 4rem;
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.mt-auto {
-  margin-top: auto;
+.mx-\[2rem\] {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.my-\[2rem\] {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.my-\[1rem\] {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .mb-\[5rem\] {
   margin-bottom: 5rem;
 }
 
+.mb-\[2rem\] {
+  margin-bottom: 2rem;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-\[4rem\] {
+  margin-bottom: 4rem;
+}
+
+.mb-\[3rem\] {
+  margin-bottom: 3rem;
+}
+
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
+}
+
+.contents {
+  display: contents;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-\[45rem\] {
+  height: 45rem;
+}
+
+.h-\[30px\] {
+  height: 30px;
 }
 
 .h-full {
@@ -563,16 +631,62 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 4.75rem;
 }
 
-.h-\[1rem\] {
-  height: 1rem;
+.h-\[1\.5rem\] {
+  height: 1.5rem;
+}
+
+.h-\[7rem\] {
+  height: 7rem;
+}
+
+.h-\[3\.5rem\] {
+  height: 3.5rem;
+}
+
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .h-\[2rem\] {
   height: 2rem;
 }
 
-.h-\[1\.5rem\] {
-  height: 1.5rem;
+.h-\[calc\(1000px\+9\%\)\] {
+  height: calc(1000px + 9%);
+}
+
+.h-\[50px\] {
+  height: 50px;
+}
+
+.h-\[calc\(500px\+9\%\)\] {
+  height: calc(500px + 9%);
+}
+
+.max-h-\[calc\(500px\+9\%\)\] {
+  max-height: calc(500px + 9%);
+}
+
+.min-h-\[300px\] {
+  min-height: 300px;
+}
+
+.min-h-\[380px\] {
+  min-height: 380px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-\[20rem\] {
+  width: 20rem;
+}
+
+.w-\[30px\] {
+  width: 30px;
 }
 
 .w-\[calc\(1200px\+9\%\)\] {
@@ -583,40 +697,84 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 13rem;
 }
 
-.w-full {
-  width: 100%;
+.w-\[3\.5rem\] {
+  width: 3.5rem;
+}
+
+.w-\[7rem\] {
+  width: 7rem;
+}
+
+.w-\[11rem\] {
+  width: 11rem;
+}
+
+.w-\[50rem\] {
+  width: 50rem;
+}
+
+.w-\[2rem\] {
+  width: 2rem;
 }
 
 .w-\[32\%\] {
   width: 32%;
 }
 
-.w-\[70\%\] {
-  width: 70%;
+.min-w-\[300px\] {
+  min-width: 300px;
+}
+
+.max-w-\[300px\] {
+  max-width: 300px;
+}
+
+.border-collapse {
+  border-collapse: collapse;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.resize {
+  resize: both;
 }
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .grid-cols-\[4fr_1fr\] {
   grid-template-columns: 4fr 1fr;
 }
 
-.grid-rows-\[1fr_1fr_1fr_0\.5fr_1\.5fr\] {
-  grid-template-rows: 1fr 1fr 1fr 0.5fr 1.5fr;
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-\[2fr_1fr\] {
+  grid-template-columns: 2fr 1fr;
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.grid-rows-\[2fr_1fr\] {
+  grid-template-rows: 2fr 1fr;
 }
 
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
-.grid-rows-\[2fr_1fr\] {
-  grid-template-rows: 2fr 1fr;
+.grid-rows-\[repeat\(7\2c 1fr\)\] {
+  grid-template-rows: repeat(7,1fr);
+}
+
+.grid-rows-\[1fr_1fr_1fr_0\.5fr_1\.5fr\] {
+  grid-template-rows: 1fr 1fr 1fr 0.5fr 1.5fr;
 }
 
 .flex-row {
@@ -627,24 +785,44 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-direction: column;
 }
 
+.content-center {
+  align-content: center;
+}
+
 .items-center {
   align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-items-end {
+  justify-items: end;
+}
+
 .justify-items-center {
   justify-items: center;
 }
 
-.gap-6 {
-  gap: 1.5rem;
+.gap-4 {
+  gap: 1rem;
 }
 
 .gap-5 {
   gap: 1.25rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
 }
 
 .gap-3 {
@@ -655,6 +833,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 2.5rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
 .rounded-\[10px\] {
   border-radius: 10px;
 }
@@ -663,9 +853,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 20px;
 }
 
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
 .rounded-l-\[10px\] {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-t-\[1px\] {
+  border-top-width: 1px;
+}
+
+.border-b-\[1px\] {
+  border-bottom-width: 1px;
+}
+
+.border-solid {
+  border-style: solid;
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-\[\#cbd8ff\] {
@@ -675,6 +890,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-\[50px\] {
   padding: 50px;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .py-\[7rem\] {
@@ -687,24 +907,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 5rem;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .px-\[6rem\] {
   padding-left: 6rem;
   padding-right: 6rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.px-\[3rem\] {
-  padding-left: 3rem;
-  padding-right: 3rem;
 }
 
 .px-\[2rem\] {
@@ -712,16 +917,65 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 2rem;
 }
 
+.px-\[50px\] {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.py-\[1rem\] {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-\[2rem\] {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.px-\[1rem\] {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-\[5rem\] {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.px-\[3rem\] {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.px-\[3\.5rem\] {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-\[3rem\] {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 .pb-\[4rem\] {
   padding-bottom: 4rem;
 }
 
-.pt-\[8rem\] {
-  padding-top: 8rem;
-}
-
 .pt-\[9rem\] {
   padding-top: 9rem;
+}
+
+.pb-\[5px\] {
+  padding-bottom: 5px;
+}
+
+.pt-\[8rem\] {
+  padding-top: 8rem;
 }
 
 .text-center {
@@ -740,6 +994,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: Gowun Dodum;
 }
 
+.font-patrick {
+  font-family: Patrick Hand;
+}
+
+.font-averia {
+  font-family: Averia Sans Libre;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -753,19 +1015,65 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 0.8rem;
 }
 
-.text-\[4rem\] {
-  font-size: 4rem;
+.text-\[1rem\] {
+  font-size: 1rem;
+}
+
+.text-\[0\.5rem\] {
+  font-size: 0.5rem;
+}
+
+.text-\[1\.8rem\] {
+  font-size: 1.8rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-\[3rem\] {
   font-size: 3rem;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
 .leading-none {
   line-height: 1;
+}
+
+.text-\[rgb\(177\2c 177\2c 177\)\] {
+  --tw-text-opacity: 1;
+  color: rgb(177 177 177 / var(--tw-text-opacity));
 }
 
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-\[\#ff0000\] {
+  --tw-text-opacity: 1;
+  color: rgb(255 0 0 / var(--tw-text-opacity));
+}
+
+.text-\[\#001aff\] {
+  --tw-text-opacity: 1;
+  color: rgb(0 26 255 / var(--tw-text-opacity));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+.outline {
+  outline-style: solid;
 }

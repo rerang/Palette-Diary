@@ -6,3 +6,6 @@ let goLoginPage = () =>{
 }
 
 goLoginLogo.addEventListener("click", goLoginPage);
+
+
+ 

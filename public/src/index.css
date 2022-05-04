@@ -1,3 +1,13 @@
+.intro{
+    background-image: url(/public/img/basicBackground.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -7rem;
+    height: 100%;
+}
+.introWrapper{
+    height: calc(100% + 1px);
+}
 .signInInput{
     border: rgb(136, 136, 136) 1px solid;
     border-radius: 20px;
@@ -8,4 +18,50 @@
 
 .signInFormSubmitArea{
 
+}
+
+.removeIntro{
+    animation-name: removeIntro;
+    animation-duration: 1.3s;
+    animation-timing-function: ease-in;
+}
+@keyframes removeIntro{
+    from{
+        opacity: 1;
+    }
+    10%{
+        opacity: 1;
+    }
+    60%{
+        opacity: 0.4;
+    }
+    to{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.scrollArea{
+    margin-top: 2rem;
+    animation-name: movingScroll;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.scroll{
+    border-right: 4px double rgb(177,177,177);
+    border-bottom: 4px double rgb(177,177,177);
+    transform: translateY(-10px) rotate(45deg);
+}
+@keyframes movingScroll{
+    from{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-30%);
+    }
+    to{
+        transform: translateY(0);
+
+    }
 }

@@ -1,0 +1,10 @@
+.navItems{
+    align-items: center;
+    padding: 10px 15px;
+    border-color: black;
+    border-style: solid;
+}
+.navItemsIcon{
+    width: 2rem;
+    height: 2rem;
+}
