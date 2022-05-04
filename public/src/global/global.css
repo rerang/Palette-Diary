@@ -2,7 +2,6 @@ body {
     background-image: url(/public/img/basicBackground.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: -7rem;
 }
 .bodyArea{
     background-color: rgba(255, 255, 255);
@@ -11,12 +10,19 @@ body {
 .infoArea{
     background-color: #eef1ff;
 }
-
-
-
+.navItems{
+    align-items: center;
+    padding: 10px 15px;
+    border-color: black;
+    border-style: solid;
+}
+.navItemsIcon{
+    width: 2rem;
+    height: 2rem;
+}
 
 .footerContent{
     background-color: rgba(255, 255, 255);
     box-shadow: 0 0.5rem 0.5rem rgb(177, 177, 177);
-    font-family: 'Gowun Dodum';
-}
+    font-family: 'Averia Sans Libre';
+} 
