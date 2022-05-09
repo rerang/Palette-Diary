@@ -60,11 +60,22 @@ const signUpSubmit = async(_event) => {
         })
       })
       const data = res.json();
-      if(data.result_code == "success") {
-        window.location.href = "http://125.140.42.36:8082/public/src/index.html";
-      }
+      data.then(
+        dataResult => {
+          console.log(dataResult);
+          if(dataResult.result_code == "success") {
+            window.location.href = "http://125.140.42.36:8082/public/src/index.html";
+          }
+          if(dataResult.error != "none"){
+            if(dataResult.error.errorCode == 401){
+                paintError("이미 존재하는 계정입니다.");
+              }
+          }
+        }
+      );
+      
     } catch (e) {
-      console.log("Fetch Error", err);
+      console.log("Fetch Error", e);
     }
   }
 }
