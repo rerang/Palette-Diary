@@ -1,7 +1,7 @@
 
 .signUpFormInputArea{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     column-gap: 2rem;
     vertical-align: middle;
     align-items: center;
@@ -12,5 +12,8 @@
     border-radius: 20px;
     height: 2rem;
     padding: 0 10px;
-    width: 80%;
+    width: 85%;
+}
+.signUpInput::placeholder{
+    font-size: 11px;
 }
