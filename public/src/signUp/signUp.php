@@ -21,8 +21,8 @@ try{
   $stat = "none";
 
   $checkingEmailExistSql="select * from user where email='$email'";
-  $checkingEmailExistResult = mysqli_query($conn, $checkingEmailExistSql);
-  if($checkingEmailExistResult->lengths) { //null이아니라면
+  $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
+  if(empty($checkingEmailExistResult) == false){
     throw new exception('email has exist', 401);
   }
 
