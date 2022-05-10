@@ -14,7 +14,6 @@ $user_type = "user";
 
 try{
   $json = json_decode(file_get_contents('php://input'), TRUE);
-
   $email = $json['email'];
   $password = $json['password'];
   $error = "none";
