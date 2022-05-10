@@ -6,7 +6,7 @@ header("Access-Control-Allow-Origin: *");
 $host = "localhost";
 $s_username = "db";
 $s_password = "dbpassword";
-$dbname = "test";
+$dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 //var for func
