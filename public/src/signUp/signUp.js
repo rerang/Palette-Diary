@@ -1,5 +1,7 @@
-const ip = "125.140.42.36:8081";
-const url = `http://${ip}/public/src/signUp/signUp.php`
+const ip = "125.140.42.36:8082";
+const url = `http://${ip}/public/src/signUp/signUp.php`;
+const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
 const signUpSubmitBtn = document.querySelector("#signUpSubmitBtn");
 
@@ -25,9 +27,15 @@ const checkingValidation = (signUpEmailValue, signUpPasswordValue, signUpPasswor
     paintError("이메일과 비밀번호를 모두 입력하여 주세요.");
     return false;
   }
-  // else if(signUpEmailValue !="정규식"){
-  //   paintError("이메일 형식이 올바르지 않습니다.");
-  // }
+  else if(signUpEmailValue.match(emailReg) == null){
+    paintError("이메일 형식이 올바르지 않습니다.");
+  }
+  else if(signUpPasswordValue.match(passwordReg) == null){
+    paintError("비밀번호 형식이 올바르지 않습니다.");
+  }
+  else if(signUpPasswordValue != signUpPasswordConfirmValue){
+    paintError("비밀번호와 비밀번호 확인 값이 다릅니다.");
+  }
   else return signUpEmailValue, signUpPasswordValue, signUpPasswordConfirmValue;
 }
 const signUpSubmit = async(_event) => {
@@ -52,38 +60,23 @@ const signUpSubmit = async(_event) => {
         })
       })
       const data = res.json();
-      if(data.result_code == "success") {
-        alert("success");
-        return;
-      }
+      data.then(
+        dataResult => {
+          console.log(dataResult);
+          if(dataResult.result_code == "success") {
+            window.location.href = "http://125.140.42.36:8082/public/src/index.html";
+          }
+          if(dataResult.error != "none"){
+            if(dataResult.error.errorCode == 401){
+                paintError("이미 존재하는 계정입니다.");
+              }
+          }
+        }
+      );
+      
     } catch (e) {
-      //error handler
+      console.log("Fetch Error", e);
     }
-/*
-    fetch(url, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-      },
-      body: JSON.stringify({//TODO. trim한 값 넣기
-        email	: signUpEmail.value,
-        password : signUpPassword.value
-      })
-    })
-    .then(response => response.json()) //응답 결과를 json으로 파싱
-    .then(data => {
-      console.log(data);
-      if(data.result_code == "success") {
-        alert("success");
-      }
-      else{
-        alert(data.errorMsg, data.errorCode);
-      }
-    })
-    .catch(err => { // 오류
-      console.log("Fetch Error", err);
-    });
-    */
   }
 }
 signUpSubmitBtn.addEventListener("click", signUpSubmit);
