@@ -24,7 +24,6 @@ try{
   $checkingEmailExistResult = mysqli_query($conn, $checkingEmailExistSql);
   if($checkingEmailExistResult->lengths) { //null이아니라면
     throw new exception('email has exist', 401);
-    exit();
   }
 
   $insertUserSql = "insert into user(email, password, user_type) values('$email', '$password', '$user_type');";

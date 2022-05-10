@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/calender/calender.css" rel="stylesheet">
+    <link href="/public/src/happyBank/happyBank.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,27 +39,24 @@
                 </div>
             </nav>
 
-            <div class="calenderArea flex flex-row justify-center justify-items-center w-full py-[5rem] font-patrick text-[1.8rem]">
-                <div class="calender w-[50rem] px-[3rem]">
-                    <div class="monthSelectArea flex flex-row justify-center my-4">
-                        <div class="calenderMonthArrowArea"><img src=""></div>
-                        <div><span class="calenderYear">2022</span> 年 <span class="calenderMonth">3</span> 月</div>
-                        <div class="calenderMonthArrowArea"><img src=""></div>
+            <article class="happyBankArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
+                <div class="happyBankTitleArea flex flex-row gap-2 items-center mb-[3rem]">
+                    <img class="w-[2rem] h-[2rem]" src="/public/img/happyBankIcon.png">
+                    <span class="title h-fit text-base">해피 저금통</span>
+                </div>
+                <div class="contentContentsArea min-h-[380px] flex flex-col gap-4 justify-items-center">
+                    <div class="displayHappyBankDesc h-[50px] text-base text-center w-full align-middle">
+                        해피저금통은 행복 지수가 높은 일기들을 담아둡니다.
                     </div>
-                    <div class="dayOfTheWeekArea grid grid-cols-7 justify-items-center px-[3.5rem] border-b-[1px] border-solid border-black pb-[5px]">
-                        <div class="text-[#ff0000]">SUN</div>
-                        <div>MON</div>
-                        <div>TUE</div>
-                        <div>WED</div>
-                        <div>THU</div>
-                        <div>FRI</div>
-                        <div class="text-[#001aff]">SAT</div>
-                    </div>
-                    <div class="calenderDayArea gird grid-rows-[repeat(7,1fr)]">
-
+                    <div class="displayHappyBankCountArea min-h-[300px] min-w-[300px] mx-auto rounded-md p-[40px]">
+                        <div class="displayHappyBankCountBottle min-h-[300px] min-w-[300px] grid grid-rows-2 justify-items-center">
+                            <div class="displayHappyBankCount text-center text-4xl font-averia row-start-2">
+                                0
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </article>
     </div>
 
@@ -79,6 +76,8 @@
             </div>
         </div>
     </footer>
+    
     <script src="/public/src/global/global.js"></script>
+    <script src="/public/src/happyBank/happyBank.js"></script>
 </body>
 </html>

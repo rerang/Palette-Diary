@@ -518,8 +518,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 50;
 }
 
+.row-span-2 {
+  grid-row: span 2 / span 2;
+}
+
 .row-start-5 {
   grid-row-start: 5;
+}
+
+.row-start-2 {
+  grid-row-start: 2;
 }
 
 .mx-auto {
@@ -892,6 +900,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 50px;
 }
 
+.p-\[15px\] {
+  padding: 15px;
+}
+
+.p-\[20px\] {
+  padding: 20px;
+}
+
+.p-\[40px\] {
+  padding: 40px;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -1034,6 +1054,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-\[3rem\] {
   font-size: 3rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
