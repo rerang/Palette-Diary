@@ -17,15 +17,14 @@ try{
   $stat = "none";
 
   $checkingEmailExistSql="select * from user where email='$email'";
-  $checkingEmailExistResult = mysqli_query($conn, $checkingEmailExistSql);
+  $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult)==true) { //null이라면
     throw new exception('email has not exist', 401);
     exit();
   }
   
-  $EmailExistResultRecord = mysqli_fetch_assoc($checkingEmailExistResult); // 레코드 불러오기
-  $db_password = $EmailExistResultRecord["password"];
-  $db_userType = $EmailExistResultRecord["user_type"];
+  $db_password = $checkingEmailExistResult["password"];
+  $db_userType = $checkingEmailExistResult["user_type"];
 
   mysqli_close($conn);
 
@@ -69,4 +68,3 @@ try{
 }
 
 ?>
-
