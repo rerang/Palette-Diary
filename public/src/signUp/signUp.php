@@ -12,13 +12,11 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 //var for func
 $user_type = "user";
 
-try{/*
+try{
   $json = json_decode(file_get_contents('php://input'), TRUE);
 
   $email = $json['email'];
-  $password = $json['password'];*/
-  $email="sdfjwe@naver.com";
-  $password="sdfsdff123!";
+  $password = $json['password'];
   $error = "none";
   $stat = "none";
 
