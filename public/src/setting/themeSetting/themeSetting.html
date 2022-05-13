@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette Diary</title>
+    <link href="/public/img/icon.ico" rel="shortcut icon" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/public/src/global/reset.css">
+    <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
+    <link href="/public/src/global/global.css" rel="stylesheet">
+    <link href="/public/src/setting/setting.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Gowun+Dodum&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container p-[50px] mx-auto h-full w-[calc(1200px+9%)]">
+        <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
+            <nav class="">
+                <div class="goCalenderLogo">
+                    <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_stats">
+                    <span>색깔 통계</span>
+                    <img src="/public/img/statsIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_happyBank">
+                    <span>해피 저금통</span>
+                    <img src="/public/img/happyBankIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="nav_setting">
+                    <span>설정</span>
+                    <img src="/public/img/settingIcon.png" class="navItemsIcon justify-self-end"> 
+                </div>
+            </nav>
+
+            <article class="settingArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
+                <div class="settingTitleArea flex flex-row gap-2 items-center mb-[3rem]">
+                    <img class="w-[50px] h-[50px]" src="/public/img/settingIcon.png">
+                    <span class="title h-fit text-base font-basic">설정</span>
+                </div>
+                <div id="settingActivityArea" class="settingContentsArea min-h-[380px] flex flex-col gap-4 text-base font-basic">
+                    <div class="themeSettingArea mx-auto w-[40rem] flex flex-col gap-4">
+                        <button class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1">테마 설정</button>
+                        <div class="themeDisplayArea grid grid-cols-3 gap-4 my-4">
+                            <div id="1"><img src="/public/img/basicBackground.png"></div>                           
+                            <div id="2"><img src="/public/img/basicBackground.png"></div>
+                            <div id="3"><img src="/public/img/basicBackground.png"></div>
+                        </div>
+                        <button class="bg-[#cbd8ff] rounded-[20px] w-[120px] py-1 self-center my-4">확인</button>
+                    </div>
+                </div>
+            </article>
+        </article>
+    </div>
+
+    <footer class="px-[50px] mb-[2rem] w-[calc(1200px+9%)] mx-auto">
+        <div class="footerContent w-[calc(1200px+9%)] mx-auto rounded-[10px] grid grid-cols-3 px-[2rem] py-[1rem] h-[7rem] content-center">
+            <div class="inquiryArea flex flex-col text-[0.8rem]">
+                <span class="text-[1rem] font-bold">Inquiry</span>
+                <span>email: palette@gmail.com</span>
+                <span>instagram: @palette_diary</span>
+            </div>
+            <div class="devInfoArea grid grid-rows-[2fr_1fr] justify-items-center text-center items-center">
+                <span class="text-[1rem] self-end">PALETTE DIARY</span>
+                <span class="text-[0.5rem] leading-none">Design - HyunSeo / FE - rerang / BK - MinKyeong, WanSu</span>
+            </div>
+            <div class="footerLogoArea flex flex-row justify-end">
+                <img src="/public/img/logo.png" class="w-[3.5rem] h-[3.5rem]">
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/public/src/global/global.js"></script>
+    <script src="/public/src/setting/themeSetting/themeSetting.js"></script>
+</body>
+</html>
