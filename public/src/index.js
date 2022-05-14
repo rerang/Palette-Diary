@@ -1,3 +1,22 @@
+window.onload = function(){
+  const cookieTarget = "token";
+  let token = "";
+  document.cookie.split(";").forEach(ele => {
+      if(ele.split("=")[0].trim() == cookieTarget){
+          token = ele.split("=")[1];
+      }
+  })
+  const user_type = JSON.parse(atob(token.split('.')[1]))['user_type'];
+  if(token!==""){
+    if(user_type == "user"){
+      window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+    }
+    else{
+      window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
+    }
+  }
+}
+
 //intro
 let intro = document.querySelector(".intro");
 let loginContainer = document.querySelector(".container");
@@ -85,7 +104,7 @@ const signInSubmit = async(_event) => {
       data.then(
         dataResult => {
           if(dataResult.result_code == "success") {
-            document.cookie = 'token = ' + dataResult.token;
+            document.cookie = 'token=' + dataResult.token+";Path=/;";
             let user_type = getUserType();
             if(user_type == "user"){
               window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";

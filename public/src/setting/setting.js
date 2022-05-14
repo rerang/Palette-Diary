@@ -49,6 +49,11 @@ const removeModal = () => {
     askDeleteAccountModal.remove();
     settingModalBg.classList.add("hidden");
 }
+const deleteTokenCookie = () => {
+    let date = new Date();
+    date.setDate(date.getDate()-1);
+    document.cookie = "token=;Path=/;Expires="+date.toUTCString();
+}
 const deleteAccount = async() => {
     removeModal();
     try{
@@ -61,26 +66,24 @@ const deleteAccount = async() => {
             email : email
           })
         })
-        console.log(res);
         const data = res.json();
-        console.log(data);
         data.then(
           dataResult => {
-
+            if(dataResult.result_code == "success"){
+                deleteTokenCookie();
+                location.href = "/public/src/index.html";
+            }
           }
         )
     }catch (e) {
         console.log("Fetch Error", e);
     }
-    //계정없애기
-    //쿠키지우기
-    //location.href = "/public/src/index.html";
 }
 deleteAccountBtn.addEventListener("click", askDeleteAccount, true);
 
 const signOutBtn = document.querySelector("#signOutBtn");
 const signOut = () => {
-    //쿠키 지우기
+    deleteTokenCookie();
     location.href = "/public/src/index.html";
 }
 signOutBtn.addEventListener("click", signOut);

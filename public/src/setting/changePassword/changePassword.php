@@ -15,8 +15,10 @@ try{
   $changePassword = $json['changePassword'];
   $error = "none";
   $stat = "none";
-  
-  $email=$_SESSION['email']; //jwt 로그인하면 값 받아와서?
+
+  $cookie = apache_request_headers()['Cookie'];
+  $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
+
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult)==true) { //null이라면

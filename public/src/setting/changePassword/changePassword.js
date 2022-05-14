@@ -39,7 +39,7 @@ const checkingValidation = (passwordValue, changeNewPasswordValue, changeNewPass
     paintError("새 비밀번호와 새 비밀번호 확인 값이 다릅니다.");
   }
   else return passwordValue, changeNewPasswordValue, changeNewPasswordConfirmValue;
-}
+} 
 const changePasswordRequest = async(_event) => {
   _event.preventDefault();
   const passwordValue = password.value.trim();

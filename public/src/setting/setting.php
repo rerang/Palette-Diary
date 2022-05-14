@@ -10,25 +10,23 @@ $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 try{
-  $json = json_decode(file_get_contents('php://input'), TRUE);;
-  $cookie = apache_request_headers()['Cookie'];
-  $headers = apache_request_headers();
-  foreach($headers as $header => $value){
-      echo "$header : $value <br />";
-  }
-  echo "<br />";
-  echo $cookie;
-  echo $_COOKIE['email'];
-  $error = "none";
-  $stat = "none";
+$json = json_decode(file_get_contents('php://input'), TRUE);
+$error = "none";
+$stat = "none";
 
-  $deleteUserSql="delete from user where email='$email'";
-  $cdeleteUserResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
+$cookie = apache_request_headers()['Cookie'];
+$email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
+
+$deleteUserSql="delete from user where email='$email'";
+$deleteUserResult = mysqli_query($conn, $deleteUserSql);
+if($deleteUserResult){
+    $stat = "success";
+}
 }catch(exception $e) {
-  $stat = "error";
-  $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
+$stat = "error";
+$error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data = json_encode(['token' => $token, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
