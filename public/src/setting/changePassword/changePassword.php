@@ -16,11 +16,12 @@ try{
   $error = "none";
   $stat = "none";
   
-  $email=$_SESSION['email']; //jwt 로그인하면 값 받아와서?
+  $email=$_COOKIE['email'];
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult)==true) { //null이라면
-    throw new exception('login unstable', 401);
+    throw new exception('login unstable', 402);
+    exit();
   }
 
   $db_password = $checkingEmailExistResult["password"];
@@ -32,7 +33,7 @@ try{
     mysqli_close($conn);
   }
   else { // 비밀번호 불일치
-    throw new exception('incorrect password entry', 401);
+    throw new exception('password not correct', 403);
     exit();
   }
 
@@ -40,7 +41,7 @@ try{
     $stat = "success";
   }
   else{
-    throw new exception('cant update user', 400);
+    throw new exception('cant update user', 404);
   }
 }catch(exception $e) {
   $stat   = "error";
