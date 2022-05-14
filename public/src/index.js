@@ -73,7 +73,7 @@ const signInSubmit = async(_event) => {
       data.then(
         dataResult => {
           if(dataResult.result_code == "success") {
-            //토큰 저장
+            document.cookie = 'token = ' + dataResult.token;
             window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
           }
           if(dataResult.error != "none"){

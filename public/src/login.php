@@ -28,9 +28,9 @@ try{
   mysqli_close($conn);
 
   if(password_verify($password, $db_password)) { // 비밀번호 일치
-
     $HEADER = '{"alg":"HS256","typ":"JWT"}';
-    $PAYLOAD = '{"email":$email, "user_type":"$db_userType", "exp" => time() + (360 * 30)}';
+    $exp = time() + (360 * 30);
+    $PAYLOAD = "{'email':'$email', 'user_type':'$db_userType', 'exp' => '$exp'}";
     $SECRETKEY = 'your-256-bit-secret';
 
     $base64URLencodeHEADER = str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($HEADER));

@@ -1,3 +1,18 @@
+const cookieTarget = "token";
+let token = "";
+console.log("cookie내용", document.cookie);
+document.cookie.split(";").forEach(ele => {
+    if(ele.split("=")[0].trim() == cookieTarget){
+        token = ele.split("=")[1];
+    }
+})
+const payload = atob(token.split('.')[1]);
+//+ base64URL = token.split('.')[1]
+//+ base64 = base64URL.replace(/-/g, '+').replace(/_/g, '/')
+
+const email = payload['email'];
+console.log(payload);
+
 const changePasswordBtn = document.querySelector("#changePasswordBtn");
 const goChangePasswordPage = () => {
     location.href = "/public/src/setting/changePassword/changePassword.html";
