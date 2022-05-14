@@ -62,7 +62,6 @@ const signUpSubmit = async(_event) => {
       const data = res.json();
       data.then(
         dataResult => {
-          console.log(dataResult);
           if(dataResult.result_code == "success") {
             window.location.href = "http://125.140.42.36:8082/public/src/index.html";
           }

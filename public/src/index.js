@@ -18,7 +18,7 @@ window.addEventListener("scroll", introAnimation);
 
 //signin
 const ip = "125.140.42.36:8082";
-const url = `http://${ip}/public/src/signIn.php`;
+const url = `http://${ip}/public/src/login.php`;
 const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
@@ -47,7 +47,7 @@ const checkingValidation = (signInEmailValue, signInPasswordValue) => {
   else if(signInPasswordValue.match(passwordReg) == null){
     paintError("비밀번호 형식이 올바르지 않습니다.");
   }
-  else return signUpEmailValue, signUpPasswordValue;
+  else return signInEmailValue, signInPasswordValue;
 }
 const signInSubmit = async(_event) => {
   _event.preventDefault();
@@ -70,38 +70,26 @@ const signInSubmit = async(_event) => {
         })
       })
       const data = res.json();
+      data.then(
+        dataResult => {
+          if(dataResult.result_code == "success") {
+            //토큰 저장
+            window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+          }
+          if(dataResult.error != "none"){
+            if(dataResult.error.errorCode == 401){
+              paintError("계정이 없습니다.");
+            }
+          }
+        }
+      )
       if(data.result_code == "success") {
         alert("success");
         return;
       }
     } catch (e) {
-      //error handler
+      console.log("Fetch Error", e);
     }
-/*
-    fetch(url, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-      },
-      body: JSON.stringify({//TODO. trim한 값 넣기
-        email	: signInEmail.value,
-        password : signInPassword.value
-      })
-    })
-    .then(response => response.json()) //응답 결과를 json으로 파싱
-    .then(data => {
-      console.log(data);
-      if(data.result_code == "success") {
-        alert("success");
-      }
-      else{
-        alert(data.errorMsg, data.errorCode);
-      }
-    })
-    .catch(err => { // 오류
-      console.log("Fetch Error", err);
-    });
-    */
   }
 }
 signInSubmitBtn.addEventListener("click", signInSubmit);

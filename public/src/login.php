@@ -18,9 +18,8 @@ try{
 
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
-  if(empty($checkingEmailExistResult)==true) { //null이라면
+  if(empty($checkingEmailExistResult)==true) {
     throw new exception('email has not exist', 401);
-    exit();
   }
   
   $db_password = $checkingEmailExistResult["password"];
@@ -43,8 +42,6 @@ try{
     $signature =  str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($hashHmacData));
   
     $token = $base64URLencodeHEADER.".".$base64URLencodePAYLOAD.".".$signature;
-    $jsonToken=json_encode($token);
-    echo $jsonToken;
 
     $stat="success";
 
@@ -54,16 +51,14 @@ try{
   }
   else { // 비밀번호 불일치
     throw new exception('password not equal', 401);
-    exit();
   }
 
 }catch(exception $e) {
   $stat   = "error";
   $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-  $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
+  $data =  json_encode(['token' => $token, 'result_code' => $stat, 'error'=>$error]);
   header('Content-type: application/json'); 
   echo $data;
 }
-
 ?>

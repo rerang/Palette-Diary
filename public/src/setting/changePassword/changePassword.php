@@ -21,7 +21,6 @@ try{
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult)==true) { //null이라면
     throw new exception('login unstable', 401);
-    exit();
   }
 
   $db_password = $checkingEmailExistResult["password"];
