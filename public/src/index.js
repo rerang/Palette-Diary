@@ -1,3 +1,4 @@
+//intro
 let intro = document.querySelector(".intro");
 let loginContainer = document.querySelector(".container");
 let footer = document.querySelector("footer");
@@ -15,8 +16,11 @@ let introAnimation = () =>{
 
 window.addEventListener("scroll", introAnimation);
 
-const ip = "125.140.42.36:8081";
-const url = `http://${ip}/public/src/signIn/signIn.php`
+//signin
+const ip = "125.140.42.36:8082";
+const url = `http://${ip}/public/src/signIn.php`;
+const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
 const signInSubmitBtn = document.querySelector("#signInSubmitBtn");
 
@@ -37,22 +41,20 @@ const checkingValidation = (signInEmailValue, signInPasswordValue) => {
     paintError("이메일과 비밀번호를 모두 입력하여 주세요.");
     return false;
   }
-  else if (signInPasswordConfirmValue == "") {
-    paintError("이메일과 비밀번호를 모두 입력하여 주세요.");
-    return false;
+  else if(signInEmailValue.match(emailReg) == null){
+    paintError("이메일 형식이 올바르지 않습니다.");
   }
-  // else if(signInEmailValue !="정규식"){
-  //   paintError("이메일 형식이 올바르지 않습니다.");
-  // }
-  else return signInEmailValue, signInPasswordValue;
+  else if(signInPasswordValue.match(passwordReg) == null){
+    paintError("비밀번호 형식이 올바르지 않습니다.");
+  }
+  else return signUpEmailValue, signUpPasswordValue;
 }
 const signInSubmit = async(_event) => {
   _event.preventDefault();
   const signInEmailValue = signInEmail.value.trim();
   const signInPasswordValue = signInPassword.value.trim();
-  const signInPasswordConfirmValue = signInPasswordConfirm.value.trim();
 
-  if(!checkingValidation(signInEmailValue, signInPasswordValue, signInPasswordConfirmValue)){
+  if(!checkingValidation(signInEmailValue, signInPasswordValue)){
     return;
   }
   else{

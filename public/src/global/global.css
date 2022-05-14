@@ -10,6 +10,13 @@ body {
 .infoArea{
     background-color: #eef1ff;
 }
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 0 1rem;
+    border-right: 2px solid black;
+}
 .navItems{
     align-items: center;
     padding: 10px 15px;
