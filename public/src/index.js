@@ -84,7 +84,6 @@ const signInSubmit = async(_event) => {
       const data = res.json();
       data.then(
         dataResult => {
-          console.log("dataResult", dataResult);
           if(dataResult.result_code == "success") {
             document.cookie = 'token = ' + dataResult.token;
             let user_type = getUserType();
