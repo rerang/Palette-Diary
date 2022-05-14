@@ -1,3 +1,20 @@
+//find token value in cookie
+const cookieTarget = "token";
+let token = "";
+document.cookie.split(";").forEach(ele => {
+    if(ele.split("=")[0].trim() == cookieTarget){
+        token = ele.split("=")[1];
+    }
+})
+const payload = JSON.parse(atob(token.split('.')[1]));
+
+//get token value and get email
+const email = payload['email'];
+
+const profileInfoEmail = document.querySelector("#profileInfoEmail");
+profileInfoEmail.innerText = email;
+
+
 const changePasswordBtn = document.querySelector("#changePasswordBtn");
 const goChangePasswordPage = () => {
     location.href = "/public/src/setting/changePassword/changePassword.html";

@@ -19,47 +19,28 @@
 
 </head>
 <body>
-    <div class="w-[calc(1200px+9%)] h-[380px] z-50 bg-gray"></div>
-    <div class="container p-[50px] mx-auto h-full">
+    <div class="container p-[50px] mx-auto h-full w-[calc(1200px+9%)]">
         <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="">
-                <div class="goCalenderLogo">
+                <div class="goAdminLogo">
                     <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
                 </div>
-                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_stats">
-                    <span>색깔 통계</span>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="-">
+                    <span>-</span>
                     <img src="/public/img/statsIcon.png" class="navItemsIcon justify-self-end">
                 </div>
-                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_happyBank">
-                    <span>해피 저금통</span>
-                    <img src="/public/img/happyBankIcon.png" class="navItemsIcon justify-self-end">
-                </div>
-                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="nav_setting">
-                    <span>설정</span>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="-">
+                    <span>-</span>
                     <img src="/public/img/settingIcon.png" class="navItemsIcon justify-self-end"> 
                 </div>
             </nav>
-            <article class="settingArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
-                <div class="settingTitleArea flex flex-row gap-2 items-center mb-[3rem]">
-                    <img class="w-[50px] h-[50px]" src="/public/img/settingIcon.png">
-                    <span class="title h-fit text-base font-basic">설정</span>
+
+            <article class="adminArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
+                <div>
+                    setting
                 </div>
-                <div id="settingContentsArea" class="settingContentsArea min-h-[380px] flex flex-col gap-4 text-base font-basic">
-                    <div class="profileArea flex flex-col gap-2 items-center content-center">
-                        <img src="../../../userProfile/profile_pic.png" class="w-[130px]" class="profileImg">
-                        <div class="profileInfo">
-                            <span>내정보: </span>
-                            <span id="profileInfoEmail">longlonglonglonemail@nnnnnnnnn.com</span>
-                        </div>
-                    </div>
-                    <div class="settingBasicMenu flex flex-col gap-4 items-center my-4">
-                        <input id="changePasswordBtn" type="button" class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1" value="비밀번호 변경">
-                        <input id="themeSettingBtn" type="button" class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1" value="테마 설정">
-                    </div>
-                    <div class="settingAccountMenu flex flex-col gap-4 items-center my-4 justify-self-end">
-                        <input id="deleteAccountBtn" type="button" class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1" value="계정 삭제">
-                        <input id="signOutBtn" type="button" class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1" value="로그아웃">
-                    </div>
+                <div>
+                    theme manage
                 </div>
             </article>
         </article>
@@ -83,6 +64,6 @@
     </footer>
     
     <script src="/public/src/global/global.js"></script>
-    <script src="/public/src/setting/setting.js"></script>
+    <!-- <script src=""></script> -->
 </body>
 </html>
