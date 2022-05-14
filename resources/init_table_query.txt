@@ -1,0 +1,6 @@
+create table THEME(theme_code int, theme_name char(20), background_pic char(30), color_palette char(10), primary key(theme_code));
+create table USER(email char(30) not null, password char(20) not null, profile_pic varchar(50) default 'profile_pic1.png', theme_code int, user_type char(10) check(user_type in('user','admin')), primary key(email), foreign key(theme_code) references THEME(theme_code));
+create table DIARY(diary_code int auto_increment, email char(30), color char(10), d_date DATE default current_timestamp, keyword char(30), main_pic varchar(50), primary key(diary_code), foreign key(email) references USER(email));
+create table DIARY_DETAIL(diary_code int, diary_body char(255), sub_pic1 varchar(50), sub_pic_2 varchar(50), primary key(diary_code), foreign key(diary_code) references DIARY(diary_code));
+create table HAPPY_DIARY(email char(30), diary_code int, primary key(diary_code), foreign key(diary_code) references DIARY(diary_code));
+alter table HAPPY_DIARY add constraint email foreign key (email) references user(email);

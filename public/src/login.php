@@ -43,10 +43,9 @@ try{
     $signature =  str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($hashHmacData));
   
     $token = $base64URLencodeHEADER.".".$base64URLencodePAYLOAD.".".$signature;
-    //var_dump($token);
-    
-    $_SESSION['token']=$token; //전달?
-    
+    $jsonToken=json_encode($token);
+    echo $jsonToken;
+
     $stat="success";
 
     if($stat!="success") {
