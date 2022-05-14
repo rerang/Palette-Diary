@@ -32,6 +32,18 @@ const paintError = (errorMessage) =>{
 const signInEmail = document.getElementById("signInEmail");
 const signInPassword = document.getElementById("signInPassword");
 
+const getUserType = () => {
+  const cookieTarget = "token";
+  let token = "";
+  document.cookie.split(";").forEach(ele => {
+      if(ele.split("=")[0].trim() == cookieTarget){
+          token = ele.split("=")[1];
+      }
+  })
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload['user_type'];
+}
+
 const checkingValidation = (signInEmailValue, signInPasswordValue) => {
   if (signInEmailValue == ""){
     paintError("이메일과 비밀번호를 모두 입력하여 주세요.");
@@ -58,7 +70,7 @@ const signInSubmit = async(_event) => {
     return;
   }
   else{
-    try {
+    try{
       const res = await fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -72,13 +84,23 @@ const signInSubmit = async(_event) => {
       const data = res.json();
       data.then(
         dataResult => {
+          console.log("dataResult", dataResult);
           if(dataResult.result_code == "success") {
             document.cookie = 'token = ' + dataResult.token;
-            window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+            let user_type = getUserType();
+            if(user_type == "user"){
+              window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+            }
+            else{
+              window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
+            }
           }
           if(dataResult.error != "none"){
             if(dataResult.error.errorCode == 401){
               paintError("계정이 없습니다.");
+            }
+            else if(dataResult.error.errorCode == 405){
+              paintError("비밀번호가 옳지 않습니다.");
             }
           }
         }

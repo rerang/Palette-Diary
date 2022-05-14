@@ -1,17 +1,19 @@
+//find token value in cookie
 const cookieTarget = "token";
 let token = "";
-console.log("cookie내용", document.cookie);
 document.cookie.split(";").forEach(ele => {
     if(ele.split("=")[0].trim() == cookieTarget){
         token = ele.split("=")[1];
     }
 })
-const payload = atob(token.split('.')[1]);
-//+ base64URL = token.split('.')[1]
-//+ base64 = base64URL.replace(/-/g, '+').replace(/_/g, '/')
+const payload = JSON.parse(atob(token.split('.')[1]));
 
+//get token value and get email
 const email = payload['email'];
-console.log(payload);
+
+const profileInfoEmail = document.querySelector("#profileInfoEmail");
+profileInfoEmail.innerText = email;
+
 
 const changePasswordBtn = document.querySelector("#changePasswordBtn");
 const goChangePasswordPage = () => {

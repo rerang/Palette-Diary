@@ -16,6 +16,15 @@ if(goCalenderLogo){
     goCalenderLogo.addEventListener("click", goCalenderPage);
 }
 
+const goAdminLogo = document.querySelector(".goAdminLogo");
+if(goAdminLogo){
+    const goAdminPage = () => {
+        location.href = "/public/src/admin/admin.html";
+    }
+
+    goAdminLogo.addEventListener("click", goAdminPage);
+}
+
 const nav_stats = document.querySelector("#nav_stats");
 if(nav_stats){
     const goStatsPage = () => {
