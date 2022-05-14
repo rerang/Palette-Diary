@@ -1,0 +1,12 @@
+.displayHappyBankCountArea{
+    background-image: url(/public/img/basicBackground.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.displayHappyBankCountBottle{
+    background-image: url(/public/img/happyBankDisplayIcon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}

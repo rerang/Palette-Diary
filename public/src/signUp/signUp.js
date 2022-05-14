@@ -73,7 +73,6 @@ const signUpSubmit = async(_event) => {
           }
         }
       );
-      
     } catch (e) {
       console.log("Fetch Error", e);
     }

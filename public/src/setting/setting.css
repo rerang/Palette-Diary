@@ -1,0 +1,17 @@
+.changePasswordFormInputArea{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    column-gap: 2rem;
+    vertical-align: middle;
+    width: 100%;
+}
+.changePasswordInput{
+    border-radius: 20px;
+    height: 2rem;
+    padding: 0 10px;
+    background-color: #ffffff;
+}
+.changePasswordInput::placeholder{
+    font-size: 11px;
+    
+}
