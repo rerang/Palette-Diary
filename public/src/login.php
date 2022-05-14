@@ -20,7 +20,7 @@ try{
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
 
   if(!$checkingEmailExistResult) {
-    throw new exception('email has not exist', 405);
+    throw new exception('email has not exist', 401);
   }
   
   $db_password = $checkingEmailExistResult["password"];
@@ -44,9 +44,14 @@ try{
     $token = $base64URLencodeHEADER.".".$base64URLencodePAYLOAD.".".$signature;
 
     $stat="success";
+
+    if($exp<time()) { //만료 검사
+      throw new exception('login unstable', 402);
+      exit();
+    }
   }
   else { // 비밀번호 불일치
-    throw new exception('password not correct', 403);
+    throw new exception('password not correct', 405);
   }
 
 }catch(exception $e) {
