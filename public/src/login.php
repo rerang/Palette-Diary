@@ -20,17 +20,18 @@ try{
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
 
   if(!$checkingEmailExistResult) {
-    throw new exception('email has not exist', 405);
+    throw new exception('email has not exist', 401);
   }
   
   $db_password = $checkingEmailExistResult["password"];
   $db_userType = $checkingEmailExistResult["user_type"];
+  $db_themeCode = $checkingEmailExistResult["theme_code"];
 
 
   if(password_verify($password, $db_password)) { // 비밀번호 일치
     $HEADER = json_encode(array('alg' => "HS256", 'typ' => "JWT"));
     $exp = time() + (360 * 30);
-    $PAYLOAD = json_encode(array('email' => $email, 'user_type'=>$db_userType, 'exp' => $exp));
+    $PAYLOAD = json_encode(array('email' => $email, 'user_type'=>$db_userType, 'theme_code'=>$db_themeCode, 'exp' => $exp));
     $SECRETKEY = 'your-256-bit-secret';
 
     $base64URLencodeHEADER = str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($HEADER));
@@ -44,9 +45,10 @@ try{
     $token = $base64URLencodeHEADER.".".$base64URLencodePAYLOAD.".".$signature;
 
     $stat="success";
+
   }
   else { // 비밀번호 불일치
-    throw new exception('password not correct', 403);
+    throw new exception('password not correct', 405);
   }
 
 }catch(exception $e) {
