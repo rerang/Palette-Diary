@@ -14,6 +14,7 @@ $user_type = "user";
 
 try{
   $json = json_decode(file_get_contents('php://input'), TRUE);
+
   $email = $json['email'];
   $password = $json['password'];
   $error = "none";
@@ -22,25 +23,25 @@ try{
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult) == false){
-    throw new exception('email has exist', 401);
+    throw new exception('이미 존재하는 계정입니다.', 409);
   }
 
   $encrypted_password = password_hash($password, PASSWORD_DEFAULT); //password 암호화
 
-  $insertUserSql = "insert into user(email, password, user_type, theme_code) values('$email', '$encrypted_password', '$user_type','1');";
+  $insertUserSql = "insert into user(email, password, user_type) values('$email', '$encrypted_password', '$user_type');";
   $insertResult = mysqli_query($conn, $insertUserSql);
 
   if($insertResult){
     $stat = "success";
   }
   else{
-    throw new exception('cant insert user', 400);
+    throw new exception('DB Fail - Can Not Insert User', 422);
   }
 }catch(exception $e) {
   $stat   = "error";
-  $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
+  $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-  $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
+  $data =  json_encode(['result_code' => $stat, 'error' => $error]);
   header('Content-type: application/json'); 
   echo $data;
 }

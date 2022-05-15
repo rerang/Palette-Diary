@@ -1,13 +1,15 @@
+//onload
+const cookieTarget = "token";
+let token = "";
+document.cookie.split(";").forEach(ele => {
+    if(ele.split("=")[0].trim() == cookieTarget){
+        token = ele.split("=")[1];
+    }
+})
+
 window.onload = function(){
-  const cookieTarget = "token";
-  let token = "";
-  document.cookie.split(";").forEach(ele => {
-      if(ele.split("=")[0].trim() == cookieTarget){
-          token = ele.split("=")[1];
-      }
-  })
-  const user_type = JSON.parse(atob(token.split('.')[1]))['user_type'];
   if(token!==""){
+    const user_type = JSON.parse(atob(token.split('.')[1]))['user_type'];
     if(user_type == "user"){
       window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
     }
@@ -51,18 +53,6 @@ const paintError = (errorMessage) =>{
 const signInEmail = document.getElementById("signInEmail");
 const signInPassword = document.getElementById("signInPassword");
 
-const getUserType = () => {
-  const cookieTarget = "token";
-  let token = "";
-  document.cookie.split(";").forEach(ele => {
-      if(ele.split("=")[0].trim() == cookieTarget){
-          token = ele.split("=")[1];
-      }
-  })
-  const payload = JSON.parse(atob(token.split('.')[1]));
-  return payload['user_type'];
-}
-
 const checkingValidation = (signInEmailValue, signInPasswordValue) => {
   if (signInEmailValue == ""){
     paintError("이메일과 비밀번호를 모두 입력하여 주세요.");
@@ -105,7 +95,7 @@ const signInSubmit = async(_event) => {
         dataResult => {
           if(dataResult.result_code == "success") {
             document.cookie = 'token=' + dataResult.token+";Path=/;";
-            let user_type = getUserType();
+            const user_type = JSON.parse(atob(dataResult.token.split('.')[1]))['user_type'];
             if(user_type == "user"){
               window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
             }
@@ -114,19 +104,10 @@ const signInSubmit = async(_event) => {
             }
           }
           if(dataResult.error != "none"){
-            if(dataResult.error.errorCode == 401){
-              paintError("계정이 없습니다.");
-            }
-            else if(dataResult.error.errorCode == 405){
-              paintError("비밀번호가 옳지 않습니다.");
-            }
+            paintError(dataResult.error.errorMsg);
           }
         }
       )
-      if(data.result_code == "success") {
-        alert("success");
-        return;
-      }
     } catch (e) {
       console.log("Fetch Error", e);
     }

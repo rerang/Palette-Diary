@@ -19,6 +19,7 @@ try{
   $cookie = apache_request_headers()['Cookie'];
   $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
+  //유저가 있는지 왜 체크하죠?
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult)==true) { //null이라면
@@ -26,7 +27,6 @@ try{
   }
 
   $db_password = $checkingEmailExistResult["password"];
-
   if(password_verify($password, $db_password)) { // 비밀번호 일치
     $encrypted_password = password_hash($changePassword, PASSWORD_DEFAULT); //password 암호화
     $updateUserSql = "update user set password ='$encrypted_password' where email='$email'";
@@ -34,19 +34,18 @@ try{
     mysqli_close($conn);
   }
   else { // 비밀번호 불일치
-    throw new exception('incorrect password entry', 401);
-    exit();
+    throw new exception('옳지 않은 비밀번호입니다.', 400);
   }
 
   if($updateUserSql){
     $stat = "success";
   }
   else{
-    throw new exception('cant update user', 400);
+    throw new exception('DB Fail - Can Not Update User', 422);
   }
 }catch(exception $e) {
   $stat   = "error";
-  $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
+  $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
   $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
   header('Content-type: application/json'); 

@@ -20,7 +20,7 @@ try{
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
 
   if(!$checkingEmailExistResult) {
-    throw new exception('email has not exist', 405);
+    throw new exception('계정이 없습니다.', 404);
   }
   
   $db_password = $checkingEmailExistResult["password"];
@@ -46,7 +46,7 @@ try{
     $stat="success";
   }
   else { // 비밀번호 불일치
-    throw new exception('password not correct', 403);
+    throw new exception('옳지 않은 비밀번호입니다.', 400);
   }
 
 }catch(exception $e) {

@@ -1,4 +1,4 @@
-//find token value in cookie
+//onload
 const cookieTarget = "token";
 let token = "";
 document.cookie.split(";").forEach(ele => {
@@ -7,28 +7,108 @@ document.cookie.split(";").forEach(ele => {
     }
 })
 const payload = JSON.parse(atob(token.split('.')[1]));
+const user_type = payload['user_type'];
+console.log(user_type);
+window.onload = function(){
+  if(token==""){
+    window.location.href = "http://125.140.42.36:8082";
+  }
+  else if(user_type == "admin"){
+    window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
+  }
+}
 
-//get token value and get email
+//setting
+const ip = "125.140.42.36:8082";
+const deleteUrl = `http://${ip}/public/src/setting/deleteUser.php`;
+const getProfileImgUrl = `http://${ip}/public/src/setting/getProfileImg.php`;
+const changeProfileImgUrl = `http://${ip}/public/src/setting/changeProfileImg.php`;
+
+//setting - display profile
 const email = payload['email'];
-
 const profileInfoEmail = document.querySelector("#profileInfoEmail");
+const profileImg = document.querySelector("#profileImg");
 profileInfoEmail.innerText = email;
+const displayProfileImg = async() => {
+    try{
+        const res = await fetch(getProfileImgUrl, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+          },
+          body: JSON.stringify({
+            email : email
+          })
+        })
+        const data = res.json();
+        data.then(
+          dataResult => {
+            if(dataResult.result_code == "success"){
+                const path = "/userProfile/" + dataResult.imgPath;
+                profileImg.setAttribute("src", path);
+            }
+          }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    }
+}
+displayProfileImg();
 
+//setting - change profile img
+const profileImgFile = document.querySelector("#profileImgFile");
+const updateProfileImg = async() => {
+    let formData = new FormData()
+    formData.append('file', profileImgFile.files[0]);
+    try{
+        const res = await fetch(changeProfileImgUrl, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+          },
+          body: JSON.stringify({
+            imgData : formData
+          })
+        })
+        const data = res.json();
+        data.then(
+          dataResult => {
+              console.log(dataResult);
+            if(dataResult.result_code == "success"){
+                const path = "../../../userProfile/" + dataResult.imgPath;
+                profileImg.setAttribute("src", path);
+            }
+          }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    }
+}
+profileImgFile.addEventListener("change", updateProfileImg);
 
+//setting - go change password
 const changePasswordBtn = document.querySelector("#changePasswordBtn");
 const goChangePasswordPage = () => {
     location.href = "/public/src/setting/changePassword/changePassword.html";
 }
 changePasswordBtn.addEventListener("click", goChangePasswordPage);
 
+//setting - go theme setting
 const themeSettingBtn = document.querySelector("#themeSettingBtn");
 const goThemeSettingPage = () => {
     location.href = "/public/src/setting/themeSetting/themeSetting.html";
 }
 themeSettingBtn.addEventListener("click", goThemeSettingPage);
 
-const ip = "125.140.42.36:8082";
-const url = `http://${ip}/public/src/setting/setting.php`;
+
+//setting - delete account & signout
+const deleteTokenCookie = () => {
+    let date = new Date();
+    date.setDate(date.getDate()-1);
+    document.cookie = "token=;Path=/;Expires="+date.toUTCString();
+}
+
+//setting - delete account
 const deleteAccountBtn = document.querySelector("#deleteAccountBtn");
 const settingModalBg = document.querySelector("#settingModalBg");
 const askDeleteAccount = () => {
@@ -49,15 +129,10 @@ const removeModal = () => {
     askDeleteAccountModal.remove();
     settingModalBg.classList.add("hidden");
 }
-const deleteTokenCookie = () => {
-    let date = new Date();
-    date.setDate(date.getDate()-1);
-    document.cookie = "token=;Path=/;Expires="+date.toUTCString();
-}
 const deleteAccount = async() => {
     removeModal();
     try{
-        const res = await fetch(url, {
+        const res = await fetch(deleteUrl, {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -81,6 +156,7 @@ const deleteAccount = async() => {
 }
 deleteAccountBtn.addEventListener("click", askDeleteAccount, true);
 
+//setting - signout
 const signOutBtn = document.querySelector("#signOutBtn");
 const signOut = () => {
     deleteTokenCookie();

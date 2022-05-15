@@ -28,14 +28,15 @@
                 </div>
             </div>
             <div class="signUpArea pb-[4rem] pt-[8rem] px-[6rem] flex flex-col h-full">
-                <div class="signUpAreaTitle text-center text-[1.5rem] mb-[4rem]">관리자 회원가입</div>
-                <form class="grid grid-rows-[1fr_1fr_1fr_0.5fr_1.5fr] gap-3 text-right my-2  justify-items-center text-[0.8rem] " action="url", method="post">
+                <div class="signUpAreaTitle text-center text-[1.5rem] mb-[4rem]">회원가입</div>
+                <form id="signUpForm" class="grid grid-rows-[1fr_1fr_1fr_0.5fr_1.5fr] gap-3 text-right my-2  justify-items-center text-[0.8rem] " 
+                method="get" onsubmit="()=>{return false;}">
                     <div class="signUpFormInputArea"><span>이메일</span><input id="signUpEmail" class="signUpInput" type="email" placeholder="이메일을 입력하세요."></div>
                     <div class="signUpFormInputArea"><span>비밀번호</span><input id="signUpPassword" class="signUpInput" type="password" placeholder="8~20자리 영문자,숫자,특수문자 비밀번호를 입력하세요."></div>
                     <div class="signUpFormInputArea"><span>비밀번호 확인</span><input id="signUpPasswordConfirm" class="signUpInput" type="password" placeholder="비밀번호를 다시 한 번 입력하세요."></div>
                     <div class="errorArea text-red-500"></div>
                     <div class="signUpFormSubmitArea w-full mt-10px row-start-5 flex flex-row justify-center py-2">
-                        <input type="submit" action="post" class="bg-[#cbd8ff] rounded-[20px] w-[32%]" value="관리자로 시작하기" id="signUpSubmitBtn">
+                        <input id="signUpSubmitBtn" type="submit" class="bg-[#cbd8ff] rounded-[20px] w-[32%]" value="관리자로 시작하기">
                     </div>
                 </form>
             </div> 

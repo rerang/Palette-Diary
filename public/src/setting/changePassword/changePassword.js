@@ -68,9 +68,7 @@ const changePasswordRequest = async(_event) => {
             window.location.href = "http://125.140.42.36:8082/public/src/index.html";
           }
           if(dataResult.error != "none"){
-            if(dataResult.error.errorCode == 401){
-                paintError("이미 존재하는 계정입니다.");
-              }
+            paintError(dataResult.error.error);
           }
         }
       );
