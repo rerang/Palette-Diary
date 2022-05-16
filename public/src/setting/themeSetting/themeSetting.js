@@ -18,9 +18,8 @@ window.onload = function(){
 }
 
 //theme setting
-const ip = "125.140.42.36:8082";
-const getThemeUrl = `http://${ip}/public/src/setting/themeSetting/getTheme.php`;
-const themeUpdateUrl = `http://${ip}/public/src/setting/themeSetting/themeUpdate.php`;
+const getThemeUrl = `http://125.140.42.36:8082/public/src/setting/themeSetting/getTheme.php`;
+const themeUpdateUrl = `http://125.140.42.36:8082/public/src/setting/themeSetting/themeUpdate.php`;
 
 const themeUpdateBtn = document.querySelector("#themeUpdateBtn");
 const themeCodeTemp = document.querySelector("#themeCodeTemp");
@@ -49,11 +48,12 @@ const themeUpdate = async() => {
             const data = res.json();
             data.then(
             dataResult => {
-                if(dataResult.result_code == "success"){
-                    // 바뀐 themecode 다시 반환하기
-                    //로컬스토리지의 세팅 변경
+                    if(dataResult.result_code == "success"){
+                        localStorage.setItem("theme_code", dataResult.themeInfo.theme_code);
+                        localStorage.setItem("color_palette", dataResult.themeInfo.theme_code);
+                        window.location.href="http://125.140.42.36:8082/public/src/setting/setting.html";
+                    }
                 }
-            }
             )
         }catch (e) {
             console.log("Fetch Error", e);

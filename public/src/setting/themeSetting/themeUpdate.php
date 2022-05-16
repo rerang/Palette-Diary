@@ -27,21 +27,29 @@ try{
 
     $updateUserSql = "update user set theme_code='$changeThemeCode' where email='$email';";
     $updateResult = mysqli_query($conn, $updateUserSql);
-    mysqli_close($conn);
 
-    if($updateUserSql){
-        $stat = "success";
-    }
-    else{
+    if(!$updateUserSql){
         throw new exception('DB Fail - Can Not Update User', 422);
     }
+
+    $getThemeInfoSql = "select * from theme where theme_code='$changeThemeCode'";
+    $getThemeInfoResult = mysqli_query($conn, $getThemeInfoSql);
+    $colorPalette = $getThemeInfoResult['color_palette'];
+
+    mysqli_close($conn);
+
+    if(!$getThemeInfoSql){
+        throw new exception('DB Fail - Can Not Update User', 422);
+    }
+
+    $stat = "success";
 
 }catch(exception $e) {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-  }finally{
-    $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
+}finally{
+    $data =  json_encode(['themeInfo' => ['theme_code' => $changeThemeCode, 'color_palette' => $colorPalette], 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
-  }
+}
 ?>
