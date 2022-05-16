@@ -17,20 +17,24 @@ try{
     $selectThemeSql = "select * from theme;";
     $selectThemeResult=mysqli_query($conn, $selectThemeSql);
     if(empty($selectThemeResult)==true) { //null이라면
-        throw new exception('계정이 없습니다.', 404);
+        throw new exception('theme 테이블 정보를 불러올 수 없음', 402);
     }
-    $themeData="";
+    
+    $codeArr=array();
+    $backgroundArr=array();
+
     while ($test = mysqli_fetch_assoc($selectThemeResult)){
-        $themeData.= 'theme_code : '.$test['theme_code'].', background_pic : '.$test['background_pic'].', color_palette : '.$test['color_palette'].'<br>';
+        array_push($codeArr, $test['theme_code']);
+        array_push($backgroundArr, $test['background_pic']);
     }
 
     mysqli_close($conn);
 
 }catch(exception $e) {
     $stat   = "error";
-    $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
+    $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['themeData' => $themeData, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['theme_code' => $codeArr, 'background_pic' => $backgroundArr, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
