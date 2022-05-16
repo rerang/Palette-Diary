@@ -28,9 +28,6 @@ try{
         array_push($backgroundArr, $themeRecord['background_pic']);
     }
 
-    $test1=json_encode($codeArr);
-    $test2=json_encode($backgroundArr);
-
     mysqli_close($conn);
     $stat="success";
 }
@@ -39,7 +36,7 @@ try{
     $stat   = "error";
     $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['theme_code' => $test1, 'background_pic' => $test2, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['theme_code' => $codeArr, 'background_pic' => $backgroundArr, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
