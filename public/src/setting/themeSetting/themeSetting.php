@@ -53,7 +53,7 @@ try{
     $stat   = "error";
     $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
   }finally{
-    $data =  json_encode(['theme_name' => $db_themeName, 'background_pic' => $db_backgroundPic, 'color_palette' => $db_colorPalette, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['theme_code' => $db_themeCode ,'theme_name' => $db_themeName, 'background_pic' => $db_backgroundPic, 'color_palette' => $db_colorPalette, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
   }
