@@ -18,7 +18,6 @@ try{
     $error = "none";
     $stat = "none";
 
-    //유저가 있는지 왜 체크하죠?
     $checkingEmailExistSql="select * from user where email='$email'";
     $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
     if(empty($checkingEmailExistResult)==true) { //null이라면
@@ -41,12 +40,20 @@ try{
         else{
             throw new exception('cant update user', 400);
         }
+        
+        $selectThemeCodeSql = "select * from theme where theme_code='$changeThemeCode';";
+        $selectThemeCodeResult =mysqli_fetch_assoc(ysqli_query($conn, selectThemeCodeSql));
+        $db_themeName=$selectThemeCodeResult["theme_name"];
+        $db_backgroundPic=$selectThemeCodeResult["background_pic"];
+        $db_colorPalette=$selectThemeCodeResult["color_palette"];
+        
+
     }
 }catch(exception $e) {
     $stat   = "error";
     $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
   }finally{
-    $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['theme_name' => $db_themeName, 'background_pic' => $db_backgroundPic, 'color_palette' => $db_colorPalette, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
   }
