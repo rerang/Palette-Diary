@@ -26,7 +26,7 @@ try{
     
     $imgPath = $getUserInfoResult['profile_pic'];
   
-    if($getUserInfoResult){
+    if($getUserInfoResult){ 
         $stat = "success";
     }
     else{

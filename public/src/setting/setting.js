@@ -73,7 +73,6 @@ const updateProfileImg = async() => {
         const data = res.json();
         data.then(
           dataResult => {
-              console.log(dataResult);
             if(dataResult.result_code == "success"){
                 const path = "../../../userProfile/" + dataResult.imgPath;
                 profileImg.setAttribute("src", path);

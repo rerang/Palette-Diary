@@ -19,14 +19,12 @@ try{
   $cookie = apache_request_headers()['Cookie'];
   $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
-  //유저가 있는지 왜 체크하죠?
-  $checkingEmailExistSql="select * from user where email='$email'";
-  $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
-  if(empty($checkingEmailExistResult)==true) { //null이라면
-    throw new exception('login unstable', 401);
-  }
 
-  $db_password = $checkingEmailExistResult["password"];
+  $getUserSql="select * from user where email='$email'";
+  $getUserResult = mysqli_fetch_assoc(mysqli_query($conn, $getUserSql));
+
+
+  $db_password = $getUserResult["password"];
   if(password_verify($password, $db_password)) { // 비밀번호 일치
     $encrypted_password = password_hash($changePassword, PASSWORD_DEFAULT); //password 암호화
     $updateUserSql = "update user set password ='$encrypted_password' where email='$email'";
