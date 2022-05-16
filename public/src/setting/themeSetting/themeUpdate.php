@@ -19,7 +19,7 @@ try{
     $stat = "none";
 
     
-    $getSql="select * from user where email='$email'";
+    $checkingEmailExistSql="select * from user where email='$email'";
     $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
     if(empty($checkingEmailExistResult)==true) {
         throw new exception('계정이 없습니다.', 404);
@@ -33,7 +33,7 @@ try{
     }
 
     $getThemeInfoSql = "select * from theme where theme_code='$changeThemeCode'";
-    $getThemeInfoResult = mysqli_query($conn, $getThemeInfoSql);
+    $getThemeInfoResult = mysqli_fetch_assoc(mysqli_query($conn, $getThemeInfoSql));
     $colorPalette = $getThemeInfoResult['color_palette'];
 
     mysqli_close($conn);

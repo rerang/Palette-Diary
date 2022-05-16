@@ -1,3 +1,6 @@
 #themeCodeTemp{
     display: none;
 }
+.pickedTheme{
+    border: 2px solid #6b90ff;
+}

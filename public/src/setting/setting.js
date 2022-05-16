@@ -101,10 +101,12 @@ themeSettingBtn.addEventListener("click", goThemeSettingPage);
 
 
 //setting - delete account & signout
-const deleteTokenCookie = () => {
+const deleteTokenCookieLocalStorage = () => {
     let date = new Date();
     date.setDate(date.getDate()-1);
     document.cookie = "token=;Path=/;Expires="+date.toUTCString();
+    localStorage.removeItem("theme_code");
+    localStorage.removeItem("color_palette");
 }
 
 //setting - delete account
@@ -144,7 +146,7 @@ const deleteAccount = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-                deleteTokenCookie();
+                deleteTokenCookieLocalStorage();
                 location.href = "/public/src/index.html";
             }
           }
@@ -158,7 +160,7 @@ deleteAccountBtn.addEventListener("click", askDeleteAccount, true);
 //setting - signout
 const signOutBtn = document.querySelector("#signOutBtn");
 const signOut = () => {
-    deleteTokenCookie();
+    deleteTokenCookieLocalStorage();
     location.href = "/public/src/index.html";
 }
 signOutBtn.addEventListener("click", signOut);

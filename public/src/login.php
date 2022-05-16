@@ -27,6 +27,9 @@ try{
   $db_userType = $checkingEmailExistResult["user_type"];
   $db_themeCode = $checkingEmailExistResult["theme_code"];
 
+  $getThemeInfoSql="select * from theme where theme_code='$db_themeCode'";
+  $getThemeInfoResult = mysqli_fetch_assoc(mysqli_query($conn, $getThemeInfoSql));
+  $color_palette = $getThemeInfoResult['color_palette'];
 
   if(password_verify($password, $db_password)) { // 비밀번호 일치
     $HEADER = json_encode(array('alg' => "HS256", 'typ' => "JWT"));
@@ -56,7 +59,7 @@ try{
   $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
   if($stat == "success"){
-    $data = json_encode(['token' => $token, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['token' => $token, 'theme_code' => $db_themeCode, 'color_palette' => $color_palette, 'result_code' => $stat, 'error'=> $error]);
   }
   else{
     $data = json_encode(['result_code' => $stat, 'error'=> $error]);
