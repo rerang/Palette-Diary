@@ -17,20 +17,29 @@ try{
     $selectThemeSql = "select * from theme;";
     $selectThemeResult=mysqli_query($conn, $selectThemeSql);
     if(empty($selectThemeResult)==true) { //null이라면
-        throw new exception('계정이 없습니다.', 404);
+        throw new exception('theme 테이블 정보를 불러올 수 없음', 404);
     }
-    $themeData="";
-    while ($test = mysqli_fetch_assoc($selectThemeResult)){
-        $themeData.= 'theme_code : '.$test['theme_code'].', background_pic : '.$test['background_pic'].', color_palette : '.$test['color_palette'].'<br>';
+    else{
+    $codeArr=array();
+    $backgroundArr=array();
+
+    while ($themeRecord = mysqli_fetch_assoc($selectThemeResult)){
+        array_push($codeArr, $themeRecord['theme_code']);
+        array_push($backgroundArr, $themeRecord['background_pic']);
     }
 
+    $test1=json_encode($codeArr);
+    $test2=json_encode($backgroundArr);
+
     mysqli_close($conn);
+    $stat="success";
+}
 
 }catch(exception $e) {
     $stat   = "error";
-    $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
+    $error = ['errorMsg'   => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['themeData' => $themeData, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['theme_code' => $test1, 'background_pic' => $test2, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
