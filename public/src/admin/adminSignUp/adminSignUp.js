@@ -1,10 +1,32 @@
+//onload
+const cookieTarget = "token";
+let token = "";
+document.cookie.split(";").forEach(ele => {
+    if(ele.split("=")[0].trim() == cookieTarget){
+        token = ele.split("=")[1];
+    }
+})
+
+window.onload = function(){
+  if(token!==""){
+    const user_type = JSON.parse(atob(token.split('.')[1]))['user_type'];
+    if(user_type == "user"){
+      window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+    }
+    else{
+      window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
+    }
+  }
+}
+
+//admin signup
 const ip = "125.140.42.36:8082";
 const url = `http://${ip}/public/src/admin/adminSignUp/adminSignUp.php`;
 const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
 const signUpSubmitBtn = document.querySelector("#signUpSubmitBtn");
-
+ 
 const errorArea = document.querySelector(".errorArea");
 const paintError = (errorMessage) =>{
   errorArea.innerHTML = errorMessage;
@@ -65,10 +87,8 @@ const adminSignUpSubmit = async(_event) => {
           if(dataResult.result_code == "success") {
             window.location.href = "http://125.140.42.36:8082/public/src/index.html";
           }
-          if(dataResult.error != "none"){
-            if(dataResult.error.errorCode == 401){
-                paintError("이미 존재하는 계정입니다.");
-              }
+          else if(dataResult.error != "none"){
+            paintError(dataResult.error.errorMsg);
           }
         }
       );

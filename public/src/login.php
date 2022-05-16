@@ -20,7 +20,7 @@ try{
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
 
   if(!$checkingEmailExistResult) {
-    throw new exception('email has not exist', 401);
+    throw new exception('계정이 없습니다.', 404);
   }
   
   $db_password = $checkingEmailExistResult["password"];

@@ -23,19 +23,19 @@ try{
   $checkingEmailExistSql="select * from user where email='$email'";
   $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
   if(empty($checkingEmailExistResult) == false){
-    throw new exception('email has exist', 401);
+    throw new exception('이미 존재하는 계정입니다.', 409);
   }
-
+ 
   $encrypted_password = password_hash($password, PASSWORD_DEFAULT); //password 암호화
 
-  $insertUserSql = "insert into user(email, password, user_type, profile_pic, theme_code) values('$email', '$encrypted_password', '$user_type', 'NULL','00000001');";
+  $insertUserSql = "insert into user(email, password, user_type, profile_pic) values('$email', '$encrypted_password', '$user_type', 'NULL');";
   $insertResult = mysqli_query($conn, $insertUserSql);
 
   if($insertResult){
     $stat = "success";
   }
   else{
-    throw new exception('cant insert user', 400);
+    throw new exception('DB Fail - Can Not Insert User', 422);
   }
 }catch(exception $e) {
   $stat   = "error";

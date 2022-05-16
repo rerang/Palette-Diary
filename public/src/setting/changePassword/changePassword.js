@@ -3,6 +3,7 @@ const url = `http://${ip}/public/src/setting/changePassword/changePassword.php`;
 const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
 const changePasswordTrueBtn = document.querySelector("#changePasswordTrueBtn");
+const changePasswordFalseBtn = document.querySelector("#changePasswordFalseBtn");
 
 const errorArea = document.querySelector(".errorArea");
 const paintError = (errorMessage) =>{
@@ -35,7 +36,7 @@ const checkingValidation = (passwordValue, changeNewPasswordValue, changeNewPass
   else if(changeNewPasswordConfirmValue.match(passwordReg) == null){
     paintError("새 비밀번호 확인 형식이 올바르지 않습니다.");
   }
-  else if(changeNewPasswordValue != changeNewPasswordConfirmValue){
+  else if(changeNewPasswordValue !== changeNewPasswordConfirmValue){
     paintError("새 비밀번호와 새 비밀번호 확인 값이 다릅니다.");
   }
   else return passwordValue, changeNewPasswordValue, changeNewPasswordConfirmValue;
@@ -44,7 +45,7 @@ const changePasswordRequest = async(_event) => {
   _event.preventDefault();
   const passwordValue = password.value.trim();
   const changeNewPasswordValue = changeNewPassword.value.trim();
-  const changeNewPasswordConfirmValue = changeNewPassword.value.trim();
+  const changeNewPasswordConfirmValue = changeNewPasswordConfirm.value.trim();
 
   if(!checkingValidation(passwordValue, changeNewPasswordValue, changeNewPasswordConfirmValue)){
     return;
@@ -65,12 +66,10 @@ const changePasswordRequest = async(_event) => {
       data.then(
         dataResult => {
           if(dataResult.result_code == "success") {
-            window.location.href = "http://125.140.42.36:8082/public/src/index.html";
+            goSettingPage();
           }
           if(dataResult.error != "none"){
-            if(dataResult.error.errorCode == 401){
-                paintError("이미 존재하는 계정입니다.");
-              }
+            paintError(dataResult.error.errorMsg);
           }
         }
       );
@@ -79,6 +78,9 @@ const changePasswordRequest = async(_event) => {
     }
   }
 }
+let goSettingPage = () => {
+  window.location.href="http://125.140.42.36:8082/public/src/setting/setting.html";
+}
 changePasswordTrueBtn.addEventListener("click", changePasswordRequest);
-
+changePasswordFalseBtn.addEventListener("click", goSettingPage);
 

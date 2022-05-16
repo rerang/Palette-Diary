@@ -21,3 +21,14 @@
     top: calc(50%-100vh/2);
     left: calc(50%-100vw/2);
 }
+#profileImgFile{
+    z-index: 10;
+    position: absolute;
+    opacity: 0;
+    width: 130px;
+    height: 130px;
+}
+#profileImg{
+    width: 130px;
+    height: 130px;
+}

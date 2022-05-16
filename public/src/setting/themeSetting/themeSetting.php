@@ -18,6 +18,7 @@ try{
     $error = "none";
     $stat = "none";
 
+    //유저가 있는지 왜 체크하죠?
     $checkingEmailExistSql="select * from user where email='$email'";
     $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
     if(empty($checkingEmailExistResult)==true) { //null이라면
