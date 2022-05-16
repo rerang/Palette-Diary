@@ -23,10 +23,32 @@ const themeUpdateUrl = `http://125.140.42.36:8082/public/src/setting/themeSettin
 
 const themeUpdateBtn = document.querySelector("#themeUpdateBtn");
 const themeCodeTemp = document.querySelector("#themeCodeTemp");
-//테마코드 토큰에서 가져와서 themeCodeTemp value에 넣기
+
+//테마코드 로컬스토리지에서 가져와서 themeCodeTemp value에 넣기
 //테마 요청해서 받아와서 테마 그리기, 그릴때 이벤트 리스너도 같이 만들기
 //현재 설정된 테마 표시하기
-
+const getTheme = () => {
+    try{
+        const res = await fetch(getThemeUrl, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+        },
+        body: JSON.stringify({
+        })
+        })
+        const data = res.json();
+        data.then(
+        dataResult => {
+                if(dataResult.result_code == "success"){
+                    
+                }
+            }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    }
+}
 
 const changeThemeCodeTempValue = (_event) => {
     let selectedThemeCode = _event.target.id;
