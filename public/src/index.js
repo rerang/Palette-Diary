@@ -97,6 +97,7 @@ const signInSubmit = async(_event) => {
             document.cookie = 'token=' + dataResult.token+";Path=/;";
             const user_type = JSON.parse(atob(dataResult.token.split('.')[1]))['user_type'];
             if(user_type == "user"){
+              //TODO 로컬 스토리지에 유저 세팅 넣기
               window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
             }
             else{

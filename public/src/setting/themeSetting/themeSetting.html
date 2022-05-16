@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/setting/setting.css" rel="stylesheet">
+    <link href="/public/src/setting/themeSetting/themeSetting.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,11 +48,12 @@
                     <div class="themeSettingArea mx-auto w-[40rem] flex flex-col gap-4">
                         <button class="bg-[#cbd8ff] rounded-[20px] w-[150px] py-1">테마 설정</button>
                         <div class="themeDisplayArea grid grid-cols-3 gap-4 my-4">
-                            <div id="1"><img src="/public/img/basicBackground.png"></div>                           
-                            <div id="2"><img src="/public/img/basicBackground.png"></div>
-                            <div id="3"><img src="/public/img/basicBackground.png"></div>
+                            <input type="text" value="" id="themeCodeTemp">
+                            <img id="1" src="/public/img/basicBackground.png">
+                            <img id="2" src="/public/img/basicBackground.png">
+                            <img id="3" src="/public/img/basicBackground.png">
                         </div>
-                        <button class="bg-[#cbd8ff] rounded-[20px] w-[120px] py-1 self-center my-4">확인</button>
+                        <button class="bg-[#cbd8ff] rounded-[20px] w-[120px] py-1 self-center my-4" id="themeUpdateBtn">확인</button>
                     </div>
                 </div>
             </article>
