@@ -518,48 +518,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 0px;
 }
 
-.top-\[calc\(50\%-150px\)\] {
-  top: calc(50% - 150px);
-}
-
-.left-\[calc\(50\%-600px\)\] {
-  left: calc(50% - 600px);
-}
-
-.left-\[calc\(50\%-500px\)\] {
-  left: calc(50% - 500px);
-}
-
-.left-\[calc\(50\%-300px\)\] {
-  left: calc(50% - 300px);
-}
-
-.left-\[calc\(50\%-7rem\)\] {
-  left: calc(50% - 7rem);
-}
-
-.left-\[calc\(50\%-7rem-500px\)\] {
-  left: calc(50% - 7rem - 500px);
-}
-
-.left-\[calc\(50\%-7rem-200px\)\] {
-  left: calc(50% - 7rem - 200px);
-}
-
-.left-\[calc\(50\%-7rem-250px\)\] {
-  left: calc(50% - 7rem - 250px);
-}
-
-.left-\[50\%\] {
-  left: 50%;
+.top-\[calc\(50\%-100vh\/2\)\] {
+  top: calc(50% - 100vh / 2);
 }
 
 .left-\[calc\(50\%-100vw\/2\)\] {
   left: calc(50% - 100vw / 2);
-}
-
-.top-\[calc\(50\%-100vh\/2\)\] {
-  top: calc(50% - 100vh / 2);
 }
 
 .z-50 {
@@ -707,16 +671,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 50px;
 }
 
-.h-\[380px\] {
-  height: 380px;
+.h-\[100vh\] {
+  height: 100vh;
 }
 
 .h-\[16px\] {
   height: 16px;
 }
 
-.h-\[100vh\] {
-  height: 100vh;
+.h-\[10rem\] {
+  height: 10rem;
 }
 
 .min-h-\[380px\] {
@@ -767,12 +731,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50px;
 }
 
-.w-\[1200px\] {
-  width: 1200px;
-}
-
-.w-\[130px\] {
-  width: 130px;
+.w-\[100vw\] {
+  width: 100vw;
 }
 
 .w-\[150px\] {
@@ -795,16 +755,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 40rem;
 }
 
-.w-\[1000px\] {
-  width: 1000px;
-}
-
-.w-\[100vw\] {
-  width: 100vw;
+.w-\[10rem\] {
+  width: 10rem;
 }
 
 .min-w-\[300px\] {
   min-width: 300px;
+}
+
+.min-w-\[1200px\] {
+  min-width: 1200px;
+}
+
+.max-w-\[1200px\] {
+  max-width: 1200px;
+}
+
+.max-w-\[1330px\] {
+  max-width: 1330px;
 }
 
 .border-collapse {
@@ -994,6 +962,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-\[\#f1f5ff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 255 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#c4c4c4\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(196 196 196 / var(--tw-bg-opacity));
 }
 
 .p-\[50px\] {
