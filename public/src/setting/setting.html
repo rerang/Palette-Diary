@@ -46,7 +46,9 @@
                 </div>
                 <div id="settingContentsArea" class="settingContentsArea min-h-[380px] flex flex-col gap-4 text-base font-basic">
                     <div class="profileArea flex flex-col gap-2 items-center content-center">
-                        <input type="file" name="file" id="profileImgFile">
+                        <form method="POST" id="profileImgForm" enctype="multipart/form-data">
+                            <input type="file" name="file" id="profileImgFile">
+                        </form>
                         <img src="/userProfile/profile_pic1.png" class="" id="profileImg">
                         <div class="profileInfo">
                             <span>내정보: </span>

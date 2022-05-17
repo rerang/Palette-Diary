@@ -19,10 +19,9 @@ window.onload = function(){
 }
 
 //setting
-const ip = "125.140.42.36:8082";
-const deleteUrl = `http://${ip}/public/src/setting/deleteUser.php`;
-const getProfileImgUrl = `http://${ip}/public/src/setting/getProfileImg.php`;
-const changeProfileImgUrl = `http://${ip}/public/src/setting/changeProfileImg.php`;
+const deleteUrl = `http://125.140.42.36:8082/public/src/setting/deleteUser.php`;
+const getProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/getProfileImg.php`;
+const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/changeProfileImg.php`;
 
 //setting - display profile
 const email = payload['email'];
@@ -60,15 +59,14 @@ const profileImgFile = document.querySelector("#profileImgFile");
 const updateProfileImg = async() => {
     let formData = new FormData()
     formData.append('file', profileImgFile.files[0]);
+    console.log(profileImgFile.files[0]);
     try{
         const res = await fetch(changeProfileImgUrl, {
           method: 'POST',
           mode: 'cors',
           headers: {
           },
-          body: JSON.stringify({
-            imgData : formData
-          })
+          body: formData
         })
         const data = res.json();
         data.then(

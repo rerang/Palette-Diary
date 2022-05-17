@@ -93,8 +93,6 @@ const themeUpdate = async() => {
                 })
             })
             const data = res.json();
-            console.log(res);
-            console.log(data);
             data.then(
                 dataResult => {
                     if(dataResult.result_code == "success"){

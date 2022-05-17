@@ -13,9 +13,8 @@ try{
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
     $stat = "none";
-
-    $tempFile = $_FILES['imgFile']['tmp_name'];
-    $fileTypeExt = explode("/", $_FILES['imgFile']['type']);
+   
+    $fileTypeExt = explode("/", $_FILES['file']['type']);
     $fileType = $fileTypeExt[0];
     $fileExt = $fileTypeExt[1];
 
@@ -33,19 +32,19 @@ try{
             throw new exception('image type error', 422);
 		    break;
     }   
+   
 
-    if($fileType == 'image'){	
-	    if($extStatus){
-		    $resFile = "./Palette-Diary/userProfile/{$_FILES['imgFile']['name']}";
-		    $imageUpload = move_uploaded_file($tempFile, $resFile);
-	    }
-	    else {
-		    throw new exception('image type error', 422);
-	    }	
+    // You should name it uniquely.
+    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+    // On this example, obtain safe unique name from its binary data.
+    if (!move_uploaded_file(
+        $_FILES['file']['tmp_name'],
+        "./Palette-Diary/userProfile/{$_FILES['file']['name']}"
+    )) {
+        throw new RuntimeException('Failed to move uploaded file.');
     }
-    else {
-	    throw new exception('image type error', 422);
-    }
+
+    echo 'File is uploaded successfully.';
 
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];

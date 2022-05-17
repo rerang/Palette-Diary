@@ -21,7 +21,7 @@
     top: calc(50%-100vh/2);
     left: calc(50%-100vw/2);
 }
-#profileImgFile{
+#profileImgFile, #profileImgForm{
     z-index: 10;
     position: absolute;
     opacity: 0;
