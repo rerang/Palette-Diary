@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div class="container p-[50px] mx-auto h-full font-basic">
+    <div class="container p-[50px] mx-auto font-basic h-full">
         <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="">
                 <div class="goAdminLogo">
@@ -36,11 +36,18 @@
             </nav>
 
             <article class="adminArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
-                <div class="adminMainBtnArea">
-                    <img>
-                </div>
-                <div class="adminMainBtnArea">
-
+                <!-- <div class="adminTitleArea flex flex-row items-center mb-[3rem] justify-center">
+                    <span class="title h-fit text-[2rem] font-basic">ADMIN</span>
+                </div> -->
+                <div class="selectBigBtnArea grid grid-cols-2 justify-items-center mx-[2rem] my-[5rem]">
+                    <div class="adminMainBtnArea">
+                        <img src="/public/img/adminSettingIcon.png" class="w-[7rem] h-[7rem]">
+                        <span class="text-2xl font-basic">설정</span>
+                    </div>
+                    <div class="adminMainBtnArea">
+                        <img src="/public/img/adminThemeManagementIcon.png" class="w-[7rem] h-[7rem]">
+                        <span class="text-2xl font-basic">테마 관리</span>
+                    </div>
                 </div>
             </article>
         </article>
