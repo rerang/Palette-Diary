@@ -1,6 +1,11 @@
 .adminMainBtnArea{
     background-color: #c4c4c4;
     border-radius: 20px;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
 }

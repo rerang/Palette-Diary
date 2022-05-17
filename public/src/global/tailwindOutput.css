@@ -585,6 +585,31 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2rem;
 }
 
+.my-\[20rem\] {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+
+.my-\[10rem\] {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.my-\[15rem\] {
+  margin-top: 15rem;
+  margin-bottom: 15rem;
+}
+
+.my-\[7rem\] {
+  margin-top: 7rem;
+  margin-bottom: 7rem;
+}
+
+.my-\[5rem\] {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
 .mb-\[5rem\] {
   margin-bottom: 5rem;
 }
@@ -683,6 +708,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 10rem;
 }
 
+.h-\[15rem\] {
+  height: 15rem;
+}
+
 .min-h-\[380px\] {
   min-height: 380px;
 }
@@ -757,6 +786,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[10rem\] {
   width: 10rem;
+}
+
+.w-\[15rem\] {
+  width: 15rem;
 }
 
 .min-w-\[300px\] {
@@ -1163,6 +1196,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-\[3rem\] {
   font-size: 3rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-\[2rem\] {
+  font-size: 2rem;
 }
 
 .font-bold {
