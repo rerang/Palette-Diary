@@ -10,38 +10,43 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/admin/adminSignUp/adminSignUp.css" rel="stylesheet">
+    <link href="/public/src/admin/adminSetting/adminSetting.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Gowun+Dodum&family=Patrick+Hand&display=swap" rel="stylesheet">
 
-</head> 
+</head>
 <body>
     <div class="container p-[50px] mx-auto h-full font-basic">
         <article class="bodyArea mx-auto grid grid-cols-2 align-middle justify-center rounded-[10px] w-[calc(1200px+9%)] min-w-[1200px] max-w-[1330px]">
-            <div class="infoArea flex flex-col justify-center py-[7rem] px-[5rem] rounded-l-[10px] gap-10">
-                <div class="text-[3rem] text-center">ADMIN</div>
-                <div class="goLoginLogo w-[13rem] h-[13rem] mx-auto my-[1.5rem]">
-                    <img src="/public/img/logo.png" class="w-full"> 
+            <nav class="">
+                <div class="goAdminLogo">
+                    <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
                 </div>
-            </div>
-            <div class="signUpArea pb-[4rem] pt-[8rem] px-[6rem] flex flex-col h-full">
-                <div class="signUpAreaTitle text-center text-[1.5rem] mb-[4rem]">회원가입</div>
-                <form id="signUpForm" class="grid grid-rows-[1fr_1fr_1fr_0.5fr_1.5fr] gap-3 text-right my-2  justify-items-center text-[0.8rem] " 
-                method="get" onsubmit="()=>{return false;}">
-                    <div class="signUpFormInputArea"><span>이메일</span><input id="signUpEmail" class="signUpInput" type="email" placeholder="이메일을 입력하세요."></div>
-                    <div class="signUpFormInputArea"><span>비밀번호</span><input id="signUpPassword" class="signUpInput" type="password" placeholder="8~20자리 영문자,숫자,특수문자 비밀번호를 입력하세요."></div>
-                    <div class="signUpFormInputArea"><span>비밀번호 확인</span><input id="signUpPasswordConfirm" class="signUpInput" type="password" placeholder="비밀번호를 다시 한 번 입력하세요."></div>
-                    <div class="errorArea text-red-500"></div>
-                    <div class="signUpFormSubmitArea w-full mt-10px row-start-5 flex flex-row justify-center py-2">
-                        <input id="signUpSubmitBtn" type="submit" class="bg-[#cbd8ff] rounded-[20px] w-[32%]" value="관리자로 시작하기">
-                    </div>
-                </form>
-            </div> 
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="-">
+                    <span>설정</span>
+                    <img src="/public/img/adminSettingIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="-">
+                    <span>-</span>
+                    <img src="/public/img/adminThemeManagementIcon.png" class="navItemsIcon justify-self-end"> 
+                </div>
+            </nav>
+
+            <article class="adminArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
+                <div class="admin?TitleArea flex flex-row gap-2 items-center mb-[3rem]">
+                    <img class="w-[50px] h-[50px]" src="/public/img/adminSettingIcon.png">
+                    <span class="title h-fit text-base font-basic">title</span>
+                </div>
+
+            </article>
+        </article>
+
         </article>
     </div>
+
     <footer class="px-[50px] mb-[2rem]">
         <div class="footerContent w-[calc(1200px+9%)] mx-auto rounded-[10px] grid grid-cols-3 px-[2rem] py-[1rem] h-[7rem] content-center min-w-[1200px] max-w-[1330px]">
             <div class="inquiryArea flex flex-col text-[0.8rem]">
@@ -58,7 +63,8 @@
             </div>
         </div>
     </footer>
+    
     <script src="/public/src/global/global.js"></script>
-    <script src="/public/src/admin/adminSignUp/adminSignUp.js"></script>
+    <script src="/public/src/admin/admin.js"></script>
 </body>
 </html>

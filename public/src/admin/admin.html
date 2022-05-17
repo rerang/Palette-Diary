@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/setting/setting.css" rel="stylesheet">
+    <link href="/public/src/admin/admin.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,35 +19,35 @@
 
 </head>
 <body>
-    <div class="container p-[50px] mx-auto h-full w-[calc(1200px+9%)]">
+    <div class="container p-[50px] mx-auto h-full font-basic">
         <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="">
                 <div class="goAdminLogo">
                     <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
                 </div>
                 <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="-">
-                    <span>-</span>
-                    <img src="/public/img/statsIcon.png" class="navItemsIcon justify-self-end">
+                    <span>설정</span>
+                    <img src="/public/img/adminSettingIcon.png" class="navItemsIcon justify-self-end">
                 </div>
                 <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="-">
-                    <span>-</span>
-                    <img src="/public/img/settingIcon.png" class="navItemsIcon justify-self-end"> 
+                    <span>테마 관리</span>
+                    <img src="/public/img/adminThemeManagementIcon.png" class="navItemsIcon justify-self-end"> 
                 </div>
             </nav>
 
             <article class="adminArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
-                <div>
-                    setting
+                <div class="adminMainBtnArea">
+                    <img>
                 </div>
-                <div>
-                    theme manage
+                <div class="adminMainBtnArea">
+
                 </div>
             </article>
         </article>
     </div>
 
-    <footer class="px-[50px] mb-[2rem] w-[calc(1200px+9%)] mx-auto">
-        <div class="footerContent w-[calc(1200px+9%)] mx-auto rounded-[10px] grid grid-cols-3 px-[2rem] py-[1rem] h-[7rem] content-center">
+    <footer class="px-[50px] mb-[2rem]">
+        <div class="footerContent w-[calc(1200px+9%)] mx-auto rounded-[10px] grid grid-cols-3 px-[2rem] py-[1rem] h-[7rem] content-center min-w-[1200px] max-w-[1330px]">
             <div class="inquiryArea flex flex-col text-[0.8rem]">
                 <span class="text-[1rem] font-bold">Inquiry</span>
                 <span>email: palette@gmail.com</span>
@@ -64,6 +64,6 @@
     </footer>
     
     <script src="/public/src/global/global.js"></script>
-    <!-- <script src=""></script> -->
+    <script src="/public/src/admin/admin.js"></script>
 </body>
 </html>
