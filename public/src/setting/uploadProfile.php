@@ -12,7 +12,7 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 //FTP connect
 $ftp_server = "palettediary.dothome.co.kr";
 $ftp_port = 21;
- $ftp_user_name = "palettediary";
+$ftp_user_name = "palettediary";
 $ftp_user_pass = "dothomepassword22!";
 $ftp_send_file = "./Palette-Diary/userProfile/";
 

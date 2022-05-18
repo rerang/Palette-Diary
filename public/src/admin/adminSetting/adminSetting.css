@@ -23,3 +23,19 @@
     padding: 2rem; 
     font-family: Gowun Dodum;
 }
+
+.changePasswordFormInputArea{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    column-gap: 2rem;
+    width: 100%;
+}
+.changePasswordInput{
+    height: 2rem;
+    padding: 0 10px;
+    background-color: #ffffff;
+}
+.changePasswordInput::placeholder{
+    font-size: 11px;
+    
+}
