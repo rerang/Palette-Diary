@@ -16,6 +16,33 @@
     
 }
 
+.askDeleteAccountBtnArea{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    padding: 1rem; 
+    column-gap: 2rem;
+}
+.askDeleteAccountBtn{
+    background-color: #cbd8ff; 
+    border-radius: 20px; 
+    width: 100px;
+    padding: 0.25rem 0;
+}
+#askDeleteAccountModal{
+    width: 350px;
+    height: 120px;
+    position: fixed; 
+    z-index: 50; 
+    top: calc(50vh - 60px); 
+    left: calc(50vw - 70px); 
+    background-color:#f1f5ff; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); 
+    border: solid 1px #000; 
+    text-align: center; 
+    padding: 2rem;
+    font-family: Gowun Dodum;
+}
 #settingModalBg{
     position: fixed;
     top: calc(50%-100vh/2);
@@ -29,6 +56,6 @@
     height: 130px;
 }
 #profileImg{
-    width: 130px;
-    height: 130px;
+    width: 110px;
+    height: 110px;
 }

@@ -6,15 +6,15 @@ document.cookie.split(";").forEach(ele => {
         token = ele.split("=")[1];
     }
 })
+
+if(token==""){
+  window.location.href = "http://125.140.42.36:8082";
+}
 const payload = JSON.parse(atob(token.split('.')[1]));
 const user_type = payload['user_type'];
-window.onload = function(){
-  if(token==""){
-    window.location.href = "http://125.140.42.36:8082";
-  }
-  else if(user_type == "admin"){
-    window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
-  }
+
+if(user_type == "admin"){
+  window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
 }
 
 //setting
@@ -113,11 +113,10 @@ const askDeleteAccount = () => {
     let askDeleteAccountModal = document.createElement("div");
     askDeleteAccountModal.id="askDeleteAccountModal";
     askDeleteAccountModal.innerHTML = `<span>계정을 삭제하시겠습니까?</span>
-    <div class="askDeleteAccountBtnArea" style="display:grid; grid-template-columns:1fr 1fr; padding: 1rem; column-gap: 2rem;">
-    <button id="askDeleteAccountTrueBtn" style="background-color: #cbd8ff; border-radius: 20px; width: 100px padding: 0.25rem 0;">확인</button>
-    <button id="askDeleteAccountFalseBtn" style="background-color: #cbd8ff; border-radius: 20px; width: 100px padding: 0.25rem 0;">취소</button>
+    <div class="askDeleteAccountBtnArea">
+    <button class="askDeleteAccountBtn" id="askDeleteAccountTrueBtn">예</button>
+    <button class="askDeleteAccountBtn" id="askDeleteAccountFalseBtn">아니오</button>
     </div>`;
-    askDeleteAccountModal.setAttribute("style", "width: 350px; height: 120px; position: fixed; z-index: 50; top: calc(50% - 80px); left: calc(50% - 175px); background-color:#f1f5ff; border-radius: 5px; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); border: solid 1px #000; text-align: center; padding: 2rem; font-family: Gowun Dodum;");
     settingModalBg.classList.remove("hidden");
     document.querySelector("body").appendChild(askDeleteAccountModal);
     document.querySelector("#askDeleteAccountTrueBtn").addEventListener("click", deleteAccount, true);

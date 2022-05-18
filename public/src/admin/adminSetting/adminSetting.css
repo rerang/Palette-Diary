@@ -1,0 +1,25 @@
+.askDeleteAccountBtn{
+    width: 100px;
+    background-color: #6d6d6d;
+    color: #fff;
+}
+.askDeleteAccountBtnArea{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    padding: 1rem; 
+    column-gap: 2rem; 
+    justify-items: center;
+}
+#askDeleteAccountModal{
+    width: 350px; 
+    height: 120px; 
+    border: 1px solid #000; 
+    position: fixed;
+    z-index: 50; 
+    top: calc(50vh - 60px); 
+    left: calc(50vw - 70px); 
+    background-color:#c4c4c4; 
+    text-align: center; 
+    padding: 2rem; 
+    font-family: Gowun Dodum;
+}
