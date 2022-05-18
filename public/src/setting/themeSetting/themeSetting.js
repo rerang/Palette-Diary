@@ -6,15 +6,15 @@ document.cookie.split(";").forEach(ele => {
         token = ele.split("=")[1];
     }
 })
+
+if(token==""){
+  window.location.href = "http://125.140.42.36:8082";
+}
 const payload = JSON.parse(atob(token.split('.')[1]));
 const user_type = payload['user_type'];
-window.onload = function(){
-  if(token==""){
-    window.location.href = "http://125.140.42.36:8082";
-  }
-  else if(user_type == "admin"){
-    window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
-  }
+
+if(user_type == "admin"){
+  window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
 }
 
 //theme setting
@@ -62,9 +62,9 @@ const getTheme = async() => {
 }
 getTheme();
 
-//display user theme
+//display picked theme
 const displayCurrentPicked = (prev, curr) => {
-    let previousPickedTheme = document.getElementById(prev)
+    let previousPickedTheme = document.getElementById(prev);
     let currentPickedTheme = document.getElementById(curr);
     previousPickedTheme.classList.remove("pickedTheme");
     currentPickedTheme.classList.add("pickedTheme");

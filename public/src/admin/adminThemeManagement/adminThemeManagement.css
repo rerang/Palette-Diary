@@ -1,0 +1,39 @@
+#themeCodeTemp{
+    display: none;
+}
+.pickedTheme{
+    border: 2px solid #6b90ff;
+}
+
+
+.askDeleteThemeBtnArea{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    padding: 1rem; 
+    column-gap: 2rem;
+}
+.askDeleteThemeBtn{
+    background-color: #6d6d6d;
+    color: #ffffff;
+    width: 100px;
+    padding: 0.25rem 0;
+}
+#askDeleteThemeModal{
+    width: 350px;
+    height: 120px;
+    position: fixed; 
+    z-index: 50; 
+    top: calc(50vh - 60px); 
+    left: calc(50vw - 70px); 
+    background-color:#c4c4c4;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); 
+    border: solid 1px #000; 
+    text-align: center; 
+    padding: 2rem;
+    font-family: Gowun Dodum;
+}
+#settingModalBg{
+    position: fixed;
+    top: calc(50%-100vh/2);
+    left: calc(50%-100vw/2);
+}

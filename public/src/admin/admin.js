@@ -27,6 +27,6 @@ selectBigBtn_adminSetting.addEventListener("click", goAdminSettingPage);
 //go adminThemeManagement
 const selectBigBtn_adminThemeManagement = document.querySelector("#selectBigBtn_adminThemeManagement");
 const goAdminThemeManagementPage = () => {
-    location.href = "/public/src/setting/themeSetting/themeSetting.html";
+    location.href = "/public/src/admin/adminThemeManagement/adminThemeManagement.html";
 }
 selectBigBtn_adminThemeManagement.addEventListener("click", goAdminThemeManagementPage);

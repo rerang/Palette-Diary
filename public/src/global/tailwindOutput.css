@@ -804,6 +804,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .grid-rows-\[2fr_1fr\] {
   grid-template-rows: 2fr 1fr;
 }
@@ -882,6 +886,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .self-end {

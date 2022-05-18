@@ -7,16 +7,14 @@ document.cookie.split(";").forEach(ele => {
     }
 })
 
-window.onload = function(){
-  if(token!==""){
-    const user_type = JSON.parse(atob(token.split('.')[1]))['user_type'];
-    if(user_type == "user"){
-      window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
-    }
-    else{
-      window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
-    }
-  }
+if(token==""){
+    window.location.href = "http://125.140.42.36:8082";
+}
+const payload = JSON.parse(atob(token.split('.')[1]));
+const user_type = payload['user_type'];
+
+if(user_type == "user"){
+    window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
 }
 
 //admin signup

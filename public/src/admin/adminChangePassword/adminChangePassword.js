@@ -1,3 +1,23 @@
+//onload
+const cookieTarget = "token";
+let token = "";
+document.cookie.split(";").forEach(ele => {
+    if(ele.split("=")[0].trim() == cookieTarget){
+        token = ele.split("=")[1];
+    }
+})
+
+if(token==""){
+    window.location.href = "http://125.140.42.36:8082";
+}
+const payload = JSON.parse(atob(token.split('.')[1]));
+const user_type = payload['user_type'];
+
+if(user_type == "user"){
+    window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+}
+
+//admin Change password
 const url = `http://125.140.42.36:8082/public/src/global/changePassword.php`;
 const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
