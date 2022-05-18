@@ -49,3 +49,19 @@ if(nav_setting){
 
     nav_setting.addEventListener("click", goSettingPage);
 }
+const nav_adminSetting = document.querySelector("#nav_adminSetting");
+if(nav_adminSetting){
+    const goAdminSettingPage = () => {
+        location.href = "/public/src/admin/adminSetting/adminSetting.html"
+    }
+
+    nav_adminSetting.addEventListener("click", goAdminSettingPage);
+}
+const nav_adminThemeManagement = document.querySelector("#nav_adminThemeManagement");
+if(nav_adminThemeManagement){
+    const goAdminThemeManagementPage = () => {
+        location.href = "/public/src/admin/adminThemeManagement/adminThemeManagement.html"
+    }
+
+    nav_adminThemeManagement.addEventListener("click", goadminThemeManagementPage);
+}
