@@ -28,7 +28,7 @@ try{
 
   $encrypted_password = password_hash($password, PASSWORD_DEFAULT); //password 암호화
 
-  $insertUserSql = "insert into user(email, password, user_type) values('$email', '$encrypted_password', '$user_type');";
+  $insertUserSql = "insert into user(email, password, user_type,profile_pic) values('$email', '$encrypted_password', '$user_type','NULL');";
   $insertResult = mysqli_query($conn, $insertUserSql);
 
   if($insertResult){
