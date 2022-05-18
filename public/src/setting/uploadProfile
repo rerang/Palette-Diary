@@ -31,10 +31,8 @@ try{
     $ftp_user_name = "palettediary";
     $ftp_user_pass = "dothomepassword22!";
     $ftp_send_file = "./Palette-Diary/userProfile/";
-    $ftp_remote_file = "/Palette-Diary/userProfile/";
 
     $fileName = $email.'_'.$_FILES["file"]["name"];
-    $filename=$_FILES["file"]["name"];
     $uploadFile = uploadedFile($ftp_send_file, $fileName);
 
     $fileTypeExt = explode("/", $_FILES['file']['type']);
