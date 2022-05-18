@@ -1,5 +1,4 @@
-const ip = "125.140.42.36:8082";
-const url = `http://${ip}/public/src/setting/changePassword/changePassword.php`;
+const url = `http://125.140.42.36:8082/public/src/global/changePassword.php`;
 const passwordReg = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ ;
 
 const changePasswordTrueBtn = document.querySelector("#changePasswordTrueBtn");

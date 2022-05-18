@@ -18,7 +18,7 @@ if(user_type == "user"){
 }
 
 //setting
-const deleteUrl = `http://125.140.42.36:8082/public/src/setting/deleteUser.php`;
+const deleteUrl = `http://125.140.42.36:8082/public/src/global/deleteUser.php`;
 
 //setting - display profile
 const email = payload['email'];
