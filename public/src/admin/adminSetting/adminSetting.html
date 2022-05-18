@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/admin/admin.css" rel="stylesheet">
+    <link href="/public/src/admin/adminSetting/adminSetting.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@
 
 </head>
 <body>
+    <div class="hidden w-[100vw] h-[100vh] z-30 fixed top-[calc(50%-100vh/2)] left-[calc(50%-100vw/2)]" id="settingModalBg"></div>
     <div class="container p-[50px] mx-auto font-basic h-full">
         <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="">
@@ -49,7 +50,7 @@
                         </div>
                     </div>
                     <div class="settingBasicMenu flex flex-col my-4 px-[2rem]">
-                        <input id="changePasswordBtn" type="button" class="bg-[#c4c4c4] w-[150px] py-1" value="비밀번호 변경">
+                        <input id="adminChangePasswordBtn" type="button" class="bg-[#c4c4c4] w-[150px] py-1" value="비밀번호 변경">
                     </div>
                     <div class="settingAccountMenu flex flex-col gap-4 items-center my-4 mt-auto text-[#ffffff]">
                         <input id="deleteAccountBtn" type="button" class="bg-[#6d6d6d] w-[150px] py-1" value="계정 삭제">
