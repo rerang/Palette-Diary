@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/src/global/reset.css">
     <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
     <link href="/public/src/global/global.css" rel="stylesheet">
-    <link href="/public/src/admin/adminSetting/adminSetting.css" rel="stylesheet">
+    <link href="/public/src/admin/admin.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,31 +19,45 @@
 
 </head>
 <body>
-    <div class="container p-[50px] mx-auto h-full font-basic">
-        <article class="bodyArea mx-auto grid grid-cols-2 align-middle justify-center rounded-[10px] w-[calc(1200px+9%)] min-w-[1200px] max-w-[1330px]">
+    <div class="container p-[50px] mx-auto font-basic h-full">
+        <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="">
                 <div class="goAdminLogo">
                     <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
                 </div>
-                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="-">
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_adminSetting">
                     <span>설정</span>
                     <img src="/public/img/adminSettingIcon.png" class="navItemsIcon justify-self-end">
                 </div>
-                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="-">
-                    <span>-</span>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="nav_adminThemeManagement">
+                    <span>테마 관리</span>
                     <img src="/public/img/adminThemeManagementIcon.png" class="navItemsIcon justify-self-end"> 
-                </div>
+                </div> 
             </nav>
 
-            <article class="adminArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
-                <div class="admin?TitleArea flex flex-row gap-2 items-center mb-[3rem]">
+            <article class="adminSettingArea w-full py-[3rem] font-patrick text-[1.8rem] px-[5rem]">
+                <div class="adminSettingTitleArea flex flex-row gap-2 items-center mb-[3rem]">
                     <img class="w-[50px] h-[50px]" src="/public/img/adminSettingIcon.png">
-                    <span class="title h-fit text-base font-basic">title</span>
+                    <span class="title h-fit text-base font-basic">설정</span>
                 </div>
-
+                
+                <div id="adminSettingContentsArea" class="adminSettingContentsArea min-h-[380px] flex flex-col gap-4 text-base font-basic">
+                    <div class="profileArea flex flex-col gap-2 px-[2rem]">
+                        <div class="profileInfo">
+                            <span>내정보: </span>
+                            <span id="profileInfoEmail">longlonglonglonemail@nnnnnnnnn.com</span>
+                        </div>
+                    </div>
+                    <div class="settingBasicMenu flex flex-col my-4 px-[2rem]">
+                        <input id="changePasswordBtn" type="button" class="bg-[#c4c4c4] w-[150px] py-1" value="비밀번호 변경">
+                    </div>
+                    <div class="settingAccountMenu flex flex-col gap-4 items-center my-4 mt-auto">
+                        <input id="deleteAccountBtn" type="button" class="bg-[#6d6d6d] w-[150px] py-1" value="계정 삭제">
+                        <input id="signOutBtn" type="button" class="bg-[#6d6d6d] w-[150px] py-1" value="로그아웃">
+                    </div>
+                </div>
+                
             </article>
-        </article>
-
         </article>
     </div>
 
