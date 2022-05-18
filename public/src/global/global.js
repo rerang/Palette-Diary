@@ -33,14 +33,16 @@ if(nav_stats){
 
     nav_stats.addEventListener("click", goStatsPage);
 }
+
 const nav_happyBank = document.querySelector("#nav_happyBank");
 if(nav_happyBank){
     const goHappyBankPage = () => {
         location.href = "/public/src/happyBank/happyBank.html"
-    }
+    } 
 
     nav_happyBank.addEventListener("click", goHappyBankPage);
 }
+
 const nav_setting = document.querySelector("#nav_setting");
 if(nav_setting){
     const goSettingPage = () => {
@@ -49,6 +51,7 @@ if(nav_setting){
 
     nav_setting.addEventListener("click", goSettingPage);
 }
+
 const nav_adminSetting = document.querySelector("#nav_adminSetting");
 if(nav_adminSetting){
     const goAdminSettingPage = () => {
@@ -57,11 +60,12 @@ if(nav_adminSetting){
 
     nav_adminSetting.addEventListener("click", goAdminSettingPage);
 }
+
 const nav_adminThemeManagement = document.querySelector("#nav_adminThemeManagement");
 if(nav_adminThemeManagement){
     const goAdminThemeManagementPage = () => {
         location.href = "/public/src/admin/adminThemeManagement/adminThemeManagement.html"
     }
 
-    nav_adminThemeManagement.addEventListener("click", goadminThemeManagementPage);
+    nav_adminThemeManagement.addEventListener("click", goAdminThemeManagementPage);
 }
