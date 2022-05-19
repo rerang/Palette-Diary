@@ -1,0 +1,57 @@
+<?php
+//to solve cors issue
+header("Access-Control-Allow-Origin: *");
+
+ //db connect
+$host = "localhost";
+$s_username = "db";
+$s_password = "dbpassword";
+$dbname = "palette_diary";
+$conn = mysqli_connect($host, $s_username, $s_password, $dbname);
+
+$user_type = "user";
+
+try{
+    $json = json_decode(file_get_contents('php://input'), TRUE);
+    $error = "none";
+    $stat = "none";
+
+    $cookie = apache_request_headers()['Cookie'];
+    $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
+
+    $checkSql="select over(order by d_date ASC) from diary where USER_email='$email'";
+    $checkResult = mysqli_query($conn, $checkSql)
+    $checkRow = mysqli_fetch_assoc($checkResult);
+
+    $diaryfirstTimestamp = $checkRow['d_date'];
+    $searchMonth = (int)date("m", $diaryfirstTimestamp)+1;
+    //$searchYear = (int)date("Y", $diaryfirstTimestamp);  // 년도가 있어야된다고 생각함
+
+    if(empty($checkRow)==true) { //null이라면
+        throw new exception('d_date unstable', 401);
+    }
+    else{  
+        $dataArr = array();
+        $colorArr = array();
+
+        while($checkRow = mysqli_fetch_assoc($checkResult)){
+            if((int)date("m",$checkRow['d_date'])==$searchMonth){
+                array_push($dataArr,$checkRow['d_date']);
+                array_push($colorArr,$checkRow['color']);
+            }
+        }
+        mysqli_close($conn);
+        $stat="success";
+    }
+    
+}catch(exception $e) {
+    $stat = "error";
+    $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
+}finally{
+    $data = json_encode(['d_date' => $dataArr, 'color' => $colorArr,'result_code' => $stat, 'error'=> $error ]);
+    header('Content-type: application/json'); 
+    echo $data;
+}
+
+mysqli_close($conn);
+?>
