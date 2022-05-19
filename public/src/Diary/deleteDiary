@@ -28,7 +28,7 @@ try{
     }
     else {
         // diary_detail 테이블에서 참조하고 있는 값 먼저 지운 후에
-        $deleteDiaryDetailSql = "delete from diary_detail where diary_code='$deleteDiaryCode';";
+        $deleteDiaryDetailSql = "delete from diary_detail where email='$email' and diary_code='$deleteDiaryCode';";
         $deleteDiaryDetailResult = mysqli_query($conn, $deleteDiaryDetailSql);
 
         // diary 테이블에서 지우기
