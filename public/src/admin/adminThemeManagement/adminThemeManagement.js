@@ -99,14 +99,14 @@ const deleteTheme = async() => {
             headers: {
             },
             body: JSON.stringify({
-                theme_code: themeCodeTemp
+                theme_code: themeCodeTemp.value
             })
-        })
+        });
         const data = res.json();
         data.then(
             dataResult => {
                 if(dataResult.result_code == "success"){
-                    location.reload();
+                    window.reload();
                 }
                 else{
                     alert(dataResult.error.errorMsg + "(" + dataResult.error.errorCode + ")");
@@ -146,6 +146,6 @@ deleteThemeBtn.addEventListener("click", checkValiAndAskDeleteTheme);
 //go insert theme page
 const insertThemeBtn = document.querySelector("#insertThemeBtn");
 const goInsertThemePage = () => {
-    
+    window.location.href = "http://125.140.42.36:8082/public/src/admin/adminThemeManagement/adminInsertTheme.html";
 }
 insertThemeBtn.addEventListener("click", goInsertThemePage);
