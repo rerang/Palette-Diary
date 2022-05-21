@@ -1,0 +1,59 @@
+
+<?php
+//to solve cors issue
+header("Access-Control-Allow-Origin: *");
+
+ //db connect
+$host = "localhost";
+$s_username = "db";
+$s_password = "dbpassword";
+$dbname = "palette_diary";
+$conn = mysqli_connect($host, $s_username, $s_password, $dbname);
+
+$user_type = "user";
+
+try{
+    $json = json_decode(file_get_contents('php://input'), TRUE);
+    $error = "none";
+    $stat = "none";
+
+    $d_date = $json['d_date'];  // 준 특정 날짜 
+    $cookie = apache_request_headers()['Cookie'];
+    $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
+
+    $checkingEmailExistSql="select * from user where email='$email'";
+    $checkingEmailExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingEmailExistSql));
+    if(empty($checkingEmailExistResult)==true) { 
+        throw new exception('login unstable', 402);
+    }
+
+    $checkSql="select * from diary where USER_email='$email' AND d_date = '$d_date' ";
+    $checkResult = mysqli_query($conn, $checkSql)
+    $checkRow = mysqli_fetch_assoc($checkResult);
+
+    if(empty($checkRow)==true) { 
+        throw new exception('d_date unstable', 400);    // 필수 요청 변수가 없거나 요청 변수 이름이 잘못된 경우
+    }
+    else {  
+        $DBdiary_code = $checkRow['diary_code'];
+        $DBcolor = $checkRow['color'];
+        $DBd_date = $checkRow['d_date'];
+        $DBmainPic = $checkRow['mainPic'];
+        $DBkeyword = $checkRow['keyword'];
+
+        mysqli_close($conn);
+        $stat="success";
+    }
+}
+catch(exception $e) {
+$stat = "error";
+$error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
+}finally{
+$data = json_encode(['diary_code' => $DBdiary_code, 'color' => $colorArr, 'd_date' => $dataArr, 
+'mainPic' => $DBmainPic,'keyword'=> $DBkeyword 'result_code' => $stat, 'error'=> $error ]);
+header('Content-type: application/json'); 
+echo $data;
+}
+
+mysqli_close($conn);
+?>
