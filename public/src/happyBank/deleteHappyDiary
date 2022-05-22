@@ -13,13 +13,12 @@ try{
     $json = json_decode(file_get_contents('php://input'), TRUE);
 
     $cookie = apache_request_headers()['Cookie'];
-    $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
     $error = "none";
     $stat = "none";
 
     $deleteHappyDiaryCode = $json['diary_code']; // 해피저금통 리스트에 있는 일기의 diary_code 반환
 
-        $deleteHappyDiarySql = "delete from happy_diary where email='$email' and diary_code='$deleteHappyDiaryCode';";
+        $deleteHappyDiarySql = "delete from happy_diary where diary_code='$deleteHappyDiaryCode';";
         $deleteHappyDiaryResult = mysqli_query($conn, $deleteHappyDiarySql);
 
         if(!$deleteHappyDiaryResult){
