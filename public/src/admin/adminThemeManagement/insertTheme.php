@@ -11,16 +11,21 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 try{
     $json = json_decode(file_get_contents('php://input'), TRUE);
-    $insertThemeCode = $json['theme_code'];
+    $error = "none";
+    $stat = "none";
 
-    $insertThemeSql = "insert into theme(theme_name, user_type) values('$email', '$encrypted_password', '$user_type');";
-    $insertThemeResult = mysqli_query($conn, $deleteThemeSql);
+    $theme_name = $json['theme_name'];
+    $paletteArrString = $json['paletteArrString'];
+    $backgroundImg = '/public/img/basicBackground.png';//파일처리 불가로 현재 임시 경로입니다.
+    
+    $insertThemeSql = "insert into theme(theme_name, background_pic, color_palette) values('$theme_name', '$backgroundImg', '$paletteArrString');";
+    $insertThemeResult = mysqli_query($conn, $insertThemeSql);
 
-    if($deleteThemeResult){
+    if($insertThemeResult){
         $stat = "success";
     }
     else{
-        throw new exception('DB Fail - Can Not Delete Theme', 422);
+        throw new exception('DB Fail - Can Not Insert Theme', 422);
     }
 
     mysqli_close($conn);

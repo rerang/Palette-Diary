@@ -106,7 +106,7 @@ const deleteTheme = async() => {
         data.then(
             dataResult => {
                 if(dataResult.result_code == "success"){
-                    window.reload();
+                    window.location.reload();
                 }
                 else{
                     alert(dataResult.error.errorMsg + "(" + dataResult.error.errorCode + ")");
