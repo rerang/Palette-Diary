@@ -20,8 +20,8 @@ try{
     $selectHappyDiarySql = "select * from happy_diary where email='$email';";
     $selectHappyDiaryResult = mysqli_num_rows(mysqli_query($conn, $selectHappyDiarySql)); // happy_diary 레코드 개수 반환
 
-    if($selectHappyDiaryResult==0) {
-        throw new exception('해피 저금통이 비었습니다.', 404);
+    if(!$selectHappyDiaryResult) {
+        throw new exception('DB Fail - Can Not select happy_diary', 422);
     }
     else {
         $stat="success";
