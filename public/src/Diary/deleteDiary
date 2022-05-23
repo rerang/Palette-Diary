@@ -22,8 +22,7 @@ try{
     $selectHappyDiaryResult = mysqli_query($conn, $selectHappyDiarySql);
     
     if($selectHappyDiaryResult) { // 해피 다이어리에서 참조하고 있는 다이어리 코드가 있다면
-        $deleteHappyDiarySql = "delete from happy_diary where diary_code='$deleteDiaryCode';";
-        $deleteHappyDiaryResult = mysqli_query($conn, $deleteHappyDiarySql);
+        throw new exception('해피 저금통에 해당 일기가 저금 되었으므로 삭제가 불가능합니다', 409);
     }
     
     $selectDiaryDetailSql = "select * from diary_detail where diary_code='$deleteDiaryCode';";
@@ -38,7 +37,7 @@ try{
     $deleteDiarySql = "delete from diary where diary_code='$deleteDiaryCode';";
     $deleteDiaryResult = mysqli_query($conn, $deleteDiarySql);
 
-    if(!$deleteDiaryDetailResult || !$deleteHappyDiaryResult || !$deleteDiaryResult) {
+    if(!$deleteDiaryDetailResult || !$deleteDiaryResult) {
         throw new exception('DB Fail - Can Not Delete diary', 422);
     }
     else{
