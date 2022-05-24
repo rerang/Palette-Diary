@@ -28,19 +28,25 @@ try{
         $selectEqulDiaryCodeSql = "select * from diary where email='$email' and diary.diary_code=happy_diary.diary_code;";
         $selectEqulDiaryCodeResult = mysqli_query($conn, $selectEqulDiaryCodeSql);
 
-        $codeArr=array();
-        $colorArr=array();
-        $keywordArr=array();
-
-        while ($happyDiaryRecord = mysqli_fetch_assoc($selectEqulDiaryCodeResult)){ //해피저금통 리스트 diary_code, color, keyword 반환
-            array_push($codeArr, $happyDiaryRecord['diary_code']);
-            array_push($colorArr, $happyDiaryRecord['color']);
-            array_push($keywordArr, $happyDiaryRecord['keyword']);
+        if(empty($selectEqulDiaryCodeResult)==true) {
+            throw new exception('해당 일기는 해피 저금통에 저금되지 않았습니다.', 409);
+        } 
+        
+        else {
+            $codeArr=array();
+            $colorArr=array();
+            $keywordArr=array();
+    
+            while ($happyDiaryRecord = mysqli_fetch_assoc($selectEqulDiaryCodeResult)){ //해피저금통 리스트 diary_code, color, keyword 반환
+                array_push($codeArr, $happyDiaryRecord['diary_code']);
+                array_push($colorArr, $happyDiaryRecord['color']);
+                array_push($keywordArr, $happyDiaryRecord['keyword']);
+            }
+    
+            $stat="success";
         }
-
-        mysqli_close($conn);
-        $stat="success";
     }
+    mysqli_close($conn);
 
 }catch(exception $e) {
     $stat   = "error";
