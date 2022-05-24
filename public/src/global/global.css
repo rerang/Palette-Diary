@@ -33,3 +33,9 @@ nav{
     box-shadow: 0 0.5rem 0.5rem rgb(177, 177, 177);
     font-family: 'Averia Sans Libre';
 } 
+
+.happyBankColor{
+    width: 25px;
+    height: 27px;
+    border-radius: 50%;
+}

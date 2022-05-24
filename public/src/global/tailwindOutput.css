@@ -550,6 +550,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-row-start: 2;
 }
 
+.row-start-3 {
+  grid-row-start: 3;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -700,6 +704,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 300px;
 }
 
+.min-h-\[430px\] {
+  min-height: 430px;
+}
+
+.min-h-\[400px\] {
+  min-height: 400px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -740,6 +752,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50px;
 }
 
+.w-\[380px\] {
+  width: 380px;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
 .w-\[100vw\] {
   width: 100vw;
 }
@@ -760,20 +780,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 120px;
 }
 
-.w-\[40rem\] {
-  width: 40rem;
-}
-
 .w-\[70px\] {
   width: 70px;
 }
 
-.min-w-\[1200px\] {
-  min-width: 1200px;
+.w-\[40rem\] {
+  width: 40rem;
 }
 
-.min-w-\[300px\] {
-  min-width: 300px;
+.min-w-\[1200px\] {
+  min-width: 1200px;
 }
 
 .max-w-\[1330px\] {
@@ -828,6 +844,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-rows: repeat(7,1fr);
 }
 
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+
 .grid-rows-\[1fr_1fr_1fr_0\.5fr_1\.5fr\] {
   grid-template-rows: 1fr 1fr 1fr 0.5fr 1.5fr;
 }
@@ -850,6 +870,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .content-center {
   align-content: center;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-center {
@@ -902,6 +926,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-8 {
   gap: 2rem;
+}
+
+.gap-\[5rem\] {
+  gap: 5rem;
 }
 
 .gap-x-4 {

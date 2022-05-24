@@ -19,6 +19,7 @@
 
 </head>
 <body>
+    <div class="hidden w-[100vw] h-[100vh] z-30 fixed top-[calc(50%-100vh/2)] left-[calc(50%-100vw/2)]" id="settingModalBg"></div>
     <div class="container p-[50px] mx-auto h-full font-basic">
         <article class="bodyArea mx-auto rounded-[10px] w-[calc(1200px+9%)] flex flex-row py-[2rem]">
             <nav class="flex flex-col items-center px-[1rem]">
@@ -44,14 +45,16 @@
                     <img class="w-[50px] h-[50px]" src="/public/img/happyBankIcon.png">
                     <span class="title h-fit text-base">해피 저금통</span>
                 </div>
-                <div class="happyBankContentsArea min-h-[380px] flex flex-col gap-4 justify-items-center">
-                    <div class="displayHappyBankDesc h-[50px] text-base text-center w-full align-middle">
-                        해피저금통은 행복 지수가 높은 일기들을 담아둡니다.
-                    </div>
-                    <div class="displayHappyBankCountArea min-h-[300px] min-w-[300px] mx-auto rounded-md p-[40px]">
-                        <div class="displayHappyBankCountBottle min-h-[300px] min-w-[300px] grid grid-rows-2 justify-items-center">
-                            <div class="displayHappyBankCount text-center text-4xl font-averia row-start-2">
-                                0
+                <div class="happyBankContentsArea min-h-[430px] happyBankOnlyCount gap-[5rem] justify-items-center items-start" id="happyBankContentsArea">
+                    <div class="displayHappyBankCountContainer" id="displayHappyBankCountContainer">
+                        <div class="displayHappyBankDesc h-[50px] text-base text-center w-[380px] align-middle">
+                            해피저금통은 행복 지수가 높은 일기들을 담아둡니다.
+                        </div>
+                        <div class="displayHappyBankCountArea min-h-[300px] w-[380px] mx-auto rounded-md p-[40px]">
+                            <div class="displayHappyBankCountBottle min-h-[300px] w-[300px] grid grid-rows-3 justify-items-center">
+                                <div class="displayHappyBankCount text-center text-4xl font-averia row-start-3" id="displayHappyBankCount">
+                                    0
+                                </div>
                             </div>
                         </div>
                     </div>
