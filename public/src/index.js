@@ -19,6 +19,10 @@ window.onload = function(){
   }
 }
 
+if('win16|win32|win64|windows|mac|macintel|linux|freebsd|openbsd|sunos'.indexOf(navigator.platform.toLowerCase())<0){
+  window.location.href = "http://125.140.42.36:8082/public/src/nope.html";
+}
+
 //intro
 let intro = document.querySelector(".intro");
 let loginContainer = document.querySelector(".container");

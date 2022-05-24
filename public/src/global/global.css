@@ -1,3 +1,11 @@
+.moblieScreen{
+    height: 100vh;
+    background-image: url(/public/img/nopeBg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 380px;
+    padding-top: 4rem;
+}
 body {
     background-image: url(/public/img/basicBackground.png);
     background-repeat: no-repeat;

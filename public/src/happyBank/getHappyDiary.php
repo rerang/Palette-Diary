@@ -20,24 +20,22 @@ try{
     $selectHappyDiarySql = "select * from happy_diary where email='$email';";
     $selectHappyDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $selectHappyDiarySql));
 
+    $codeArr=array();
+    $colorArr=array();
+    $keywordArr=array();
+
     if(empty($selectHappyDiaryResult)==true) {
         throw new exception('해피 저금통이 비었습니다.', 404);
     }
     else {
+        $selectHappyDiaryInfoSql = "select * from happy_diary left join diary on happy_diary.diary_code = diary.diary_code where happy_diary.email='$email'";
+        $selectHappyDiaryInfoResult = mysqli_query($conn, $selectHappyDiaryInfoSql);
 
-        $selectEqulDiaryCodeSql = "select * from diary where email='$email' and diary.diary_code=happy_diary.diary_code;";
-        $selectEqulDiaryCodeResult = mysqli_query($conn, $selectEqulDiaryCodeSql);
-
-        if(empty($selectEqulDiaryCodeResult)==true) {
-            throw new exception('해당 일기는 해피 저금통에 저금되지 않았습니다.', 409);
+        if(empty($selectHappyDiaryInfoResult)==true) {
+            throw new exception('저금된 일기가 없습니다.', 409);
         } 
-        
-        else {
-            $codeArr=array();
-            $colorArr=array();
-            $keywordArr=array();
-    
-            while ($happyDiaryRecord = mysqli_fetch_assoc($selectEqulDiaryCodeResult)){ //해피저금통 리스트 diary_code, color, keyword 반환
+        else {    
+            while ($happyDiaryRecord = mysqli_fetch_assoc($selectHappyDiaryInfoResult)){ //해피저금통 리스트 diary_code, color, keyword 반환
                 array_push($codeArr, $happyDiaryRecord['diary_code']);
                 array_push($colorArr, $happyDiaryRecord['color']);
                 array_push($keywordArr, $happyDiaryRecord['keyword']);
