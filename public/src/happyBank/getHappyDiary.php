@@ -25,7 +25,7 @@ try{
     }
     else {
 
-        $selectEqulDiaryCodeSql = "select * from diary join happy_diary on diary.diary_code=happy_diary.diary_code;";
+        $selectEqulDiaryCodeSql = "select * from diary inner join happy_diary on diary.diary_code=happy_diary.diary_code;";
         $selectEqulDiaryCodeResult = mysqli_query($conn, $selectEqulDiaryCodeSql);
 
         if(empty($selectEqulDiaryCodeResult)==true) {
