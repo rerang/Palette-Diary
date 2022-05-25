@@ -26,8 +26,7 @@ try{
         }
         else{
             $stat = "success";
-        
-    }
+        }
     
     mysqli_close($conn);
 

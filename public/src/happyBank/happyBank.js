@@ -52,30 +52,52 @@ const displayHappyBankCountContainer = document.querySelector("#displayHappyBank
 const modalBg = document.querySelector("#modalBg");
 
 
-
-const openHappyDiary = () => {
-    console.log("open func");
-}
-
 const deleteHappyDiaryUrl = `http://125.140.42.36:8082/public/src/happyBank/deleteHappyDiary.php`;
-const deleteHappyDiary = async() => {
+const openHappyDiary = async() => {
+    let diary_code = document.querySelector(".askModal").id;
     removeModal();
     try{
-        const res = await fetch(getHappyBankListUrl, {
+        const res = await fetch(deleteHappyDiaryUrl, {
         method: 'POST',
         mode: 'cors',
         headers: {
         },
         body: JSON.stringify({
+            diary_code : diary_code
         })
         })
         const data = res.json();
         data.then(
-        dataResult => {
-            console.log(dataResult);
+            dataResult => {
                 if(dataResult.result_code == "success"){
-                    
-                    paintHappyBankList(dataResult.diary_code, dataResult.color, dataResult.keyword);
+                    localStorage.setItem("happy_diary_code", diary_code);
+                    window.location.href = "http://125.140.42.36:8082/public/src/happyBank/readHappyDiary.html";
+                }
+            }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    } 
+}
+
+const deleteHappyDiary = async() => {
+    let diary_code = document.querySelector(".askModal").id;
+    removeModal();
+    try{
+        const res = await fetch(deleteHappyDiaryUrl, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+        },
+        body: JSON.stringify({
+            diary_code : diary_code
+        })
+        })
+        const data = res.json();
+        data.then(
+            dataResult => {
+                if(dataResult.result_code == "success"){
+                    location.reload();
                 }
             }
         )
@@ -84,7 +106,7 @@ const deleteHappyDiary = async() => {
     }  
 }
 const removeModal = () => {
-    askModal.remove();
+    document.querySelector(".askModal").remove();
     modalBg.classList.add("hidden");
 }
 const askFunc = (diaryCode, type) => {
@@ -92,7 +114,8 @@ const askFunc = (diaryCode, type) => {
     type == "open" ? message = "행복했던 과거를 여시겠습니까?" : message = "저금된 추억을 지우시겠습니까?";
 
     let askModal = document.createElement("div");
-    askModal.id="askModal";
+    askModal.classList.add("askModal");
+    askModal.id = diaryCode;
     askModal.innerHTML = `<span>`+ message +`</span>
     <div class="askBtnArea">
     <button class="askBtn" id="askModalTrueBtn">예</button>
@@ -172,7 +195,6 @@ const slideCountAndDisplayList = async() => {
         const data = res.json();
         data.then(
         dataResult => {
-            console.log(dataResult);
                 if(dataResult.result_code == "success"){
                     
                     paintHappyBankList(dataResult.diary_code, dataResult.color, dataResult.keyword);
