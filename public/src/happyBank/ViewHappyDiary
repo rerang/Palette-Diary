@@ -34,16 +34,6 @@ try{
         $dbDiaryBody = $selectHappyDiaryInfoResult['diary_body'];
 
         $dbDiaryDate = substr($dbDiaryDate,0,9);
-
-        //파일
-
-        $fileName = explode("/", $dbDiaryMainPic);
-        $fileName = $fileName[3];
-
-        $imgLink = "125.140.42.36".$fileName; //DB 경로에 들어있는 사진을 ftp 서버에서 찾기
-        file_get_contents($imgLink);
-        file_put_contents("./userProfile/".$fileName, $fileName); // 경로에 해당 파일 put
-
         $stat="success";
     }
     mysqli_close($conn);
@@ -52,7 +42,7 @@ try{
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => "./userProfile/".$fileName, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => $dbDiaryMainPic, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
