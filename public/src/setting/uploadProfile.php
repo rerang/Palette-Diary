@@ -41,7 +41,7 @@ try{
 
         $TmpfileName = explode(".",$_FILES["file"]["name"]); // 첨부하는 파일에서 이름만 떼어와서
         $fileName = $Nickname."_".$TmpfileName[0]; // 해당 user의 email 붙여 구분
-        $fileName = $fileName.".".pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); //확장자까지 붙인 파일 이름
+        $fileName = $fileName.".".pathinfo($_FILES['file']['name']); //확장자까지 붙인 파일 이름
 
         $uploadFile = uploadedFile($upfile_path, $fileName); // 파일 이름 한글 없애고 경로 지정
         

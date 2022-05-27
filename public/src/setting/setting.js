@@ -56,8 +56,8 @@ displayProfileImg();
 //setting - change profile img
 const profileImgFile = document.querySelector("#profileImgFile");
 const updateProfileImg = async() => {
-    let formData = new FormData()
-    formData.append('file', profileImgFile.files[0]);
+    let file = new FormData()
+    file.append('file', profileImgFile.files[0]);
     console.log(profileImgFile.files[0]);
     try{
         const res = await fetch(changeProfileImgUrl, {
@@ -65,14 +65,14 @@ const updateProfileImg = async() => {
           mode: 'cors',
           headers: {
           },
-          body: formData
+          body: file
         })
         const data = res.json();
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-                const path = "../../../userProfile/" + dataResult.imgPath;
-                profileImg.setAttribute("src", path);
+              const path = "ftp://125.140.42.36/Palette-Diary/userProfile/" + dataResult.imgPath;
+              window.location.reload();
             }
           }
         )
