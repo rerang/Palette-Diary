@@ -26,10 +26,10 @@ try{
     
     $imgPath = $getUserInfoResult['profile_pic'];
   
-    if($getUserInfoResult){ 
+    if($getUserInfoResult) { 
         $stat = "success";
     }
-    else{
+    else {
         throw new exception('DB Fail - Can Not Get Profile Pic', 422);
     }
 }catch(exception $e) {
