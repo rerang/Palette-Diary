@@ -130,8 +130,14 @@ const askFunc = (diaryCode, type) => {
 }
 const askOpenHappyDiary = (_event) => {
     if(_event.target.classList.value !== "happyBankDeleteBtn"){
-        let diaryCode = _event.target.id;
-        askFunc(diaryCode, "open");
+        if(_event.target.classList.value == "happyBankList"){
+            let diaryCode = _event.target.id;
+            askFunc(diaryCode, "open");
+        }
+        else{
+            let diaryCode = _event.target.parentNode.id;
+            askFunc(diaryCode, "open");
+        }
     }
 }
 const askDeleteHappyBankList = (_event) => {

@@ -19,7 +19,7 @@ try{
 
     $selectDiaryCode = $json['diary_code'];
 
-    $selectHappyDiaryInfoSql = "select * from happy_diary left join diary on happy_diary.diary_code = diary.diary_code where happy_diary.diary_code='$selectDiaryCode' and email='$email';";
+    $selectHappyDiaryInfoSql = "select * from diary left join diary_detail on diary.diary_code = diary_detail.diary_code where diary.diary_code='$selectDiaryCode';";
     $selectHappyDiaryInfoResult = mysqli_fetch_assoc(mysqli_query($conn, $selectHappyDiaryInfoSql));
 
     if(empty($selectHappyDiaryInfoResult)==true) {
@@ -30,7 +30,7 @@ try{
         $dbDiaryDate = $selectHappyDiaryInfoResult['d_date'];
         $dbDiaryColor = $selectHappyDiaryInfoResult['color'];
         $dbDiaryKeyword = $selectHappyDiaryInfoResult['keyword'];
-        $dbDiaryMainPic = $selectHappyDiaryInfoResult['mainPic'];
+        $dbDiaryMainPic = $selectHappyDiaryInfoResult['main_pic'];
         $dbDiaryBody = $selectHappyDiaryInfoResult['diary_body'];
 
         $dbDiaryDate = substr($dbDiaryDate,0,9);
