@@ -20,7 +20,7 @@ if(user_type == "admin"){
 //setting
 const deleteUrl = `http://125.140.42.36:8082/public/src/global/deleteUser.php`;
 const getProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/getProfileImg.php`;
-const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/uploadProfile.php`;
+const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/changeProfileImg.php`;
 
 //setting - display profile
 const email = payload['email'];

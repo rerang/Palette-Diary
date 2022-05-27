@@ -38,7 +38,7 @@ const paintTheme = (themeCodeArr, backgroundPicArr) => {
     userTheme.classList.add("pickedTheme");
 }
 
-const getTheme = async() => {
+const getTheme = async() => { 
     try{
         const res = await fetch(getThemeUrl, {
         method: 'POST',
