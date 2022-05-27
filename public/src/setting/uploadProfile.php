@@ -10,14 +10,13 @@ $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 //FTP connect
-$ftp_server = "palettediary.dothome.co.kr";
+$ftp_server = "125.140.42.36";
 $ftp_port = 21;
-$ftp_user_name = "palettediary";
-$ftp_user_pass = "dothomepassword22!";
-$ftp_send_file = "./Palette-Diary/userProfile/";
+$ftp_user_name = "paletteDiary";
+$ftp_user_pass = "paletteDiary";
 
-function uploadedFile($ftp_send_file, $fileName) {
-    return iconv("utf-8", "CP949", $ftp_send_file.basename2($fileName));
+function uploadedFile($upfile_path, $fileName) {
+    return iconv("utf-8", "CP949", $upfile_path.basename2($fileName));
 }
   
 function basename2($filename) {
@@ -33,61 +32,86 @@ try{
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
-    $ftp_server = "palettediary.dothome.co.kr";
-    $ftp_port = 21;
-    $ftp_user_name = "palettediary";
-    $ftp_user_pass = "dothomepassword22!";
-    $ftp_send_file = "./Palette-Diary/userProfile/";
+    $explodeEmail=explode("@", $email);
+    $Nickname=$explodeEmail[0];
+    
+    $upfile_path = "./Palette-Diary/userProfile/";
 
-    $fileName = $email.'_'.$_FILES["file"]["name"];
-    $uploadFile = uploadedFile($ftp_send_file, $fileName);
+    if($_FILES['file']['size'] > 0) { // 업로드 파일여부 확인
 
-    $fileTypeExt = explode("/", $_FILES['file']['type']);
-    $fileType = $fileTypeExt[0];
-    $fileExt = $fileTypeExt[1];
+        $TmpfileName = explode(".",$_FILES["file"]["name"]); // 첨부하는 파일에서 이름만 떼어와서
+        $fileName = $Nickname."_".$TmpfileName[0]; // 해당 user의 email 붙여 구분
+        $fileName = $fileName.".".pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); //확장자까지 붙인 파일 이름
 
-    $extStatus = false;
+        $uploadFile = uploadedFile($upfile_path, $fileName); // 파일 이름 한글 없애고 경로 지정
+        
+        $fileTypeExt = explode("/", $_FILES['file']['type']);
+        $fileType = $fileTypeExt[0]; //image
+        $fileExt = $fileTypeExt[1]; //png, jpg 등
 
-    switch($fileExt){
-	    case 'jpeg':
-	    case 'jpg':
-	    case 'gif':
-	    case 'bmp':
-	    case 'png':
-		    $extStatus = true;
-		    break;
-	    default:
-            throw new exception('image type error', 422);
-		    break;
-    }   
+        $extStatus = false;
 
-    if($fileType == 'image'){	
-	    if($extStatus){
-		    move_uploaded_file($_FILES["file"]["tmp_name"], $uploadFile);
-            $imgurl = "./Palette-Diary/userProfile/".$fileName;
-            $conn_id = ftp_connect($ftp_server, $ftp_port);
-            $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-            ftp_pasv($conn_id, true);
-            ftp_put($conn_id,  $imgurl, $imgurl, FTP_BINARY);
-            ftp_close();
-	    }
-	    else {
-		    throw new exception('image type error', 422);
-	    }	
+        switch($fileExt) {
+	        case 'jpeg':
+	        case 'jpg':
+	        case 'gif':
+	        case 'bmp':
+	        case 'png':
+		        $extStatus = true;
+		        break;
+	        default:
+                throw new exception('image type error', 400);
+		        break;
+        }   
+
+        if($fileType == 'image') {	
+	        if($extStatus) {
+                $file_upload = copy($_FILES['file']['tmp_name'], $uploadFile );
+		        
+                if($file_upload==false) {
+                    throw new exception('cant image upload', 409);
+                }
+                else {
+                    $imgurl = $uploadFile;
+
+                    $conn_id = ftp_connect($ftp_server, $ftp_port);
+                    ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+                    ftp_pasv($conn_id, true);
+                    
+                    //이미지 업로드
+                    ftp_put($conn_id, $imgurl,$_FILES['file']['tmp_name'], FTP_BINARY);
+                    
+                    //이미지 불러오기
+                    $remote_file = $imgurl;
+                    $local_file = "./Palette-Diary/userProfile/".$fileName;
+                    $fp = fopen($local_file, 'w+');
+                    ftp_fget($conn_id, $fp, $remote_file, FTP_BINARY, 0);
+                   
+                    ftp_close($conn_id);
+                    fclose($fp);
+    
+                    $updateImageSql = "update user set profile_pic='$local_file' where email='$email';";
+                    $updateImageResult = mysqli_query($conn, $updateImageSql);
+                    mysqli_close($conn);
+    
+                    if(!$updateImageResult) {
+                        throw new exception('DB Fail - Can Not Update User', 422);
+                    }
+                    else{
+                        $stat = "success";
+                    }
+                } 
+	        }
+	        else {
+		        throw new exception('image type error', 400);
+	        }
+        }
+        else {
+	        throw new exception('image type error', 400);
+        }
     }
     else {
-	    throw new exception('image type error', 422);
-    }
-
-    $updateImageSql = "update user set progile_pic='$imgurl' where email='$email';";
-    $updateImageResult = mysqli_query($conn, $updateImageSql);
-    mysqli_close($conn);
-
-    if(!$updateImageResult) {
-        throw new exception('cant update user', 400);
-    }
-    else{
-        $stat = "success";
+        throw new exception('cant image upload', 409);
     }
 
 }catch(exception $e) {
