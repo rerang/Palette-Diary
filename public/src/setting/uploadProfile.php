@@ -40,14 +40,15 @@ try{
 
         $TmpfileName = explode(".",$_FILES["file"]["name"]); // 첨부하는 파일에서 이름만 떼어와서
         $fileName = $Nickname."_".$TmpfileName[0]; // 해당 user의 email 붙여 구분
-        $fileName = $fileName.".".pathinfo($_FILES['file']['name']); //확장자까지 붙인 파일 이름
 
-        $uploadFile = uploadedFile($ftp_send_file, $fileName); // 파일 이름 한글 없애고 경로 지정
+        $uploadFile = uploadedFile($ftp_send_file, $fileName);
         
         $fileTypeExt = explode("/", $_FILES['file']['type']);
         $fileType = $fileTypeExt[0]; //image
         $fileExt = $fileTypeExt[1]; //png, jpg 등
 
+        $fileName = $fileName.".".$fileExt;
+       
         $extStatus = false;
 
         switch($fileExt) {
@@ -65,12 +66,7 @@ try{
 
         if($fileType == 'image') {	
 	        if($extStatus) {
-                $file_upload = copy($_FILES['file']['tmp_name'], $uploadFile );
-		        
-                if($file_upload==false) {
-                    throw new exception('cant image upload', 409);
-                }
-                else {
+               
                     $imgurl = "./Palette-Diary/userProfile/".$fileName;
 
                     $conn_id = ftp_connect($ftp_server, $ftp_port);
@@ -98,8 +94,7 @@ try{
                     }
                     else{
                         $stat = "success";
-                    }*/
-                } 
+                    }*/ 
 	        }
 	        else {
 		        throw new exception('image type error', 400);
