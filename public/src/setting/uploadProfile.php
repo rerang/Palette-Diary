@@ -67,6 +67,11 @@ try{
         if($fileType == 'image') {	
 	        if($extStatus) {
                
+                $path = "./Palette-Diary/userProfile";
+                if (!file_exists($path)) {
+                     mkdir($path, 0777, true);
+                }
+                
                     $imgurl = "./Palette-Diary/userProfile/".$fileName;
 
                     $conn_id = ftp_connect($ftp_server, $ftp_port);
@@ -75,10 +80,11 @@ try{
                     
                     //이미지 업로드
                     ftp_put($conn_id, $imgurl,$_FILES['file']['tmp_name'], FTP_BINARY);
-                    /*
+                    
                     //이미지 불러오기
                     $remote_file = $imgurl;
                     $local_file = "./Palette-Diary/userProfile/".$fileName;
+
                     $fp = fopen($local_file, 'w+');
                     ftp_fget($conn_id, $fp, $remote_file, FTP_BINARY, 0);
                    
@@ -94,7 +100,7 @@ try{
                     }
                     else{
                         $stat = "success";
-                    }*/ 
+                    }
 	        }
 	        else {
 		        throw new exception('image type error', 400);
