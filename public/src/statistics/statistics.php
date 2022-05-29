@@ -25,6 +25,7 @@ try{
     
     $colorArr=array();
     $keywordArr=array();
+    $month = date("m",time());
     
     
     if(empty($checkingDiaryExistResult)==true) { 
