@@ -97,9 +97,9 @@ try{
                     $friday = date("m-d", strtotime("-6 days"));
                     $saturday = date("m-d", strtotime("Now"));
             }
-
-            $checkSql = "select color,keyword from happy_diary left join diary on happy_diary.email='$email' where (substr(diary.d_date,3,5)='$sunday' or substr(diary.d_date,3,5)='$monday' or
-            substr(diary.d_date,3,5)='$tuesday' or substr(diary.d_date,3,5)='$wednesday' or substr(diary.d_date,3,5)='$thursday' or substr(diary.d_date,3,5)='$friday' or substr(diary.d_date,3,5)='$saturday' )";
+         
+            $checkSql = "select color,keyword from happy_diary left join diary on happy_diary.email='$email' where (substr(diary.d_date,6,5)='$sunday' or substr(diary.d_date,6,5)='$monday' or
+            substr(diary.d_date,6,5)='$tuesday' or substr(diary.d_date,6,5)='$wednesday' or substr(diary.d_date,6,5)='$thursday' or substr(diary.d_date,6,5)='$friday' or substr(diary.d_date,6,5)='$saturday' )";
             $weekCheckResult = mysqli_query($conn, $checkSql);
 
             if(empty($weekCheckResult)==true){
