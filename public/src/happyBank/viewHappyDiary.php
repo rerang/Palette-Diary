@@ -17,21 +17,22 @@ try{
     $error = "none";
     $stat = "none";
 
-    $selectDiaryCode = $json['diary_code'];
+    $selectHappyDiaryCode = $json['diary_code'];
 
-    $selectHappyDiaryInfoSql = "select * from diary left join diary_detail on diary.diary_code = diary_detail.diary_code where diary.diary_code='$selectDiaryCode';";
+    $selectHappyDiaryInfoSql = "select * from diary left join diary_detail on diary.diary_code = diary_detail.diary_code where diary.diary_code='$selectHappyDiaryCode';";
     $selectHappyDiaryInfoResult = mysqli_fetch_assoc(mysqli_query($conn, $selectHappyDiaryInfoSql));
 
     if(empty($selectHappyDiaryInfoResult)==true) {
         throw new exception('해당 일기는 해피 저금통에 저금되어 있지 않습니다.', 404);
     }
     else {
-        $dbDiaryCode = $selectHappyDiaryInfoResult['diary_code'];
         $dbDiaryDate = $selectHappyDiaryInfoResult['d_date'];
         $dbDiaryColor = $selectHappyDiaryInfoResult['color'];
         $dbDiaryKeyword = $selectHappyDiaryInfoResult['keyword'];
         $dbDiaryMainPic = $selectHappyDiaryInfoResult['main_pic'];
         $dbDiaryBody = $selectHappyDiaryInfoResult['diary_body'];
+        $dbDiarySubPic1 = $selectHappyDiaryInfoResult['subPic1'];
+        $dbDiarySubPic1 = $selectHappyDiaryInfoResult['subPic2'];
 
         $dbDiaryDate = substr($dbDiaryDate,0,9);
         $stat="success";
@@ -42,7 +43,7 @@ try{
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => $dbDiaryMainPic, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['d_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => $dbDiaryMainPic, 'diary_body' => $dbDiaryBody, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
