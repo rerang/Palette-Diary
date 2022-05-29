@@ -98,10 +98,10 @@ try{
                     $saturday = date("m-d", strtotime("Now"));
             }
          
-            $checkSql = "select color,keyword from happy_diary left join diary on happy_diary.email='$email' where (substr(diary.d_date,6,5)='$sunday' or substr(diary.d_date,6,5)='$monday' or
+            $checkSqlWeek = "select color,keyword from happy_diary left join diary on happy_diary.email='$email' where (substr(diary.d_date,6,5)='$sunday' or substr(diary.d_date,6,5)='$monday' or
             substr(diary.d_date,6,5)='$tuesday' or substr(diary.d_date,6,5)='$wednesday' or substr(diary.d_date,6,5)='$thursday' or substr(diary.d_date,6,5)='$friday' or substr(diary.d_date,6,5)='$saturday' )";
-            $weekCheckResult = mysqli_query($conn, $checkSql);
-
+            $weekCheckResult = mysqli_query($conn, $checkSqlWeek);
+         
             if(empty($weekCheckResult)==true){
                 throw new exception('이번주 저장된 데이터가 없습니다.', 409);  
             }else{
