@@ -11,11 +11,16 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 try {
     $json = json_decode(file_get_contents('php://input'), TRUE);
+    $error = "none";
+    $stat = "none";
 
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
-    $error = "none";
-    $stat = "none";
+    $exp = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['exp'];
+
+    if($exp<time()) {
+      throw new exception('토큰 만료 오류', 423);
+    }
 
     $selectDiaryCode = $json['diary_code']; // 열람하고자 하는 일기의 diary_code 반환
 
@@ -28,17 +33,24 @@ try {
     else {
         $dbDiaryColor = $selectDiaryResult['color'];
         $dbDiaryKeyword = $selectDiaryResult['keyword'];
-        $dbDiaryBody = $selectDiaryResult['diary_body'];
-    
+        $dbDiarymainPic= $selectDiaryResult['mainPic'];
         $dbDiaryDate = $selectDiaryResult['d_date'];
         $dbDiaryDate = substr($dbDiaryDate,0,9);
-    
-        $dbDiarymainPic= $selectDiaryResult['mainPic'];
+    }
+
+    $selectDiaryDetailSql = "select * from diary_detail where diary_code='$selectDiaryCode';";
+    $selectDiaryDetailResult = mysqli_fetch_assoc(mysqli_query($conn, $selectDiaryDetailSql));
+
+    if(!$selectDiaryDetailResult) {
+        throw new exception('DB Fail - Can Not select Diary', 422);
+    }
+    else {
+        $dbDiaryBody = $selectDiaryResult['diary_body'];
         $dbDiarySubPic1 = $selectDiaryResult['subPic1'];
         $dbDiarySubPic2 = $selectDiaryResult['subPic2'];
-        
+
         $stat="success";
-    }
+    }   
 
     mysqli_close($conn);
 
