@@ -17,9 +17,8 @@ try{
     $error = "none";
     $stat = "none";
 
-    //$cookie = apache_request_headers()['Cookie'];
-    //$email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
-    $email = "sp1@naver.com";
+    $cookie = apache_request_headers()['Cookie'];
+    $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
     $checkingDiaryExistSql="select * from diary where email='$email'";
     $checkingDiaryExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingDiaryExistSql));
     
