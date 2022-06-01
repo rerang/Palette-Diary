@@ -42,7 +42,7 @@ try{
         mysqli_close($conn);
         $stat="success";
         }else{
-            throw new exception('checking no d_date', 422);
+            throw new exception('d_date가 없습니다.', 422);
         }
     }
     
@@ -50,10 +50,16 @@ try{
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data = json_encode(['d_date' => $dataArr, 'color' => $colorArr,'result_code' => $stat, 'error'=> $error ]);
+    if($stat == "none"){
+        $data = json_encode(['result_code' => $stat, 'error'=> $error ]);
+        }
+        else{
+        $data = json_encode(['d_date' => $dataArr, 'color' => $colorArr,'result_code' => $stat, 'error'=> $error ]);
+    }
     header('Content-type: application/json'); 
     echo $data;
 }
 
 mysqli_close($conn);
 ?>
+
