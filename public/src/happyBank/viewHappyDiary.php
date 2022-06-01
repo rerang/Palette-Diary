@@ -33,7 +33,6 @@ try{
         $dbDiaryMainPic = $selectHappyDiaryInfoResult['main_pic'];
         $dbDiaryBody = $selectHappyDiaryInfoResult['diary_body'];
 
-        $dbDiaryDate = substr($dbDiaryDate,0,9);
         $stat="success";
     }
     mysqli_close($conn);
