@@ -35,7 +35,6 @@ try {
         $dbDiaryKeyword = $selectDiaryResult['keyword'];
         $dbDiarymainPic= $selectDiaryResult['mainPic'];
         $dbDiaryDate = $selectDiaryResult['d_date'];
-        $dbDiaryDate = substr($dbDiaryDate,0,9);
     }
 
     $selectDiaryDetailSql = "select * from diary_detail where diary_code='$selectDiaryCode';";
