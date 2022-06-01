@@ -25,25 +25,25 @@ try{
     $d_date = $json['d_date'];
 
     $checkSql="select d_date,color from diary where USER_email='$email'and substr(d_date,3,5)='$d_date' order by d_date DESC;";  
-    // d_date의 ****-**-** 중 3번째 년도~ 월까지 5개 , 내림차순으로 1일->2일 이런식으로 정렬
+
     $checkResult = mysqli_query($conn, $checkSql);
     $checkRow = mysqli_fetch_assoc($checkResult);
 
-    if(empty($checkRow)==true) { 
-        throw new exception('checking no d_date', 422);
-    }
-    else {
+    if(!empty($checkRow)) {
         $dataArr = array();
         $colorArr = array();
-
+        
         while($checkRow = mysqli_fetch_assoc($checkResult)){
             $StrCheckRow=(string)$checkRow['d_date'];
             $DBd_date = substr($StrCheckRow,3,5);
             array_push($dataArr,$DBd_date);
             array_push($colorArr,$checkRow['color']);
-        }
+            }
         mysqli_close($conn);
         $stat="success";
+        }else{
+            throw new exception('checking no d_date', 422);
+        }
     }
     
 }catch(exception $e) {
