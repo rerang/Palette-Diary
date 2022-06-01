@@ -31,14 +31,18 @@ try{
     if($selectDiaryDetailResult) {  // 다이어리 디테일에서 참조하고 있는 다이어리 코드가 있다면 
         $deleteDiaryDetailSql = "delete from diary_detail where diary_code='$deleteDiaryCode';";
         $deleteDiaryDetailResult = mysqli_query($conn, $deleteDiaryDetailSql);
+
+        if(!$deleteDiaryDetailResult) {
+            throw new exception('DB Fail - Can Not Delete diary_detail', 423);
+        }
     }
 
     // diary 테이블에서 일기 삭제
     $deleteDiarySql = "delete from diary where diary_code='$deleteDiaryCode';";
     $deleteDiaryResult = mysqli_query($conn, $deleteDiarySql);
 
-    if(!$deleteDiaryDetailResult || !$deleteDiaryResult) {
-        throw new exception('DB Fail - Can Not Delete diary', 422);
+    if(!$deleteDiaryResult) {
+        throw new exception('DB Fail - Can Not Delete diary', 422); //diary_detail이나 happy_diary에서 제대로 삭제가 진행되지 않았을 경우
     }
     else{
         $stat = "success";
