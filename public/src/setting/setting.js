@@ -20,7 +20,7 @@ if(user_type == "admin"){
 //setting
 const deleteUrl = `http://125.140.42.36:8082/public/src/global/deleteUser.php`;
 const getProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/getProfileImg.php`;
-const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/changeProfileImg.php`;
+const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/uploadProfile.php`;//changeProfileImg  uploadProfile
 
 //setting - display profile
 const email = payload['email'];
@@ -42,7 +42,8 @@ const displayProfileImg = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-                const path = "/userProfile/" + dataResult.imgPath;
+                //const path = "/userProfile/" + dataResult.imgPath;
+                const path ="ftp://125.140.42.36/Palette-Diary/userProfile/ckj000629@naver1653626455.png";
                 profileImg.setAttribute("src", path);
             }
           }

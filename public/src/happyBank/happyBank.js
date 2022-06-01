@@ -176,6 +176,7 @@ const paintHappyBankList = (diaryCodeArr, colorArr, keywordArr) => {
 
 const getHappyBankListUrl = `http://125.140.42.36:8082/public/src/happyBank/getHappyDiary.php`;
 const slideCountAndDisplayList = async() => {
+    displayHappyBankCountContainer.removeEventListener("click", slideCountAndDisplayList);
     happyBankContentsArea.classList.remove("happyBankOnlyCount");
     happyBankContentsArea.classList.add("happyBankWithList");
 
@@ -202,7 +203,6 @@ const slideCountAndDisplayList = async() => {
         data.then(
         dataResult => {
                 if(dataResult.result_code == "success"){
-                    
                     paintHappyBankList(dataResult.diary_code, dataResult.color, dataResult.keyword);
                 }
             }

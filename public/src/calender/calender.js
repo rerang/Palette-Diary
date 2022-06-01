@@ -18,3 +18,8 @@ if(user_type == "admin"){
 }
 
 //calender get now month info
+const nowFullDate = new Date();
+const nowYear = nowFullDate.getFullYear();
+const nowMonth = nowFullDate.getMonth() + 1; //0~
+const nowDate = nowFullDate.getDate();
+const nowDay = nowFullDate.getDay(); //day of the week sun(0)~
