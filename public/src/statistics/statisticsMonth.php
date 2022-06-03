@@ -50,7 +50,7 @@ try{
                 array_push($keywordArr,$monthCheckResult['keyword']);
                 }
             $keydata=json_encode(['keyword' => $keywordArr]);
-            $command = escapeshellcmd("python.py " . escapeshellarg(json_encode($keydata)));
+            $command = escapeshellcmd("python.py " . escapeshellarg($keydata));
             echo "<img src='wordcloud.png'/>"
             }
         }
