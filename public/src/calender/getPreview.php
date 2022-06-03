@@ -27,7 +27,7 @@ try{
     
     if($getDateDiaryRecordCount>0){
         while ($diaryRecord = mysqli_fetch_assoc($getDateDiaryResult)){
-            array_push($dateInfo, [$diaryRecord['color'], $diaryRecord['main_pic'], $diaryRecord['keyword']]);
+            array_push($dateInfo, [$diaryRecord['color'], $diaryRecord['main_pic'], $diaryRecord['keyword'], $diaryRecord['diary_code']]);
         }
     }
     else{

@@ -19,16 +19,16 @@ try{
     $deleteDiaryCode = $json['diary_code']; // 일기 요약창에서 보여주고 있는 일기의 diary_code 반환
  
     $selectHappyDiarySql = "select * from happy_diary where diary_code='$deleteDiaryCode';";
-    $selectHappyDiaryResult = mysqli_query($conn, $selectHappyDiarySql);
+    $selectHappyDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $selectHappyDiarySql));
     
-    if($selectHappyDiaryResult) { // 해피 다이어리에서 참조하고 있는 다이어리 코드가 있다면
-        throw new exception('해피 저금통에 해당 일기가 저금 되었으므로 삭제가 불가능합니다', 409);
+    if(!empty($selectHappyDiaryResult)) { // 해피 다이어리에서 참조하고 있는 다이어리 코드가 있다면
+        throw new exception('해피 저금통에 해당 일기가 저금 되어있으므로 삭제가 불가능합니다', 409);
     }
     
     $selectDiaryDetailSql = "select * from diary_detail where diary_code='$deleteDiaryCode';";
-    $selectDiaryDetailResult = mysqli_query($conn, $selectDiaryDetailSql);
+    $selectDiaryDetailResult = mysqli_fetch_assoc(mysqli_query($conn, $selectDiaryDetailSql));
 
-    if($selectDiaryDetailResult) {  // 다이어리 디테일에서 참조하고 있는 다이어리 코드가 있다면 
+    if(!empty($selectDiaryDetailResult)) {  // 다이어리 디테일에서 참조하고 있는 다이어리 코드가 있다면 
         $deleteDiaryDetailSql = "delete from diary_detail where diary_code='$deleteDiaryCode';";
         $deleteDiaryDetailResult = mysqli_query($conn, $deleteDiaryDetailSql);
 

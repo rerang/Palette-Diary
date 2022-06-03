@@ -134,8 +134,12 @@ const viewCalenderPreview = async(_event) => {
           calenderPreviewDate.innerHTML = date.split("-")[2];
 
           calenderPreviewColor.innerHTML = "";
+          calenderPreviewKeyword.innerHTML = "";
+          calenderPreviewMainPicArea.innerHTML = "";
           calenderPreviewBtnArea.innerHTML = "";
           calenderPreviewColor.setAttribute("style", "");
+          calenderPreview.id = "";
+
           if(!calenderPreviewLeftArrow.classList.contains("hidden")){
             calenderPreviewLeftArrow.classList.add("hidden");
           }
@@ -144,13 +148,14 @@ const viewCalenderPreview = async(_event) => {
           }
 
           previewFullRow = dataResult.dateInfo.length;
-          previewIndex = 0;
+          previewIndex = 0; 
 
           if(dataResult.dateInfo == "none"){
             calenderPreviewColor.innerHTML = "?";
             calenderPreviewMainPicArea.innerHTML = "일기가 없습니다.";
             let btn = document.createElement("button");
             btn.classList.add("calenderPreviewBtn");
+            btn.id = date;
             btn.innerHTML = "일기쓰러가기";
             btn.addEventListener("click", goWriteDiaryPage);
             calenderPreviewBtnArea.append(btn);
@@ -158,6 +163,7 @@ const viewCalenderPreview = async(_event) => {
           else{
             dateInfoArr = dataResult.dateInfo;
             let displayArr = dateInfoArr[0];
+            calenderPreview.id = displayArr[3];
             calenderPreviewColor.setAttribute("style", "background-color:"+displayArr[0]+";");
             if(displayArr[1] !== null){
               calenderPreviewMainPicArea.innerHTML = `<img src="`+displayArr[1]+`" id="calenderPreviewMainPic"></img>`;
@@ -172,7 +178,7 @@ const viewCalenderPreview = async(_event) => {
               calenderPreviewLeftArrow.addEventListener("click", turnEarlierPreview);
               calenderPreviewRightArrow.addEventListener("click", turnLaterPreview);
             }
-            
+
             const closePreviewBtn = document.querySelector("#closePreviewBtn");
             closePreviewBtn.addEventListener("click", closePreview, { once : true});
             let deleteBtn = document.createElement("button");
@@ -182,7 +188,7 @@ const viewCalenderPreview = async(_event) => {
             calenderPreviewBtnArea.append(deleteBtn);
             let goReadDiaryBtn = document.createElement("button");
             goReadDiaryBtn.classList.add("calenderPreviewBtn");
-            goReadDiaryBtn.innerHTML = "삭제하기";
+            goReadDiaryBtn.innerHTML = "자세히보기";
             goReadDiaryBtn.addEventListener("click", goReadDiaryPage);
             calenderPreviewBtnArea.append(goReadDiaryBtn);
           }
@@ -194,14 +200,67 @@ const viewCalenderPreview = async(_event) => {
   }
 }
 
-const goWriteDiaryPage = () => {
-
+const goWriteDiaryPage = (_event) => {
+  localStorage.setItem("writeDiaryDate", _event.target.id);
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/writeDiary.html";
 }
-const askDeleteDiary = () => {
 
+const calenderModalBg = document.querySelector("#calenderModalBg");
+const deleteDiaryUrl = `http://125.140.42.36:8082/public/src/diary/deleteDiary.php`;
+const askDeleteDiary = (_event) => {
+  let askDeleteDiaryModal = document.createElement("div");
+  askDeleteDiaryModal.id="askDeleteDiaryModal";
+  askDeleteDiaryModal.innerHTML = `<span>일기를 삭제하시겠습니까?</span>
+  <div class="askDeleteDiaryBtnArea">
+  <button class="askDeleteDiaryBtn" id="askDeleteDiaryTrueBtn">예</button>
+  <button class="askDeleteDiaryBtn" id="askDeleteDiaryFalseBtn">아니오</button>
+  </div>`;
+  calenderModalBg.classList.remove("hidden");
+  document.querySelector("body").appendChild(askDeleteDiaryModal);
+  document.querySelector("#askDeleteDiaryTrueBtn").addEventListener("click", deleteDiary, true);
+  document.querySelector("#askDeleteDiaryFalseBtn").addEventListener("click", removeModal, true);
 }
-const goReadDiaryPage = () => {
+const deleteDiary = async() => {
+  removeModal();
+  const deleteDiaryCode = calenderPreview.id;
+  try{
+    const res = await fetch(deleteDiaryUrl, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+      },
+      body: JSON.stringify({
+        diary_code : deleteDiaryCode
+      })
+    })
+    const data = res.json();
+    data.then(
+      dataResult => {
+        if(dataResult.result_code == "success"){
+          window.location.reload();
+        }
+        else{
+          if(dataResult.error.errorCode == 409){
+            alert(dataResult.error.errorMsg);
+          }
+          else{
+            alert("문제가 발생하였습니다. 관리자에게 문의하세요");
+          }
+        }
+      }
+    )
+  }catch (e) {
+      console.log("Fetch Error", e);
+  }
+}
+const removeModal = () => {
+  askDeleteDiaryModal.remove();
+  calenderModalBg.classList.add("hidden");
+}
 
+const goReadDiaryPage = (_event) => {
+  localStorage.setItem("readDiaryCode", _event.target.parentElement.parentElement.parentElement.id);
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/readDiary.html";
 }
 
 const checkPreviewIndex = (type, idx) => {
@@ -225,6 +284,7 @@ const checkPreviewIndex = (type, idx) => {
 const turnLaterPreview = () => {
   previewIndex = checkPreviewIndex("later", previewIndex);
   let paintPreviewInfo = dateInfoArr[previewIndex];
+  calenderPreview.id = paintPreviewInfo[3];
 
   const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
   const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
@@ -242,6 +302,7 @@ const turnLaterPreview = () => {
 const turnEarlierPreview = () => {
   previewIndex = checkPreviewIndex("earlier", previewIndex);
   let paintPreviewInfo = dateInfoArr[previewIndex];
+  calenderPreview.id = paintPreviewInfo[3];
   
   const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
   const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
