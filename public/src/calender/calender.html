@@ -42,11 +42,13 @@
             </nav>
 
             <div class="calenderArea flex flex-row justify-center justify-items-center w-full py-[5rem] font-patrick text-[1.8rem]">
-                <div class="calender w-[50rem] px-[3rem]">
-                    <div class="monthSelectArea flex flex-row justify-center my-4">
-                        <div class="calenderMonthArrowArea"><img src=""></div>
-                        <div><span class="calenderYear">2022</span> 年 <span class="calenderMonth">3</span> 月</div>
-                        <div class="calenderMonthArrowArea"><img src=""></div>
+                <div class="calender w-[40rem] px-[3rem]">
+                    <div class="monthSelectArea flex flex-row justify-around my-4">
+                        <div class="calenderMonthArrowArea">
+                            <img src="/public/img/arrow.png" class="arrow" id="calenderLeftArrow"></div>
+                        <div><span class="calenderYear" id="calenderYear">2022</span> 年 <span class="calenderMonth" id="calenderMonth">3</span> 月</div>
+                        <div class="calenderMonthArrowArea">
+                            <img src="/public/img/arrow.png" class="rotate-180 arrow" id="calenderRightArrow"></div>
                     </div>
                     <div class="dayOfTheWeekArea grid grid-cols-7 justify-items-center px-[3.5rem] border-b-[1px] border-solid border-black pb-[5px]">
                         <div class="text-[#ff0000]">SUN</div>
@@ -57,8 +59,34 @@
                         <div>FRI</div>
                         <div class="text-[#001aff]">SAT</div>
                     </div>
-                    <div class="calenderDayArea gird grid-rows-[repeat(7,1fr)]">
+                    <div class="calenderDayArea" id="calenderDayArea">
 
+                    </div>
+                </div>
+                <div class="calenderPreview w-[20rem] grid hidden" id="calenderPreview">
+                    <div class="calenderPreviewArrowArea">
+                        <img src="/public/img/arrow.png" id="calenderPreviewLeftArrow" class="calenderPreviewArrow hidden">
+                    </div>
+                    <div class="calenderPreviewArea">
+                        <div class="calenderPreviewFullDate">
+                            <span class="calenderPreviewYear" id="calenderPreviewYear">2022</span> 年&nbsp;   
+                            <span class="calenderPreviewMonth" id="calenderPreviewMonth">3</span> 月&nbsp;
+                            <span class="calenderPreviewDate" id="calenderPreviewDate">1</span> 日&nbsp;
+                        </div>
+                        <div class="calenderPreviewColorArea">
+                            <div class="calenderPreviewColor" id="calenderPreviewColor"></div>
+                        </div>
+                        <div class="calenderPreviewMainPicArea" id="calenderPreviewMainPicArea">
+                        </div>
+                        <div class="calenderPreviewKeyword font-basic" id="calenderPreviewKeyword">
+                        </div>
+                        <div class="calenderPreviewBtnArea" id="calenderPreviewBtnArea">
+
+                        </div>
+                    </div>
+                    <div class="calenderPreviewArrowWithCloseBtn">
+                        <div class="closePreviewBtn self-start" id="closePreviewBtn">x</div>
+                        <img src="/public/img/arrow.png" class="rotate-180 calenderPreviewArrow hidden" id="calenderPreviewRightArrow">
                     </div>
                 </div>
             </div>
@@ -82,5 +110,6 @@
         </div>
     </footer>
     <script src="/public/src/global/global.js"></script>
+    <script src="/public/src/calender/calender.js"></script>
 </body>
 </html>

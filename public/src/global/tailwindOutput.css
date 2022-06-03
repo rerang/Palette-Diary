@@ -518,6 +518,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 0px;
 }
 
+.right-0 {
+  right: 0px;
+}
+
 .top-\[calc\(50\%-100vh\/2\)\] {
   top: calc(50% - 100vh / 2);
 }
@@ -749,8 +753,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 11rem;
 }
 
-.w-\[50rem\] {
-  width: 50rem;
+.w-\[40rem\] {
+  width: 40rem;
 }
 
 .w-\[100vw\] {
@@ -789,10 +793,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 70px;
 }
 
-.w-\[40rem\] {
-  width: 40rem;
-}
-
 .min-w-\[1200px\] {
   min-width: 1200px;
 }
@@ -803,6 +803,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-collapse {
   border-collapse: collapse;
+}
+
+.rotate-180 {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-90 {
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .transform {
@@ -847,10 +857,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
-}
-
-.grid-rows-\[repeat\(7\2c 1fr\)\] {
-  grid-template-rows: repeat(7,1fr);
 }
 
 .grid-rows-3 {
@@ -901,6 +907,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-between;
 }
 
+.justify-around {
+  justify-content: space-around;
+}
+
 .justify-items-end {
   justify-items: end;
 }
@@ -948,6 +958,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-y-4 {
   row-gap: 1rem;
+}
+
+.self-start {
+  align-self: flex-start;
 }
 
 .self-end {

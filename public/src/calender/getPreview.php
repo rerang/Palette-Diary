@@ -17,24 +17,21 @@ try{
     $error = "none";
     $stat = "none";
 
-    $yearMonth = $json['yearMonth'];
-    $lastDay = DATE('t', strtotime($yearMonth.'-01'));
-    $getMonthDiarySql = "select * from diary where email='$email' and d_date between '$yearMonth-01' and '$yearMonth-$lastDay';";
-    $getMonthDiaryResult = mysqli_query($conn, $getMonthDiarySql);
-    $getMonthDiaryRecordCount = mysqli_num_rows($getMonthDiaryResult);
-
-    $colorArr = array();
-    $dateArr = array();
+    $date = $json['date'];
     
-    if($getMonthDiaryRecordCount>0){
-        while ($diaryRecord = mysqli_fetch_assoc($getMonthDiaryResult)){
-            array_push($colorArr, $diaryRecord['color']);
-            array_push($dateArr, $diaryRecord['d_date']);
+    $getDateDiarySql = "select * from diary where email='$email' and d_date='$date';";
+    $getDateDiaryResult = mysqli_query($conn, $getDateDiarySql);
+    $getDateDiaryRecordCount = mysqli_num_rows($getDateDiaryResult);
+
+    $dateInfo = array();
+    
+    if($getDateDiaryRecordCount>0){
+        while ($diaryRecord = mysqli_fetch_assoc($getDateDiaryResult)){
+            array_push($dateInfo, [$diaryRecord['color'], $diaryRecord['main_pic'], $diaryRecord['keyword']]);
         }
     }
     else{
-        $colorArr = "none";
-        $dateArr = "none";
+        $dateInfo = "none";
     }
 
     $stat="success";
@@ -45,7 +42,7 @@ try{
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['colorArr' => $colorArr, 'dateArr' => $dateArr, 'result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['dateInfo' => $dateInfo, 'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
