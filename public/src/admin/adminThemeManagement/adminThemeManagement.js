@@ -92,6 +92,7 @@ const removeModal = () => {
 }
 const deleteTheme = async() => {
     removeModal();
+    console.log(themeCodeTemp.value);
     try{
         const res = await fetch(deleteThemeUrl, {
             method: 'POST',

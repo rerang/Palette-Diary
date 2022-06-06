@@ -518,10 +518,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 0px;
 }
 
-.right-0 {
-  right: 0px;
-}
-
 .top-\[calc\(50\%-100vh\/2\)\] {
   top: calc(50% - 100vh / 2);
 }
@@ -530,16 +526,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: calc(50% - 100vw / 2);
 }
 
+.right-0 {
+  right: 0px;
+}
+
 .z-50 {
   z-index: 50;
 }
 
-.z-10 {
-  z-index: 10;
-}
-
 .z-30 {
   z-index: 30;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .row-span-2 {
@@ -705,16 +705,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 35px;
 }
 
+.min-h-\[480px\] {
+  min-height: 480px;
+}
+
 .min-h-\[430px\] {
   min-height: 430px;
 }
 
 .min-h-\[300px\] {
   min-height: 300px;
-}
-
-.min-h-\[480px\] {
-  min-height: 480px;
 }
 
 .min-h-\[380px\] {
@@ -753,12 +753,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 11rem;
 }
 
-.w-\[40rem\] {
-  width: 40rem;
-}
-
 .w-\[100vw\] {
   width: 100vw;
+}
+
+.w-\[40rem\] {
+  width: 40rem;
 }
 
 .w-\[50px\] {
@@ -843,12 +843,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
 .grid-cols-\[1fr_2fr\] {
   grid-template-columns: 1fr 2fr;
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-rows-\[2fr_1fr\] {
@@ -935,12 +935,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 0.75rem;
 }
 
-.gap-10 {
-  gap: 2.5rem;
-}
-
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
 }
 
 .gap-8 {

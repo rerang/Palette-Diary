@@ -17,17 +17,15 @@ try{
     $deleteThemeCode = $json['theme_code'];
 
     $checkingThemeUsingUserExistSql = "select * from user where theme_code='$deleteThemeCode';";
-    $checkingThemeUsingUserExistResult = mysqli_fetch_assoc(mysqli_query($conn, $checkingThemeUsingUserExistSql));
-    
+    $checkingThemeUsingUserExistResult = mysqli_query($conn, $checkingThemeUsingUserExistSql);
+
     $userArr=array();
 
-    while ($userRecord = $checkingThemeUsingUserExistResult){
-        array_push($userArr, $userRecord['email']);
-    }
-
-    if(!empty($userArr)){
-        while ($userRecord = $userArr){
-            $changeThemeAsDefaultSql = "update user set theme_code='00000000001' where email='$userRecord';";
+    while ($userRecord = mysqli_fetch_assoc($checkingThemeUsingUserExistResult)){
+        $userChangeThemeCode = $userRecord['email'];
+        array_push($userArr, $userChangeThemeCode);
+        if(in_array($userChangeThemeCode, $userArr)) {
+            $changeThemeAsDefaultSql = "update user set theme_code='00000000001' where email='$userChangeThemeCode';";
             $changeThemeAsDefaultResult = mysqli_query($conn, $changeThemeAsDefaultSql);
             if(!$changeThemeAsDefaultResult){
                 throw new exception('DB Fail - Can Not Update User', 422);

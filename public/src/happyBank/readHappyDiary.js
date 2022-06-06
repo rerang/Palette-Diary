@@ -35,9 +35,7 @@ const getHappyBankDiary = async() => {
     data.then(
         dataResult => {
             if(dataResult.result_code == "success"){
-              console.log(dataResult);
-                paintHappyDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body});
-                localStorage.removeItem("happy_diary_code", dataResult.diary_code);
+              paintHappyDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body});
             }
         }
     )
@@ -77,6 +75,7 @@ getHappyBankDiary();
 //close happy diary
 const happyBankDiaryCloseBtn = document.querySelector("#happyBankDiaryCloseBtn");
 const goHappyDiaryPage = () => {
-    window.location.href = "http://125.140.42.36:8082/public/src/happyBank/happyBank.html";
+  localStorage.removeItem("happy_diary_code", happy_diary_code);
+  window.location.href = "http://125.140.42.36:8082/public/src/happyBank/happyBank.html";
 }
 happyBankDiaryCloseBtn.addEventListener("click", goHappyDiaryPage);

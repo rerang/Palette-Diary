@@ -25,6 +25,7 @@ function basename2($filename) {
 }
   
 try{
+    echo $_SERVER['DOCUMENT_ROOT'];
     
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
