@@ -33,7 +33,7 @@ try{
 
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
-
+    
     $explodeEmail=explode("@", $email);
     $Nickname=$explodeEmail[0];
     
@@ -67,32 +67,32 @@ try{
 
         if($fileType == 'image') {	
 	        if($extStatus) {
-               
-                $path = "./Palette-Diary/userProfile";
-                if (!file_exists($path)) {
-                     mkdir($path, 0777, true);
-                }
-                
+
                     $imgurl = "./Palette-Diary/userProfile/".$fileName;
 
                     $conn_id = ftp_connect($ftp_server, $ftp_port);
                     ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
                     ftp_pasv($conn_id, true);
-                    
-                    //이미지 업로드
+                    // 파일 업로드
                     ftp_put($conn_id, $imgurl,$_FILES['file']['tmp_name'], FTP_BINARY);
-                    
-                    //이미지 불러오기
-                    $remote_file = $imgurl;
-                    $local_file = "./Palette-Diary/userProfile/".$fileName;
+                    // 파일 가져오기
 
-                    $fp = fopen($local_file, 'w+');
+                    $remote_file = $imgurl;
+                    $rootDirectory = $_SERVER['DOCUMENT_ROOT']; //C:/Users/User2/Desktop/palettediary/Palette-Diary
+
+                    $uploadFileDirectory = $rootDirectory.'/userProfile/'.$fileName;
+
+                    if (!file_exists($uploadFileDirectory)) {
+                        mkdir($uploadFileDirectory, 0777, true);
+                    }
+
+                    $fp = fopen($uploadFileDirectory, 'w+');
                     ftp_fget($conn_id, $fp, $remote_file, FTP_BINARY, 0);
                    
                     ftp_close($conn_id);
                     fclose($fp);
-    
-                    $updateImageSql = "update user set profile_pic='$local_file' where email='$email';";
+
+                    $updateImageSql = "update user set profile_pic='$uploadFileDirectory' where email='$email';";
                     $updateImageResult = mysqli_query($conn, $updateImageSql);
                     mysqli_close($conn);
     
