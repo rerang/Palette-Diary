@@ -25,7 +25,6 @@ function basename2($filename) {
 }
   
 try{
-    echo $_SERVER['DOCUMENT_ROOT'];
     
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
@@ -81,9 +80,10 @@ try{
                     $rootDirectory = $_SERVER['DOCUMENT_ROOT']; //C:/Users/User2/Desktop/palettediary/Palette-Diary
 
                     $uploadFileDirectory = $rootDirectory.'/userProfile/'.$fileName;
+                    $createFolder=$rootDirectory.'/userProfile';
 
-                    if (!file_exists($uploadFileDirectory)) {
-                        mkdir($uploadFileDirectory, 0777, true);
+                    if (!file_exists($createFolder)) {
+                        mkdir($createFolder, 0777, true);
                     }
 
                     $fp = fopen($uploadFileDirectory, 'w+');
@@ -92,7 +92,7 @@ try{
                     ftp_close($conn_id);
                     fclose($fp);
 
-                    $updateImageSql = "update user set profile_pic='$uploadFileDirectory' where email='$email';";
+                    $updateImageSql = "update user set profile_pic='$fileName' where email='$email';";
                     $updateImageResult = mysqli_query($conn, $updateImageSql);
                     mysqli_close($conn);
     
