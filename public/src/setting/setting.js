@@ -42,8 +42,7 @@ const displayProfileImg = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-                //const path = "/userProfile/" + dataResult.imgPath;
-                const path ="ftp://125.140.42.36/Palette-Diary/userProfile/ckj000629@naver1653626455.png";
+                const path = "/userProfile/" + dataResult.imgPath;
                 profileImg.setAttribute("src", path);
             }
           }
