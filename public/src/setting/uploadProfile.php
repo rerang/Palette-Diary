@@ -92,6 +92,8 @@ try{
                     ftp_close($conn_id);
                     fclose($fp);
 
+                    copy($uploadFileDirectory,'ftp://192.168.0.8/Palette-Diary/userProfile/'.$fileName);
+
                     $updateImageSql = "update user set profile_pic='$fileName' where email='$email';";
                     $updateImageResult = mysqli_query($conn, $updateImageSql);
                     mysqli_close($conn);
