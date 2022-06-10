@@ -46,7 +46,7 @@ try{
         $fileType = $fileTypeExt[0]; //image
         $fileExt = $fileTypeExt[1]; //png, jpg 등
 
-        $fileName = $fileName.".".$fileExt;
+        $fileName = $fileName.".png";
        
         $extStatus = false;
 
@@ -95,7 +95,7 @@ try{
                     if (!file_exists($localDirectory)) {
                         mkdir($localDirectory, 0777, true);
                     }
-
+                    
                     $fp2 = fopen($local_file, 'w+');
                     ftp_fget($conn_id, $fp2, $remote_file2, FTP_BINARY, 0);
 
