@@ -38,8 +38,7 @@ try{
     
     if($_FILES['file']['size'] > 0) { // 업로드 파일여부 확인
 
-        $TmpfileName = explode(".",$_FILES["file"]["name"]); // 첨부하는 파일에서 이름만 떼어와서
-        $fileName = $Nickname."_".$TmpfileName[0]; // 해당 user의 email 붙여 구분
+        $fileName = $Nickname."_"."userprofile";
 
         $uploadFile = uploadedFile($ftp_send_file, $fileName);
         
@@ -75,7 +74,6 @@ try{
                     // 파일 업로드
                     ftp_put($conn_id, $imgurl,$_FILES['file']['tmp_name'], FTP_BINARY);
                     // 파일 가져오기
-
                     $remote_file = $imgurl;
                     $rootDirectory = $_SERVER['DOCUMENT_ROOT']; //C:/Users/User2/Desktop/palettediary/Palette-Diary
 
@@ -89,12 +87,22 @@ try{
                     $fp = fopen($uploadFileDirectory, 'w+');
                     ftp_fget($conn_id, $fp, $remote_file, FTP_BINARY, 0);
                    
+                    //client
+                    $remote_file2 = $imgurl;
+                    $localDirectory = "C:/Palette-Diary";
+                    $local_file = "C:/Palette-Diary/".$fileName;
+
+                    if (!file_exists($localDirectory)) {
+                        mkdir($localDirectory, 0777, true);
+                    }
+
+                    $fp2 = fopen($local_file, 'w+');
+                    ftp_fget($conn_id, $fp2, $remote_file2, FTP_BINARY, 0);
+
                     ftp_close($conn_id);
                     fclose($fp);
 
-                    copy($uploadFileDirectory,'ftp://192.168.0.8/Palette-Diary/userProfile/'.$fileName);
-
-                    $updateImageSql = "update user set profile_pic='$fileName' where email='$email';";
+                    $updateImageSql = "update user set profile_pic='$local_file' where email='$email';";
                     $updateImageResult = mysqli_query($conn, $updateImageSql);
                     mysqli_close($conn);
     
