@@ -21,7 +21,7 @@ try {
     if($exp<time()) {
       throw new exception('토큰 만료 오류', 423);
     }
-
+    
     $selectDiaryCode = $json['diary_code']; // 열람하고자 하는 일기의 diary_code 반환
 
     $selectDiarySql = "select * from diary where diary_code='$selectDiaryCode';";
@@ -57,8 +57,15 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'd_date' => $dbDiaryDate, 'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2, 'result_code' => $stat, 'error'=>$error]);
-    header('Content-type: application/json'); 
-    echo $data;
+    if(empty($dbDiarymainPic)==true && empty($dbDiarySubPic1)==true && empty($dbDiarySubPic2)==true) {
+        $data =  json_encode(['color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'd_date' => $dbDiaryDate, 'result_code' => $stat, 'error'=>$error]);
+        header('Content-type: application/json'); 
+        echo $data;
+    }
+    else {
+        $data =  json_encode(['color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'd_date' => $dbDiaryDate, 'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2, 'result_code' => $stat, 'error'=>$error]);
+        header('Content-type: application/json'); 
+        echo $data;
+    }
 }
 ?>
