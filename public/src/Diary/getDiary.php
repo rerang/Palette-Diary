@@ -33,8 +33,10 @@ try {
     else {
         $dbDiaryColor = $selectDiaryResult['color'];
         $dbDiaryKeyword = $selectDiaryResult['keyword'];
-        $dbDiarymainPic= $selectDiaryResult['mainPic'];
         $dbDiaryDate = $selectDiaryResult['d_date'];
+        if((empty($selectDiaryResult['mainPic'])==false)) {
+            $dbDiarymainPic= $selectDiaryResult['mainPic'];
+        }
     }
 
     $selectDiaryDetailSql = "select * from diary_detail where diary_code='$selectDiaryCode';";
@@ -45,9 +47,12 @@ try {
     }
     else {
         $dbDiaryBody = $selectDiaryResult['diary_body'];
-        $dbDiarySubPic1 = $selectDiaryResult['subPic1'];
-        $dbDiarySubPic2 = $selectDiaryResult['subPic2'];
-
+        if((empty($selectDiaryResult['subPic1'])==false)) {
+            $dbDiarySubPic1 = $selectDiaryResult['subPic1'];
+        }
+        if((empty($selectDiaryResult['subPic2'])==false)) {
+            $dbDiarySubPic2 = $selectDiaryResult['subPic2'];
+        }
         $stat="success";
     }   
 
