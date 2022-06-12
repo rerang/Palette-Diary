@@ -65,13 +65,13 @@ const paintDiary = (diaryData) => {
   diaryColor.setAttribute("style", colorAttr);
 
   diaryKeyword.innerHTML = diaryData['keyword'];
-  if(diaryData['mainPic'] !== null){
+  if(diaryData['mainPic'] !== undefined){
     diaryMainPic.setAttribute("src", diaryData['mainPic']);
   }
-  if(diaryData['subPic1'] !== null){
+  if(diaryData['subPic1'] !== undefined){
     diarySubPic1.setAttribute("src", diaryData['subPic1']);
   }
-  if(diaryData['subPic2'] !== null){
+  if(diaryData['subPic2'] !== undefined){
     diarySubPic2.setAttribute("src", diaryData['subPic2']);
   }
 

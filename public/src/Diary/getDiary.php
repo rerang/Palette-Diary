@@ -46,7 +46,7 @@ try {
         throw new exception('DB Fail - Can Not select Diary', 422);
     }
     else {
-        $dbDiaryBody = $selectDiaryResult['diary_body'];
+        $dbDiaryBody = $selectDiaryDetailResult['diary_body'];
         if((empty($selectDiaryResult['subPic1'])==false)) {
             $dbDiarySubPic1 = $selectDiaryResult['subPic1'];
         }
