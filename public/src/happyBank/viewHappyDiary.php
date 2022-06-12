@@ -30,8 +30,11 @@ try{
         $dbDiaryDate = $selectHappyDiaryInfoResult['d_date'];
         $dbDiaryColor = $selectHappyDiaryInfoResult['color'];
         $dbDiaryKeyword = $selectHappyDiaryInfoResult['keyword'];
-        $dbDiaryMainPic = $selectHappyDiaryInfoResult['main_pic'];
         $dbDiaryBody = $selectHappyDiaryInfoResult['diary_body'];
+
+        if((empty($selectHappyDiaryInfoResult['main_pic'])==false)) {
+            $dbDiaryMainPic = $selectHappyDiaryInfoResult['main_pic'];
+        }
 
         $stat="success";
     }
@@ -41,8 +44,15 @@ try{
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => $dbDiaryMainPic, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
-    header('Content-type: application/json'); 
-    echo $data;
+    if(empty($dbDiaryMainPic)==true) {
+        $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
+        header('Content-type: application/json'); 
+        echo $data;
+    }
+    else {
+        $data =  json_encode(['diary_code' => $dbDiaryCode, 'd_date' => $dbDiaryDate, 'color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'mainPic' => $dbDiaryMainPic, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error'=>$error]);
+        header('Content-type: application/json'); 
+        echo $data;
+    }
 }
 ?>
