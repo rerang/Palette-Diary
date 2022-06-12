@@ -51,7 +51,7 @@ try{
 
   }
   else { // 비밀번호 불일치
-    throw new exception('password not correct', 405);
+    throw new exception('옳지 않은 비밀번호 입니다.', 405);
   }
 
 }catch(exception $e) {
