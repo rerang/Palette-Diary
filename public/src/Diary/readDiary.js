@@ -38,9 +38,8 @@ const getDiary = async() => {
     const data = res.json();
     data.then(
         dataResult => {
-          console.log(dataResult);
             if(dataResult.result_code == "success"){  
-              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body});
+              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
             }
             else if(dataResult.error.errorCode == 423){
               expired();
@@ -77,6 +76,7 @@ const paintDiary = (diaryData) => {
     diaryMainPic.setAttribute("src", diaryData['mainPic']);
   }
   if(diaryData['subPic1'] !== null){
+    console.log(diaryData['subPic1']);
     diarySubPic1.setAttribute("src", diaryData['subPic1']);
   }
   if(diaryData['subPic2'] !== null){
