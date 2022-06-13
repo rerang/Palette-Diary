@@ -14,6 +14,9 @@ try {
     $dbDiaryKeyword=NULL;
     $dbDiaryDate=NULL;
     $dbDiaryBody=NULL;
+    $dbDiarymainPic=NULL;
+    $dbDiarySubPic1=NULL;
+    $dbDiarySubPic2=NULL;
 
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
