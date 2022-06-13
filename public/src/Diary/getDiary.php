@@ -9,6 +9,12 @@ $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 try {
+
+    $dbDiaryColor="";
+    $dbDiaryKeyword="";
+    $dbDiaryDate="";
+    $dbDiaryBody="";
+
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
     $stat = "none";
@@ -30,9 +36,15 @@ try {
         throw new exception('DB Fail - Can Not select Diary', 422);
     }
     else {
-        $dbDiaryColor = $selectDiaryResult['color'];
-        $dbDiaryKeyword = $selectDiaryResult['keyword'];
-        $dbDiaryDate = $selectDiaryResult['d_date'];
+        if((empty($selectDiaryResult['color'])==false)) {
+            $dbDiaryColor = $selectDiaryResult['color'];
+        }
+        if((empty($selectDiaryResult['keyword'])==false)) {
+            $dbDiaryKeyword = $selectDiaryResult['keyword'];
+        }
+        if((empty($selectDiaryResult['d_date'])==false)) {
+            $dbDiaryDate = $selectDiaryResult['d_date'];
+        }
         if((empty($selectDiaryResult['mainPic'])==false)) {
             $dbDiarymainPic= $selectDiaryResult['mainPic'];
         }
@@ -45,12 +57,14 @@ try {
         throw new exception('DB Fail - Can Not select Diary', 422);
     }
     else {
-        $dbDiaryBody = $selectDiaryDetailResult['diary_body'];
-        if((empty($selectDiaryResult['subPic1'])==false)) {
-            $dbDiarySubPic1 = $selectDiaryResult['subPic1'];
+        if((empty($selectDiaryDetailResult['diary_body'])==false)) {
+            $dbDiaryBody = $selectDiaryDetailResult['diary_body'];
         }
-        if((empty($selectDiaryResult['subPic2'])==false)) {
-            $dbDiarySubPic2 = $selectDiaryResult['subPic2'];
+        if((empty($selectDiaryDetailResult['subPic1'])==false)) {
+            $dbDiarySubPic1 = $selectDiaryDetailResult['subPic1'];
+        }
+        if((empty($selectDiaryDetailResult['subPic2'])==false)) {
+            $dbDiarySubPic2 = $selectDiaryDetailResult['subPic2'];
         }
         $stat="success";
     }   
@@ -62,36 +76,12 @@ try {
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
     if(empty($dbDiarymainPic)==true && empty($dbDiarySubPic1)==true && empty($dbDiarySubPic2)==true) {
-        if(empty($dbDiaryColor)==false) {
-            $t1=json_encode(['color' => $dbDiaryColor]);
-        }
-        if(empty($dbDiaryKeyword)==false) {
-            $t2=json_encode(['keyword' => $dbDiaryKeyword]);
-        }
-        if(empty($dbDiaryDate)==false) {
-            $t3=json_encode(['d_date' => $dbDiaryDate]);
-        }
-        if(empty($dbDiaryBody)==false) {
-            $t4=json_encode(['diary_body' => $dbDiaryBody]);
-        }
-        $data =  json_encode(['color'=> $t1, 'keyword' => $t2, 'd_date'=>$t3, 'diary_body' => $t4, 'result_code' => $stat, 'error' => $error]);
+        $data =  json_encode(['color'=> $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'd_date'=>$dbDiaryDate, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error' => $error]);
         header('Content-type: application/json'); 
         echo $data;
     }
     else {
-        if(empty($dbDiaryColor)==false) {
-            $t1=json_encode(['color' => $dbDiaryColor]);
-        }
-        if(empty($dbDiaryKeyword)==false) {
-            $t2=json_encode(['keyword' => $dbDiaryKeyword]);
-        }
-        if(empty($dbDiaryDate)==false) {
-            $t3=json_encode(['d_date' => $dbDiaryDate]);
-        }
-        if(empty($dbDiaryBody)==false) {
-            $t4=json_encode(['diary_body' => $dbDiaryBody]);
-        }
-        $data=json_encode(['color'=> $t1, 'keyword' => $t2, 'd_date'=>$t3, 'diary_body' => $t4,'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2,'result_code' => $stat, 'error' => $error]);
+        $data=json_encode(['color'=> $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'd_date'=>$dbDiaryDate, 'diary_body' => $dbDiaryBody,'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2,'result_code' => $stat, 'error' => $error]);
         header('Content-type: application/json'); 
         echo $data;
     }
