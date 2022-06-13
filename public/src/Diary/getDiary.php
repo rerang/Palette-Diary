@@ -61,37 +61,37 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data =  json_encode(['result_code' => $stat, 'error' => $error]);
     if(empty($dbDiarymainPic)==true && empty($dbDiarySubPic1)==true && empty($dbDiarySubPic2)==true) {
         if(empty($dbDiaryColor)==false) {
-            $data.=json_encode(['color' => $dbDiaryColor]);
+            $t1=json_encode(['color' => $dbDiaryColor]);
         }
         if(empty($dbDiaryKeyword)==false) {
-            $data.=json_encode(['keyword' => $dbDiaryKeyword]);
+            $t2=json_encode(['keyword' => $dbDiaryKeyword]);
         }
         if(empty($dbDiaryDate)==false) {
-            $data.=json_encode(['d_date' => $dbDiaryDate]);
+            $t3=json_encode(['d_date' => $dbDiaryDate]);
         }
         if(empty($dbDiaryBody)==false) {
-            $data.=json_encode(['diary_body' => $dbDiaryBody]);
+            $t4=json_encode(['diary_body' => $dbDiaryBody]);
         }
+        $data =  json_encode(['color'=> $t1, 'keyword' => $t2, 'd_date'=>$t3, 'diary_body' => $t4, 'result_code' => $stat, 'error' => $error]);
         header('Content-type: application/json'); 
         echo $data;
     }
     else {
-        $data.=json_encode(['mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2]);
         if(empty($dbDiaryColor)==false) {
-            $data.=json_encode(['color' => $dbDiaryColor]);
+            $t1.=json_encode(['color' => $dbDiaryColor]);
         }
         if(empty($dbDiaryKeyword)==false) {
-            $data.=json_encode(['keyword' => $dbDiaryKeyword]);
+            $t2=json_encode(['keyword' => $dbDiaryKeyword]);
         }
         if(empty($dbDiaryDate)==false) {
-            $data.=json_encode(['d_date' => $dbDiaryDate]);
+            $t3=json_encode(['d_date' => $dbDiaryDate]);
         }
         if(empty($dbDiaryBody)==false) {
-            $data.=json_encode(['diary_body' => $dbDiaryBody]);
+            $t4=json_encode(['diary_body' => $dbDiaryBody]);
         }
+        $data=json_encode(['color'=> $t1, 'keyword' => $t2, 'd_date'=>$t3, 'diary_body' => $t4,'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2,'result_code' => $stat, 'error' => $error]);
         header('Content-type: application/json'); 
         echo $data;
     }
