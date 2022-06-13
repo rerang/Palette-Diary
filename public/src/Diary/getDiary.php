@@ -8,7 +8,6 @@ $s_username = "db";
 $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
-
 try {
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";

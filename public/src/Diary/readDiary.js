@@ -16,6 +16,10 @@ const user_type = payload['user_type'];
 if(user_type == "admin"){
   window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
 }
+const expired = () => {
+    localStorage.clear();
+    window.location.href = "http://125.140.42.36:8082/";
+}
 
 //get diary
 const viewDiaryUrl = "http://125.140.42.36:8082/public/src/diary/getDiary.php";
@@ -33,9 +37,12 @@ const getDiary = async() => {
     })
     const data = res.json();
     data.then(
-        dataResult => {
-            if(dataResult.result_code == "success"){
+        dataResult => {console.log(dataResult);
+            if(dataResult.result_code == "success"){  
               paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body});
+            }
+            else if(dataResult.error.errorCode == 423){
+                expired();
             }
         }
     )

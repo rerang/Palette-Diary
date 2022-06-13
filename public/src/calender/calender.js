@@ -16,6 +16,10 @@ const user_type = payload['user_type'];
 if(user_type == "admin"){
   window.location.href = "http://125.140.42.36:8082/public/src/admin/admin.html";
 }
+const expired = () => {
+  localStorage.clear();
+  window.location.href = "http://125.140.42.36:8082/";
+}
 
 //calender get now month info
 const nowFullDate = new Date();
@@ -78,6 +82,9 @@ const getNowMonthInfo = async(year, month) => {
             dateArea.addEventListener("click", viewCalenderPreview);
             calenderDayArea.append(dateArea);
           }
+        }
+        else if(dataResult.error.errorCode == 423){
+          expired();
         }
       }
     )
@@ -193,6 +200,9 @@ const viewCalenderPreview = async(_event) => {
             calenderPreviewBtnArea.append(goReadDiaryBtn);
           }
         }
+        else if(dataResult.error.errorCode == 423){
+          expired();
+        }
       }
     )
   }catch (e) {
@@ -238,6 +248,9 @@ const deleteDiary = async() => {
       dataResult => {
         if(dataResult.result_code == "success"){
           window.location.reload();
+        }
+        else if(dataResult.error.errorCode == 423){
+          expired();
         }
         else{
           if(dataResult.error.errorCode == 409){
