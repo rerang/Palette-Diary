@@ -9,7 +9,6 @@ $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 try {
-
     $dbDiaryColor=NULL;
     $dbDiaryKeyword=NULL;
     $dbDiaryDate=NULL;
@@ -75,8 +74,15 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
+    if(empty($dbDiarymainPic)==true && empty($dbDiarySubPic1)==true && empty($dbDiarySubPic2)==true) {
+        $data =  json_encode(['color'=> $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'd_date'=>$dbDiaryDate, 'diary_body' => $dbDiaryBody, 'result_code' => $stat, 'error' => $error]);
+        header('Content-type: application/json'); 
+        echo $data;
+    }
+    else {
         $data=json_encode(['color'=> $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'd_date'=>$dbDiaryDate, 'diary_body' => $dbDiaryBody,'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2,'result_code' => $stat, 'error' => $error]);
         header('Content-type: application/json'); 
         echo $data;
     }
+}
 ?>

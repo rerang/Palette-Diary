@@ -15,6 +15,9 @@
     font-size: 11px;
     
 }
+.errorArea{
+    text-align: center;
+}
 
 .askDeleteAccountBtnArea{
     display:grid; 

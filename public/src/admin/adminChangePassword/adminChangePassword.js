@@ -35,7 +35,7 @@ const changeNewPasswordConfirm = document.getElementById("changeNewPasswordConfi
 
 const checkingValidation = (passwordValue, changeNewPasswordValue, changeNewPasswordConfirmValue) => {
   if (passwordValue == ""){
-    paintError("현재 비밀번호 입력하여 주세요.");
+    paintError("현재 비밀번호를 입력하여 주세요.");
     return false;
   }
   else if (changeNewPasswordValue == ""){

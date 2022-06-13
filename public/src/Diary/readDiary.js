@@ -37,12 +37,13 @@ const getDiary = async() => {
     })
     const data = res.json();
     data.then(
-        dataResult => {console.log(dataResult);
+        dataResult => {
+          console.log(dataResult);
             if(dataResult.result_code == "success"){  
               paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body});
             }
             else if(dataResult.error.errorCode == 423){
-                expired();
+              expired();
             }
         }
     )
@@ -72,13 +73,13 @@ const paintDiary = (diaryData) => {
   diaryColor.setAttribute("style", colorAttr);
 
   diaryKeyword.innerHTML = diaryData['keyword'];
-  if(diaryData['mainPic'] !== undefined){
+  if(diaryData['mainPic'] !== null){
     diaryMainPic.setAttribute("src", diaryData['mainPic']);
   }
-  if(diaryData['subPic1'] !== undefined){
+  if(diaryData['subPic1'] !== null){
     diarySubPic1.setAttribute("src", diaryData['subPic1']);
   }
-  if(diaryData['subPic2'] !== undefined){
+  if(diaryData['subPic2'] !== null){
     diarySubPic2.setAttribute("src", diaryData['subPic2']);
   }
 

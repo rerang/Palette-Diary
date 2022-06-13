@@ -23,7 +23,9 @@
     padding: 2rem; 
     font-family: Gowun Dodum;
 }
-
+.errorArea{
+    text-align: center;
+}
 .changePasswordFormInputArea{
     display: grid;
     grid-template-columns: 1fr 2.5fr;
