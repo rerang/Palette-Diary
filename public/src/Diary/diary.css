@@ -86,25 +86,24 @@
     height: 5.5rem;
 }
 
-/* read diary */
-.diaryRightArea{
+.writeDiaryRightArea{
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
 }
-.diaryBtnArea{
+.writeDiaryBtnArea{
     display: flex;
     flex-direction: row;
     justify-content: right;
 }
-.diaryBtn{
+.writeDiaryBtn{
     background-color: #cbd8ff;
     border-radius: 10px;
     width: 100px;
     padding: 0.2rem;
     font-size: 1rem;
 }
-.diaryBodyArea{
+.writeDiaryBodyArea{
     background-color: #fff;
     border-radius: 5px;
     padding: 1rem;
@@ -112,17 +111,21 @@
     line-height: 3;
     height: 100%;
 }
-.diaryBody{
+.writeDiaryBody{
     width: 100%;
     height: 100%;
     font-size: 1rem;
     line-height: 1.5;
 
 }
-.diaryBody:focus{
+.writeDiaryBody:focus{
     outline: none;
 }
 
+
+
+
+/* read diary */
 .diaryArea{
     padding: 3rem;
 }
@@ -208,6 +211,7 @@
     display: flex;
     flex-direction: row;
     justify-content: right;
+    column-gap: 10px;
 }
 .diaryBtn{
     background-color: #cbd8ff;
