@@ -61,13 +61,37 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
+    $data =  json_encode(['result_code' => $stat, 'error' => $error]);
     if(empty($dbDiarymainPic)==true && empty($dbDiarySubPic1)==true && empty($dbDiarySubPic2)==true) {
-        $data =  json_encode(['color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'd_date' => $dbDiaryDate, 'result_code' => $stat, 'error'=>$error]);
+        if(empty($dbDiaryColor)==false) {
+            $data.=json_encode(['color' => $dbDiaryColor]);
+        }
+        if(empty($dbDiaryKeyword)==false) {
+            $data.=json_encode(['keyword' => $dbDiaryKeyword]);
+        }
+        if(empty($dbDiaryDate)==false) {
+            $data.=json_encode(['d_date' => $dbDiaryDate]);
+        }
+        if(empty($dbDiaryBody)==false) {
+            $data.=json_encode(['diary_body' => $dbDiaryBody]);
+        }
         header('Content-type: application/json'); 
         echo $data;
     }
     else {
-        $data =  json_encode(['color' => $dbDiaryColor, 'keyword' => $dbDiaryKeyword, 'diary_body' => $dbDiaryBody, 'd_date' => $dbDiaryDate, 'mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2, 'result_code' => $stat, 'error'=>$error]);
+        $data.=json_encode(['mainPic' => $dbDiarymainPic, 'subPic1' => $dbDiarySubPic1, 'subPic2' => $dbDiarySubPic2]);
+        if(empty($dbDiaryColor)==false) {
+            $data.=json_encode(['color' => $dbDiaryColor]);
+        }
+        if(empty($dbDiaryKeyword)==false) {
+            $data.=json_encode(['keyword' => $dbDiaryKeyword]);
+        }
+        if(empty($dbDiaryDate)==false) {
+            $data.=json_encode(['d_date' => $dbDiaryDate]);
+        }
+        if(empty($dbDiaryBody)==false) {
+            $data.=json_encode(['diary_body' => $dbDiaryBody]);
+        }
         header('Content-type: application/json'); 
         echo $data;
     }
