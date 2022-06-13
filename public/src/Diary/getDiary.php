@@ -10,10 +10,10 @@ $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 try {
 
-    $dbDiaryColor="";
-    $dbDiaryKeyword="";
-    $dbDiaryDate="";
-    $dbDiaryBody="";
+    $dbDiaryColor=NULL;
+    $dbDiaryKeyword=NULL;
+    $dbDiaryDate=NULL;
+    $dbDiaryBody=NULL;
 
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
