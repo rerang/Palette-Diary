@@ -80,7 +80,7 @@ try {
     }
     else {
         if(empty($dbDiaryColor)==false) {
-            $t1.=json_encode(['color' => $dbDiaryColor]);
+            $t1=json_encode(['color' => $dbDiaryColor]);
         }
         if(empty($dbDiaryKeyword)==false) {
             $t2=json_encode(['keyword' => $dbDiaryKeyword]);
