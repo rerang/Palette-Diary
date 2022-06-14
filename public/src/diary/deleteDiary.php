@@ -19,33 +19,34 @@ try{
     $deleteDiaryCode = $json['diary_code']; // 일기 요약창에서 보여주고 있는 일기의 diary_code 반환
  
     $selectHappyDiarySql = "select * from happy_diary where diary_code='$deleteDiaryCode';";
-    $selectHappyDiaryResult = mysqli_query($conn, $selectHappyDiarySql);
+    $selectHappyDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $selectHappyDiarySql));
     
-    if($selectHappyDiaryResult) { // 해피 다이어리에서 참조하고 있는 다이어리 코드가 있다면
+    if(empty($selectHappyDiaryResult)==false) { // 해피 다이어리에서 참조하고 있는 다이어리 코드가 있다면
         throw new exception('해피 저금통에 해당 일기가 저금 되었으므로 삭제가 불가능합니다', 409);
     }
+    else {
+        $selectDiaryDetailSql = "select * from diary_detail where diary_code='$deleteDiaryCode';";
+        $selectDiaryDetailResult = mysqli_query($conn, $selectDiaryDetailSql);
     
-    $selectDiaryDetailSql = "select * from diary_detail where diary_code='$deleteDiaryCode';";
-    $selectDiaryDetailResult = mysqli_query($conn, $selectDiaryDetailSql);
-
-    if($selectDiaryDetailResult) {  // 다이어리 디테일에서 참조하고 있는 다이어리 코드가 있다면 
-        $deleteDiaryDetailSql = "delete from diary_detail where diary_code='$deleteDiaryCode';";
-        $deleteDiaryDetailResult = mysqli_query($conn, $deleteDiaryDetailSql);
-
-        if(!$deleteDiaryDetailResult) {
-            throw new exception('DB Fail - Can Not Delete diary_detail', 423);
+        if($selectDiaryDetailResult) {  // 다이어리 디테일에서 참조하고 있는 다이어리 코드가 있다면 
+            $deleteDiaryDetailSql = "delete from diary_detail where diary_code='$deleteDiaryCode';";
+            $deleteDiaryDetailResult = mysqli_query($conn, $deleteDiaryDetailSql);
+    
+            if(!$deleteDiaryDetailResult) {
+                throw new exception('DB Fail - Can Not Delete diary_detail', 423);
+            }
         }
-    }
-
-    // diary 테이블에서 일기 삭제
-    $deleteDiarySql = "delete from diary where diary_code='$deleteDiaryCode';";
-    $deleteDiaryResult = mysqli_query($conn, $deleteDiarySql);
-
-    if(!$deleteDiaryResult) {
-        throw new exception('DB Fail - Can Not Delete diary', 422); //diary_detail이나 happy_diary에서 제대로 삭제가 진행되지 않았을 경우
-    }
-    else{
-        $stat = "success";
+    
+        // diary 테이블에서 일기 삭제
+        $deleteDiarySql = "delete from diary where diary_code='$deleteDiaryCode';";
+        $deleteDiaryResult = mysqli_query($conn, $deleteDiarySql);
+    
+        if(!$deleteDiaryResult) {
+            throw new exception('DB Fail - Can Not Delete diary', 422); //diary_detail이나 happy_diary에서 제대로 삭제가 진행되지 않았을 경우
+        }
+        else{
+            $stat = "success";
+        }
     }
    
     mysqli_close($conn);
