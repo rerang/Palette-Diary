@@ -185,9 +185,6 @@ const viewCalenderPreview = async(_event) => {
               calenderPreviewLeftArrow.addEventListener("click", turnEarlierPreview);
               calenderPreviewRightArrow.addEventListener("click", turnLaterPreview);
             }
-
-            const closePreviewBtn = document.querySelector("#closePreviewBtn");
-            closePreviewBtn.addEventListener("click", closePreview, { once : true});
             let deleteBtn = document.createElement("button");
             deleteBtn.classList.add("calenderPreviewBtn");
             deleteBtn.innerHTML = "삭제하기";
@@ -199,6 +196,9 @@ const viewCalenderPreview = async(_event) => {
             goReadDiaryBtn.addEventListener("click", goReadDiaryPage);
             calenderPreviewBtnArea.append(goReadDiaryBtn);
           }
+          const closePreviewBtn = document.querySelector("#closePreviewBtn");
+            closePreviewBtn.addEventListener("click", closePreview);
+            
         }
         else if(dataResult.error.errorCode == 423){
           expired();
