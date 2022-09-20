@@ -20,7 +20,7 @@ try {
     $theme_name = $json['theme_name'];
     $paletteArrString = $json['paletteArrString'];
 
-    if(isset($_POST['submit'])) { 
+    if($_FILES['file']['size'] > 0) { 
         $img = $_FILES['img'];
 
         if($img['name']=='') {throw new exception('image not exist', 412);}
@@ -62,11 +62,15 @@ try {
                 throw new exception('image upload error', 400);
             }
         }
-    } 
-}catch(exception $e) {
+    }
+    
+    else {
+        throw new exception('image upload error', 400);
+    }
+} catch(exception $e) {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-}finally{
+} finally{
     $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
