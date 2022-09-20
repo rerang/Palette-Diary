@@ -20,7 +20,7 @@ if(user_type == "admin"){
 //setting
 const deleteUrl = `http://125.140.42.36:8082/public/src/global/deleteUser.php`;
 const getProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/getProfileImg.php`;
-const changeProfileImgUrl = `http://125.140.42.36:8082/public/src/setting/uploadProfile.php`;//changeProfileImg  uploadProfile
+const uploadProfileUrl = `http://125.140.42.36:8082/public/src/setting/uploadProfile.php`;//changeProfileImg  uploadProfile
 
 //setting - display profile
 const email = payload['email'];
@@ -42,7 +42,8 @@ const displayProfileImg = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-                const path = "/userProfile/" + dataResult.imgPath;
+                console.log(dataResult.imgPath);
+                const path = dataResult.imgPath;
                 profileImg.setAttribute("src", path);
             }
           }
@@ -56,22 +57,23 @@ displayProfileImg();
 //setting - change profile img
 const profileImgFile = document.querySelector("#profileImgFile");
 const updateProfileImg = async() => {
-    let file = new FormData()
-    file.append('file', profileImgFile.files[0]);
-    console.log(profileImgFile.files[0]);
+  let file = new FormData();
+  file.append('file', profileImgFile.files[0]);
+  console.log(profileImgFile.files[0]);
+  console.log(file);
     try{
-        const res = await fetch(changeProfileImgUrl, {
+        const res = await fetch(uploadProfileUrl, {
           method: 'POST',
           mode: 'cors',
           headers: {
           },
-          body: file
+          body: file,
         })
         const data = res.json();
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-              const path = "ftp://125.140.42.36/Palette-Diary/userProfile/" + dataResult.imgPath;
+              const path = dataResult.imgPath;
               window.location.reload();
             }
           }
