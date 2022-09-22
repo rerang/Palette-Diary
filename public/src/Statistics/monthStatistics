@@ -27,14 +27,26 @@ try {
     if(empty($selectDiaryColorInfoResult)==true) {
         throw new exception('DB Fail - Can Not select Diary', 422);
     }
+
+    $selectDiaryKeywordInfoSql = "select keyword from diary where month(d_date)='$monthData' and year(d_date)='$yearData' and email='$email';";
+    $selectDiaryKeywordInfoResult = mysqli_query($conn, $selectDiaryKeywordInfoSql);
+
+    if(empty($selectDiaryKeywordInfoResult)==true) {
+        throw new exception('DB Fail - Can Not select Diary', 422);
+    }
     else {
 
         $diaryColorArr=array();
         $diaryColorCountArr=array();
+        $diaryKeywordArr=array();
 
         while ($colorRecord = mysqli_fetch_assoc($selectDiaryColorInfoResult)){
             array_push($diaryColorArr, $colorRecord ['color']);
             array_push($diaryColorCountArr, $colorRecord['count(color)']);
+        }
+
+        while ($keywordRecord = mysqli_fetch_assoc($selectDiaryKeywordInfoResult)){
+            array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
 
         mysqli_close($conn);
@@ -45,7 +57,7 @@ try {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 } finally{
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'keyword' => $diaryKeywordArr, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
