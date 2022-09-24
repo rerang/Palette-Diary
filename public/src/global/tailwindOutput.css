@@ -793,6 +793,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 70px;
 }
 
+.w-\[210px\] {
+  width: 210px;
+}
+
+.w-\[calc\(1200px\+9\%-210px\)\] {
+  width: calc(1200px + 9% - 210px);
+}
+
+.w-\[1200px\] {
+  width: 1200px;
+}
+
 .min-w-\[1200px\] {
   min-width: 1200px;
 }

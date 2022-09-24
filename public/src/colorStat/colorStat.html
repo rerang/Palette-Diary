@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette Diary</title>
+    <link href="/public/img/icon.ico" rel="shortcut icon" type="image/x-icon">
+    <html lang="en" translate="no">
+    <meta name="google" content="notranslate">
+    
+    <link rel="stylesheet" href="/public/src/global/reset.css">
+    <link href="/public/src/global/tailwindOutput.css" rel="stylesheet">
+    <link href="/public/src/global/global.css" rel="stylesheet">
+    <link href="/public/src/colorStat/colorStat.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Gowun+Dodum&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container p-[50px] mx-auto h-full font-basic">
+        <article class="bodyArea mx-auto rounded-[10px] w-[1200px] flex flex-row  py-[2rem]">
+            <nav class="flex flex-col items-center px-[1rem] w-[210px]">
+                <div class="goCalenderLogo">
+                    <img src="/public/img/logo.png" class="w-[7rem] h-[7rem] mx-[2rem] mb-[2rem]">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_stats">
+                    <span>색깔 통계</span>
+                    <img src="/public/img/statsIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px]" id="nav_happyBank">
+                    <span>해피 저금통</span>
+                    <img src="/public/img/happyBankIcon.png" class="navItemsIcon justify-self-end">
+                </div>
+                <div class="navItems grid grid-cols-[2fr_1fr] w-[11rem] border-t-[1px] border-b-[1px]" id="nav_setting">
+                    <span>설정</span>
+                    <img src="/public/img/settingIcon.png" class="navItemsIcon justify-self-end"> 
+                </div>
+            </nav>
+
+            <div class="colorStatArea flex flex-row justify-center justify-items-center w-full py-[5rem] font-patrick text-[1.8rem]">
+            </div>
+        </article>
+    </div>
+</body>
+</html>
