@@ -42,7 +42,7 @@
 .colorStatStat{
     border: #000 2px solid;
     border-radius: 15px;
-    height: 300px;
+    height: 340px;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -58,4 +58,23 @@
     transform: translateY(-20px);
     background-color: #cbd8ff;
     text-align: center;
+}
+
+.colorStatStatColorRankArea{
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    row-gap: 10px;
+    justify-items: center;
+}
+.colorStatStatColorRankBarArea{
+    width: calc((900px - 5rem)/2 - 4rem);
+}
+.colorStatStatColorRankBar{
+    padding: 0 1rem;
+    border-radius: 10px;
+    
+}
+.colorStatStatKeywordImg{
+    width: calc((900px - 5rem)/2 - 4rem);
+    height: calc(340px - 4rem);
 }
