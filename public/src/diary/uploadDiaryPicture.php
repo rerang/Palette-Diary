@@ -21,7 +21,7 @@ try {
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
     
-    if(isset($_POST['submit'])) { 
+    if($_FILES['file']['size'] > 0) { 
         $img = $_FILES['img'];
 
         if($img['name']=='') {throw new exception('image not exist', 412);}
@@ -51,8 +51,11 @@ try {
                 throw new exception('image upload error', 400);
             }
         }
-    } 
+    }
 
+    else {
+        throw new exception('image upload error', 400);
+    }
 }catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
