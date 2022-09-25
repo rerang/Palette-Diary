@@ -28,7 +28,7 @@ if(goAdminLogo){
 const nav_stats = document.querySelector("#nav_stats");
 if(nav_stats){
     const goStatsPage = () => {
-        location.href = "/public/src/stats/stats.html"
+        location.href = "/public/src/colorStat/colorStat.html"
     }
 
     nav_stats.addEventListener("click", goStatsPage);

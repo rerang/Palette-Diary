@@ -1,0 +1,61 @@
+.colorStatContentsArea{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+.colorStat{
+    width: 900px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.colorStatSelectArea{
+    background-color: #cbd8ff;
+    box-sizing: border-box;
+    border-bottom: 2px solid #000;
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+}
+.colorStatSelectIconArea{
+    padding: 0.5rem 0.7rem;
+}
+.colorStatSelect{
+    font-size: 1.1rem;
+    width: 90px;
+    border-radius: 15px 15px 0 0;
+    border: 2px solid #000;
+    border-bottom: none;
+    align-self: end;
+    padding-top: 0.8rem;
+    text-align: center;
+    background-color: #fff;
+}
+
+.colorStatStatArea{
+    display: grid;
+    box-sizing: border-box;
+    padding: 2rem;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+}
+.colorStatStat{
+    border: #000 2px solid;
+    border-radius: 15px;
+    height: 300px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.colorStatStatTitle{
+    border: #000 2px solid;
+    border-radius: 15px;
+    height: 40px;
+    font-size: 1.2rem;
+    line-height: 40px;
+    width: 150px;
+    transform: translateY(-20px);
+    background-color: #cbd8ff;
+    text-align: center;
+}
