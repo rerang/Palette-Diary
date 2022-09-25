@@ -12,7 +12,7 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 //imgur client id
 $client_id="dcfa41bdc501573";
 
-/*try {
+try {
     
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
@@ -20,8 +20,7 @@ $client_id="dcfa41bdc501573";
 
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
-*/
-$email='po@naver.com';
+
     $yoilArr = array("일","월","화","수","목","금","토");
     $nowData = $yoilArr[date('w', strtotime(date("Y-m-d")))];
 
@@ -94,17 +93,17 @@ $email='po@naver.com';
     $selectDiaryColorInfoSql = "select color, count(color) from diary where d_date in ('$sundayData','$mondayData', '$tuesdayData', '$wednesdayData','$thursdayData', '$fridayData', '$saturdayData') and email='$email' group by color order by 'count(color)' desc limit 5;";
     $selectDiaryColorInfoResult = mysqli_query($conn, $selectDiaryColorInfoSql);
 
-    /*if(empty($selectDiaryColorInfoResult)==true) {
+    if(empty($selectDiaryColorInfoResult)==true) {
         throw new exception('DB Fail - Can Not select Diary', 422);
-    }*/
+    }
 
     $selectDiaryKeywordInfoSql = "select keyword from diary where d_date in ('$sundayData','$mondayData', '$tuesdayData', '$wednesdayData','$thursdayData', '$fridayData', '$saturdayData') and email='$email';";
     $selectDiaryKeywordInfoResult = mysqli_query($conn, $selectDiaryKeywordInfoSql);
 
-    /*if(empty($selectDiaryKeywordInfoResult)==true) {
+    if(empty($selectDiaryKeywordInfoResult)==true) {
         throw new exception('DB Fail - Can Not select Diary', 422);
-    }*/
-    //else {
+    }
+    else {
 
         $diaryColorArr=array();
         $diaryColorCountArr=array();
@@ -152,13 +151,13 @@ $email='po@naver.com';
         unlink("KeywordData.txt");
 
         $stat = "success";
-    //}
-/*} catch(exception $e) {
+    }
+} catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 } finally{
     $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
-}*/
+}
 ?>
