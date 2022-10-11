@@ -17,7 +17,6 @@ try {
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
-    $todayDiaryCode = $json['diary_code'];
     $todayColor = $json['color'];
     $todayKeyword = $json['keyword'];
     $todayMainPicture = $json['mainPic'];
@@ -25,7 +24,7 @@ try {
     $todaySubPicture1 = $json['subPic1'];
     $todaySubPicture2 = $json['subPic2'];
     
-    if(!$todayDiaryCode) {// 다이어리 코드가 없다==새로 쓰는 일기
+    if(!$json['diary_code']) {// 다이어리 코드가 없다==새로 쓰는 일기
         $insertDiarySql = "insert into diary(email, color, mainPic, keyword) values('$email', '$todayColor','$todayMainPicture','$todayKeyword');";
         $insertDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $insertDiarySql));
         
@@ -46,7 +45,7 @@ try {
     }
 
     else {// 기존 일기 수정 시
-
+        $todayDiaryCode = $json['diary_code'];
         $updateDiarySql = "update diary set color ='$todayColor', keyword='$todayKeyword', mainPic='$todayMainPicture' where diary_code='$todayDiaryCode';";
         $updateDiaryResult = mysqli_query($conn, $updateDiarySql);
 
