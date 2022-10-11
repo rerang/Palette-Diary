@@ -59,7 +59,8 @@ try {
         fwrite($KeywordDataFile, $keywordString);
         fclose($KeywordDataFile);
 
-        $pythonExe = shell_exec("wordCloud.py");
+        $pythonExe = exec("python3 wordCloud.py");
+        echo $pythonExe;
 
         $filename = "KeywordWordcloud.png";
         $handle = fopen("KeywordWordcloud.png", "r");
@@ -81,8 +82,8 @@ try {
         $pms = json_decode($out,true);
         $imgPath = $pms['data']['link'];
 
-        unlink("KeywordWordcloud.png");
-        unlink("KeywordData.txt");
+        //unlink("KeywordWordcloud.png");
+        //unlink("KeywordData.txt");
 
         $stat = "success";
     }
