@@ -9,13 +9,6 @@ $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
-//FTP connect
-$ftp_server = "125.140.42.36";
-$ftp_port = 21;
-$ftp_user_name = "paletteDiary";
-$ftp_user_pass = "paletteDiary";
-$ftp_send_file = "./Palette-Diary/diaryPicture/";
-
 try {
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
@@ -25,7 +18,6 @@ try {
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
     $todayDiaryCode = $json['diary_code'];
-    $todayDiaryDate = $json['d_date']; // yyyy-mm-dd 형식
     $todayColor = $json['color'];
     $todayKeyword = $json['keyword'];
     $todayMainPicture = $json['mainPic'];
@@ -34,7 +26,7 @@ try {
     $todaySubPicture2 = $json['subPic2'];
     
     if(!$todayDiaryCode) {// 다이어리 코드가 없다==새로 쓰는 일기
-        $insertDiarySql = "insert into diary(email, d_date, color, mainPic, keyword) values('$email','$todayDiaryDate','$todayColor','$todayMainPicture','$todayKeyword');";
+        $insertDiarySql = "insert into diary(email, color, mainPic, keyword) values('$email', '$todayColor','$todayMainPicture','$todayKeyword');";
         $insertDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $insertDiarySql));
         
         if(!$insertDiaryResult) {
