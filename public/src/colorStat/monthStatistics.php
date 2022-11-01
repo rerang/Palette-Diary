@@ -53,7 +53,7 @@ try {
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
        for($i=0; $i<count($diaryKeywordArr); $i++) {
-            array_push($keywordWordcloudData, $keywordRecord['keyword'].rand(20,100));
+            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
         }
         
         mysqli_close($conn);
