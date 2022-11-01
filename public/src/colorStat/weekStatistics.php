@@ -108,6 +108,7 @@ try {
         $diaryColorArr=array();
         $diaryColorCountArr=array();
         $diaryKeywordArr=array();
+        $keywordWordcloudData=array();
 
         while ($colorRecord = mysqli_fetch_assoc($selectDiaryColorInfoResult)){
             array_push($diaryColorArr, $colorRecord ['color']);
@@ -118,14 +119,27 @@ try {
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
 
+        for($i=0; $i<count($diaryKeywordArr); $i++) {
+            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+        }
+        
         mysqli_close($conn);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
 
         $keywordString = implode(" ",$diaryKeywordArr); 
         $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
         fwrite($KeywordDataFile, $keywordString);
         fclose($KeywordDataFile);
 
+<<<<<<< HEAD
+        $pythonExe =shall_exec("wordCloud.py");
+        echo $pythonExe;
+=======
         $pythonExe = shell_exec("wordCloud.py");
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
 
         $filename = "KeywordWordcloud.png";
         $handle = fopen("KeywordWordcloud.png", "r");
@@ -147,9 +161,17 @@ try {
         $pms = json_decode($out,true);
         $imgPath = $pms['data']['link'];
 
+<<<<<<< HEAD
+        //unlink("KeywordWordcloud.png");
+        //unlink("KeywordData.txt");
+
+=======
+>>>>>>> 7e9109e22436fc497c24418c4ae63ee255f320a9
+=======
         unlink("KeywordWordcloud.png");
         unlink("KeywordData.txt");
 
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
         $stat = "success";
     }
 } catch(exception $e) {

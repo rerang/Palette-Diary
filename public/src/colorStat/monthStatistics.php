@@ -18,13 +18,14 @@ try {
     $error = "none";
     $stat = "none";
 
+
     $cookie = apache_request_headers()['Cookie'];
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
 
     $yearData = substr(date("Ymd"),0,4); //ex)2022
     $monthData = substr(date("Ymd"),4,2); //ex)09
 
-    $selectDiaryColorInfoSql = "select color, count(color) from diary where month(d_date)='$monthData' and year(d_date)='$yearData' and email='$email' group by color order by 'count(color)' desc limit 5;";
+    $selectDiaryColorInfoSql = "select color, count(color) from diary where month(d_date)='$monthData' and year(d_date)='$yearData' and email='$email' group by color order by count(color) desc limit 5;";
     $selectDiaryColorInfoResult = mysqli_query($conn, $selectDiaryColorInfoSql);
 
     if(empty($selectDiaryColorInfoResult)==true) {
@@ -58,11 +59,13 @@ try {
         
         mysqli_close($conn);
         $stat = "success";
+
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally{
+} 
+finally{//, 'imgPath' => $imgPath
     $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
