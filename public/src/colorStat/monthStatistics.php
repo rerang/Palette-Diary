@@ -52,8 +52,8 @@ try {
         while ($keywordRecord = mysqli_fetch_assoc($selectDiaryKeywordInfoResult)){
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
-        for($i=0; $i<count($diaryKeywordArr); $i++) {
-            $keywordWordcloudData=array("keyword"=>$diaryKeywordArr[i], "value"=>rand(20,100));
+       for($i=0; $i<count($diaryKeywordArr); $i++) {
+            array_push($keywordWordcloudData, $keywordRecord['keyword'].rand(20,100));
         }
         
         mysqli_close($conn);
