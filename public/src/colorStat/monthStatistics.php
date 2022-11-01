@@ -53,13 +53,45 @@ try {
         }
 
         mysqli_close($conn);
+
+        $keywordString = implode(" ",$diaryKeywordArr); 
+        $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
+        fwrite($KeywordDataFile, $keywordString);
+        fclose($KeywordDataFile);
+
+        $pythonExe = shell_exec("wordCloud.py");
+
+        $filename = "KeywordWordcloud.png";
+        $handle = fopen("KeywordWordcloud.png", "r");
+        $data = fread($handle, filesize($filename));
+        $pvars   = array('image' => base64_encode($data));
+        $timeout = 30;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
+        curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        $out = curl_exec($curl);
+        curl_close ($curl);
+
+        $pms = json_decode($out,true);
+        $imgPath = $pms['data']['link'];
+
+        unlink("KeywordWordcloud.png");
+        unlink("KeywordData.txt");
+
         $stat = "success";
+        echo $stat;
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally {
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'keyword' => $diaryKeywordArr,'result_code' => $stat, 'error'=> $error]);
+} finally{
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
