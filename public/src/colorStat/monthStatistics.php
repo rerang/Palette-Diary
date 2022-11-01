@@ -53,6 +53,7 @@ try {
         }
 
         mysqli_close($conn);
+<<<<<<< HEAD
 
         $keywordString = implode(" ",$diaryKeywordArr); 
         $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
@@ -85,13 +86,15 @@ try {
         //unlink("KeywordWordcloud.png");
         //unlink("KeywordData.txt");
 
+=======
+>>>>>>> 7e9109e22436fc497c24418c4ae63ee255f320a9
         $stat = "success";
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally{
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
+} finally {
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'keyword' => $diaryKeywordArr,'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }

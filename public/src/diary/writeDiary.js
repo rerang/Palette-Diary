@@ -22,8 +22,11 @@ const expired = () => {
 }
 
 //write diary
+const email = payload['email'];
 const writeDiaryUrl = "http://125.140.42.36:8082/public/src/diary/saveDiary.php";
-const getDiary = async() => {
+
+const saveDiary = async() => {
+    let colorValue = document.querySelector("#writeDiaryColor").value;
   try{
     const res = await fetch(writeDiaryUrl, {
     method: 'POST',
@@ -31,7 +34,9 @@ const getDiary = async() => {
     headers: {
     },
     body: JSON.stringify({
-        diary_code : readDiaryCode
+        email : email, 
+        color : colorValue, 
+        keyword
     })
     })
     const data = res.json();
@@ -49,3 +54,34 @@ const getDiary = async() => {
       console.log("Fetch Error", e);
   } 
 }
+saveDiaryBtn.addEventListener(saveDiary);
+
+//write diary - pic
+const profileImgFile = document.querySelector("#profileImgFile");
+const updateProfileImg = async() => {
+  let file = new FormData();
+  file.append('file', profileImgFile.files[0]);
+  console.log(profileImgFile.files[0]);
+  console.log(file);
+    try{
+        const res = await fetch(uploadProfileUrl, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+          },
+          body: file,
+        })
+        const data = res.json();
+        data.then(
+          dataResult => {
+            if(dataResult.result_code == "success"){
+              const path = dataResult.imgPath;
+              window.location.reload();
+            }
+          }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    }
+}
+profileImgFile.addEventListener("change", updateProfileImg);
