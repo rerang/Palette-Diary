@@ -108,6 +108,7 @@ try {
         $diaryColorArr=array();
         $diaryColorCountArr=array();
         $diaryKeywordArr=array();
+        $keywordWordcloudData=array();
 
         while ($colorRecord = mysqli_fetch_assoc($selectDiaryColorInfoResult)){
             array_push($diaryColorArr, $colorRecord ['color']);
@@ -118,6 +119,10 @@ try {
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
 
+        for($i=0; $i<count($diaryKeywordArr); $i++) {
+            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+        }
+        
         mysqli_close($conn);
 <<<<<<< HEAD
 <<<<<<< HEAD
