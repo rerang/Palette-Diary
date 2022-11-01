@@ -54,14 +54,21 @@ try {
 
         mysqli_close($conn);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
 
         $keywordString = implode(" ",$diaryKeywordArr); 
         $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
         fwrite($KeywordDataFile, $keywordString);
         fclose($KeywordDataFile);
 
+<<<<<<< HEAD
         $pythonExe = exec("python3 wordCloud.py");
         echo $pythonExe;
+=======
+        $pythonExe = shell_exec("wordCloud.py");
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
 
         $filename = "KeywordWordcloud.png";
         $handle = fopen("KeywordWordcloud.png", "r");
@@ -83,18 +90,25 @@ try {
         $pms = json_decode($out,true);
         $imgPath = $pms['data']['link'];
 
+<<<<<<< HEAD
         //unlink("KeywordWordcloud.png");
         //unlink("KeywordData.txt");
 
 =======
 >>>>>>> 7e9109e22436fc497c24418c4ae63ee255f320a9
+=======
+        unlink("KeywordWordcloud.png");
+        unlink("KeywordData.txt");
+
+>>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
         $stat = "success";
+        echo $stat;
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally {
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'keyword' => $diaryKeywordArr,'result_code' => $stat, 'error'=> $error]);
+} finally{
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
