@@ -16,7 +16,7 @@ try {
 
     $json = json_decode(file_get_contents('php://input'), TRUE);
     $error = "none";
-    $stat = "success";
+    $stat = "none";
 
 
     $cookie = apache_request_headers()['Cookie'];
@@ -43,6 +43,7 @@ try {
         $diaryColorArr=array();
         $diaryColorCountArr=array();
         $diaryKeywordArr=array();
+        $keywordWordcloudData=array();
 
         while ($colorRecord = mysqli_fetch_assoc($selectDiaryColorInfoResult)){
             array_push($diaryColorArr, $colorRecord ['color']);
@@ -52,14 +53,19 @@ try {
         while ($keywordRecord = mysqli_fetch_assoc($selectDiaryKeywordInfoResult)){
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
-
-        mysqli_close($conn);
+       for($i=0; $i<count($diaryKeywordArr); $i++) {
+            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+        }
         
+        mysqli_close($conn);
+        $stat = "success";
+
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally{//, 'imgPath' => $imgPath
+} 
+finally{//, 'imgPath' => $imgPath
     $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
