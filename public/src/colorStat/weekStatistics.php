@@ -108,7 +108,7 @@ try {
         $diaryColorArr=array();
         $diaryColorCountArr=array();
         $diaryKeywordArr=array();
-        $keywordWordcloudData=array();
+        $keywordAnychartData=array();
 
         while ($colorRecord = mysqli_fetch_assoc($selectDiaryColorInfoResult)){
             array_push($diaryColorArr, $colorRecord ['color']);
@@ -116,69 +116,29 @@ try {
         }
 
         while ($keywordRecord = mysqli_fetch_assoc($selectDiaryKeywordInfoResult)){
+            if(strpos($keywordRecord ['keyword'],'')!==false) { //키워드에 공백이 존재한다면 공백으로 구분
+                $explodeKeyword=explode(' ',$keywordRecord ['keyword']);
+                for($i=0; $i<count($explodeKeyword); $i++) {
+                    array_push($diaryKeywordArr,$explodeKeyword[$i]);
+                }
+            }
+            else {
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
+            }
         }
 
         for($i=0; $i<count($diaryKeywordArr); $i++) {
-            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+            array_push($keywordAnychartData, $diaryKeywordArr[$i].','.rand(20,100));
         }
-        
+
         mysqli_close($conn);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
-
-        $keywordString = implode(" ",$diaryKeywordArr); 
-        $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
-        fwrite($KeywordDataFile, $keywordString);
-        fclose($KeywordDataFile);
-
-<<<<<<< HEAD
-        $pythonExe =shall_exec("wordCloud.py");
-        echo $pythonExe;
-=======
-        $pythonExe = shell_exec("wordCloud.py");
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
-
-        $filename = "KeywordWordcloud.png";
-        $handle = fopen("KeywordWordcloud.png", "r");
-        $data = fread($handle, filesize($filename));
-        $pvars   = array('image' => base64_encode($data));
-        $timeout = 30;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
-        curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        curl_close ($curl);
-
-        $pms = json_decode($out,true);
-        $imgPath = $pms['data']['link'];
-
-<<<<<<< HEAD
-        //unlink("KeywordWordcloud.png");
-        //unlink("KeywordData.txt");
-
-=======
->>>>>>> 7e9109e22436fc497c24418c4ae63ee255f320a9
-=======
-        unlink("KeywordWordcloud.png");
-        unlink("KeywordData.txt");
-
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
         $stat = "success";
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 } finally{
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'keyword' => $keywordAnychartData, 'result_code' => $stat, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
