@@ -125,7 +125,7 @@ const saveDiary = async() => {
         dataResult => {
           console.log(dataResult);
             if(dataResult.result_code == "success"){  
-              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
+              location.href = "/";
             }
             else if(dataResult.error.errorCode == 423){
               expired();
