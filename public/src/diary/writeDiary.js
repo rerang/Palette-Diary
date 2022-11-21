@@ -21,47 +21,23 @@ const expired = () => {
     window.location.href = "http://125.140.42.36:8082/";
 }
 
-//write diary
-const email = payload['email'];
-const writeDiaryUrl = "http://125.140.42.36:8082/public/src/diary/saveDiary.php";
-const diaryPicUploadUrl = "http://125.140.42.36:8082/public/src/diary/uploadDiaryPicture.php";
-const writeDiarySaveBtn = document.querySelector("#writeDiarySaveBtn");
+//diary init setting
+const writeDiaryYear = document.querySelector("#writeDiaryYear");
+const writeDiaryMonth = document.querySelector("#writeDiaryMonth");
+const writeDiaryDay = document.querySelector("#writeDiaryDay");
 
-const saveDiary = async() => {
-    let colorValue = document.querySelector("#writeDiaryColor").value;
-    let keywordValue = document.querySelector("#writeDiaryKeyword").value;
-    if(keywordValue[0] !== "#"){
-      keywordValue = "#" + keywordValue;
-    }
-    keywordValue = keywordValue.replace(/(\s*)/g, "");
-  try{
-    const res = await fetch(writeDiaryUrl, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-    },
-    body: JSON.stringify({
-        email : email, 
-        color : colorValue, 
-        keyword:keywordValue
-    })
-    })
-    const data = res.json();
-    data.then(
-        dataResult => {
-            if(dataResult.result_code == "success"){  
-              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
-            }
-            else if(dataResult.error.errorCode == 423){
-              expired();
-            }
-        }
-    )
-  }catch (e) {
-      console.log("Fetch Error", e);
-  } 
+let dateString = "";
+
+const dateSetting = () => {
+  let date = new Date(localStorage.getItem("writeDiaryDate"));
+  writeDiaryYear.innerHTML = date.getFullYear();
+  writeDiaryMonth.innerHTML = date.getMonth() + 1;
+  writeDiaryDay.innerHTML = date.getDate();
+  dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }
-writeDiarySaveBtn.addEventListener("click", saveDiary);
+
+dateSetting();
+
 
 //write diary - pic
 const MainPicInput = document.querySelector("#MainPicInput");
@@ -112,24 +88,55 @@ MainPicInput.addEventListener("change", () => {updateImg(0)});
 SubPic1Input.addEventListener("change", () => {updateImg(1)});
 SubPic2Input.addEventListener("change", () => {updateImg(2)});
 
-const writeDiaryYear = document.querySelector("#writeDiaryYear");
-const writeDiaryMonth = document.querySelector("#writeDiaryMonth");
-const writeDiaryDay = document.querySelector("#writeDiaryDay");
 
-const dateSetting = () => {
-  let date = new Date();
-  writeDiaryYear.innerHTML = date.getFullYear();
-  writeDiaryMonth.innerHTML = date.getMonth() + 1;
-  writeDiaryDay.innerHTML = date.getDate();
+//write diary
+const email = payload['email'];
+const writeDiaryUrl = "http://125.140.42.36:8082/public/src/diary/saveDiary.php";
+const diaryPicUploadUrl = "http://125.140.42.36:8082/public/src/diary/uploadDiaryPicture.php";
+const writeDiarySaveBtn = document.querySelector("#writeDiarySaveBtn");
+
+const saveDiary = async() => {
+    let colorValue = document.querySelector("#writeDiaryColor").value;
+    let keywordValue = document.querySelector("#writeDiaryKeyword").value;
+    let diaryBodyValue = document.querySelector("#writeDiaryBody").value;
+    if(keywordValue[0] !== "#"){
+      keywordValue = "#" + keywordValue;
+    }
+    keywordValue = keywordValue.replace(/(\s*)/g, "");
+  try{
+    const res = await fetch(writeDiaryUrl, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+    },
+    body: JSON.stringify({
+        diary_code : "",
+        color : colorValue, 
+        keyword : keywordValue,
+        d_date : dateString,
+        mainPic : writeDiaryMainPic.getAttribute("src"),
+        diary_body : diaryBodyValue,
+        subPic1 : writeDiarySubPic1.getAttribute("src"),
+        subPic2 : writeDiarySubPic2.getAttribute("src")
+    })
+    })
+    const data = res.json();
+    data.then(
+        dataResult => {
+            if(dataResult.result_code == "success"){  
+              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
+            }
+            else if(dataResult.error.errorCode == 423){
+              expired();
+            }
+        }
+    )
+  }catch (e) {
+      console.log("Fetch Error", e);
+  } 
 }
+writeDiarySaveBtn.addEventListener("click", saveDiary);
 
-dateSetting();
 
 
-const writeDiaryKeyword = document.querySelector("#writeDiaryKeyword");
-const checkSpace = () => {
-  let reg = /\s$/;
-  writeDiaryKeyword.value = writeDiaryKeyword.value.replace(reg, " #");
-}
 
-writeDiaryKeyword.addEventListener("input", checkSpace);

@@ -156,7 +156,7 @@ const viewCalenderPreview = async(_event) => {
 
           if(dataResult.dateInfo == "none"){
             calenderPreviewColor.innerHTML = "?";
-            calenderPreviewMainPicArea.innerHTML = "일기가 없습니다.";
+            calenderPreviewMainPicArea.innerHTML = `<img src="../../img/noDiary.png" id="calenderPreviewMainPic"></img>`;
             let btn = document.createElement("button");
             btn.classList.add("calenderPreviewBtn");
             btn.id = date;
@@ -173,7 +173,7 @@ const viewCalenderPreview = async(_event) => {
               calenderPreviewMainPicArea.innerHTML = `<img src="`+displayArr[1]+`" id="calenderPreviewMainPic"></img>`;
             }
             else{
-              calenderPreviewMainPicArea.innerHTML = "사진이 없습니다.";
+              calenderPreviewMainPicArea.innerHTML = `<img src="../../img/noDisplayPic.png" id="calenderPreviewMainPic"></img>`;
             }
             calenderPreviewKeyword.innerHTML = displayArr[2];
             if(previewFullRow>1){
@@ -207,11 +207,91 @@ const viewCalenderPreview = async(_event) => {
   }
 }
 
+
+const checkPreviewIndex = (type, idx) => {
+  if(type == "earlier"){
+    if(idx == 0){
+      return previewFullRow - 1;
+    }
+    else{
+      return --idx;
+    }
+  }
+  else{
+    if(idx == previewFullRow-1){
+      return 0;
+    }
+    else{
+      return ++idx;
+    }
+  }
+}
+const turnLaterPreview = () => {
+  previewIndex = checkPreviewIndex("later", previewIndex);
+  let paintPreviewInfo = dateInfoArr[previewIndex];
+  calenderPreview.id = paintPreviewInfo[3];
+
+  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
+  const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
+  const calenderPreviewKeyword = document.querySelector("#calenderPreviewKeyword");
+
+  calenderPreviewColor.setAttribute("style", "background-color:" + paintPreviewInfo[0]+";");
+  if(paintPreviewInfo[1] !== null){
+    calenderPreviewMainPicArea.innerHTML = `<img src="` + paintPreviewInfo[1]+`" id="calenderPreviewMainPic"></img>`;
+  }
+  else{
+    calenderPreviewMainPicArea.innerHTML = `<img src="../../img/noDisplayPic.png" id="calenderPreviewMainPic"></img>`;
+  }
+  calenderPreviewKeyword.innerHTML = paintPreviewInfo[2];
+}
+const turnEarlierPreview = () => {
+  previewIndex = checkPreviewIndex("earlier", previewIndex);
+  let paintPreviewInfo = dateInfoArr[previewIndex];
+  calenderPreview.id = paintPreviewInfo[3];
+  
+  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
+  const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
+  const calenderPreviewKeyword = document.querySelector("#calenderPreviewKeyword");
+
+  calenderPreviewColor.setAttribute("style", "background-color:" + paintPreviewInfo[0]+";");
+  if(paintPreviewInfo[1] !== null){
+    calenderPreviewMainPicArea.innerHTML = `<img src="` + paintPreviewInfo[1]+`" id="calenderPreviewMainPic"></img>`;
+  }
+  else{
+    calenderPreviewMainPicArea.innerHTML = `<img src="../../img/noDisplayPic.png" id="calenderPreviewMainPic"></img>`;
+  }
+  calenderPreviewKeyword.innerHTML = paintPreviewInfo[2];
+}
+
+const closePreview = () => {
+  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
+  calenderPreviewColor.innerHTML = "";
+  if(previewFullRow>1){
+    const calenderPreviewLeftArrow = document.querySelector("#calenderPreviewLeftArrow");
+    const calenderPreviewRightArrow = document.querySelector("#calenderPreviewRightArrow");
+    calenderPreviewLeftArrow.classList.add("hidden");
+    calenderPreviewRightArrow.classList.add("hidden");
+    calenderPreviewLeftArrow.removeEventListener("click", turnEarlierPreview);
+    calenderPreviewRightArrow.removeEventListener("click", turnLaterPreview);
+  }
+  calenderPreview.classList.add("hidden");
+}
+
+
+//go other pages
 const goWriteDiaryPage = (_event) => {
   localStorage.setItem("writeDiaryDate", _event.target.id);
   window.location.href = "http://125.140.42.36:8082/public/src/diary/writeDiary.html";
 }
 
+const goReadDiaryPage = (_event) => {
+  localStorage.setItem("readDiaryCode", _event.target.parentElement.parentElement.parentElement.id);
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/readDiary.html";
+}
+
+
+
+//delete diary
 const calenderModalBg = document.querySelector("#calenderModalBg");
 const deleteDiaryUrl = `http://125.140.42.36:8082/public/src/diary/deleteDiary.php`;
 const askDeleteDiary = (_event) => {
@@ -268,87 +348,14 @@ const removeModal = () => {
   calenderModalBg.classList.add("hidden");
 }
 
-const goReadDiaryPage = (_event) => {
-  localStorage.setItem("readDiaryCode", _event.target.parentElement.parentElement.parentElement.id);
-  window.location.href = "http://125.140.42.36:8082/public/src/diary/readDiary.html";
-}
 
-const checkPreviewIndex = (type, idx) => {
-  if(type == "earlier"){
-    if(idx == 0){
-      return previewFullRow - 1;
-    }
-    else{
-      return --idx;
-    }
-  }
-  else{
-    if(idx == previewFullRow-1){
-      return 0;
-    }
-    else{
-      return ++idx;
-    }
-  }
-}
-const turnLaterPreview = () => {
-  previewIndex = checkPreviewIndex("later", previewIndex);
-  let paintPreviewInfo = dateInfoArr[previewIndex];
-  calenderPreview.id = paintPreviewInfo[3];
-
-  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
-  const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
-  const calenderPreviewKeyword = document.querySelector("#calenderPreviewKeyword");
-
-  calenderPreviewColor.setAttribute("style", "background-color:" + paintPreviewInfo[0]+";");
-  if(paintPreviewInfo[1] !== null){
-    calenderPreviewMainPicArea.innerHTML = `<img src="` + paintPreviewInfo[1]+`" id="calenderPreviewMainPic"></img>`;
-  }
-  else{
-    calenderPreviewMainPicArea.innerHTML = "사진이 없습니다.";
-  }
-  calenderPreviewKeyword.innerHTML = paintPreviewInfo[2];
-}
-const turnEarlierPreview = () => {
-  previewIndex = checkPreviewIndex("earlier", previewIndex);
-  let paintPreviewInfo = dateInfoArr[previewIndex];
-  calenderPreview.id = paintPreviewInfo[3];
-  
-  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
-  const calenderPreviewMainPicArea = document.querySelector("#calenderPreviewMainPicArea");
-  const calenderPreviewKeyword = document.querySelector("#calenderPreviewKeyword");
-
-  calenderPreviewColor.setAttribute("style", "background-color:" + paintPreviewInfo[0]+";");
-  if(paintPreviewInfo[1] !== null){
-    calenderPreviewMainPicArea.innerHTML = `<img src="` + paintPreviewInfo[1]+`" id="calenderPreviewMainPic"></img>`;
-  }
-  else{
-    calenderPreviewMainPicArea.innerHTML = "사진이 없습니다.";
-  }
-  calenderPreviewKeyword.innerHTML = paintPreviewInfo[2];
-}
-
-const closePreview = () => {
-  const calenderPreviewColor = document.querySelector("#calenderPreviewColor");
-  calenderPreviewColor.innerHTML = "";
-  if(previewFullRow>1){
-    const calenderPreviewLeftArrow = document.querySelector("#calenderPreviewLeftArrow");
-    const calenderPreviewRightArrow = document.querySelector("#calenderPreviewRightArrow");
-    calenderPreviewLeftArrow.classList.add("hidden");
-    calenderPreviewRightArrow.classList.add("hidden");
-    calenderPreviewLeftArrow.removeEventListener("click", turnEarlierPreview);
-    calenderPreviewRightArrow.removeEventListener("click", turnLaterPreview);
-  }
-  calenderPreview.classList.add("hidden");
-}
-
-
+//paint calendar
 const paintCalender = (_event) => {
   let year = Number(calenderYear.innerHTML);
   let month = Number(calenderMonth.innerHTML);
   console.log("paintCal", calenderMonth.innerHTML, month);
   if(_event.target.id == "calenderLeftArrow"){
-    if(month == 1){
+    if(Number(month) == 1){
       year -= 1;
       month = 12;
     }
@@ -357,7 +364,7 @@ const paintCalender = (_event) => {
     }
   }
   else if(_event.target.id == "calenderRightArrow"){
-    if(month == 12){
+    if(Number(month) == 12){
       year += 1;
       month = 1;
     }

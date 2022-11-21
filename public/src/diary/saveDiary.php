@@ -33,7 +33,7 @@ try {
     $todaySubPicture1 = $json['subPic1'];
     $todaySubPicture2 = $json['subPic2'];
     
-    if(!$todayDiaryCode) {// 다이어리 코드가 없다==새로 쓰는 일기
+    if($todayDiaryCode == "") {// 다이어리 코드가 없다==새로 쓰는 일기
         $insertDiarySql = "insert into diary(email, d_date, color, mainPic, keyword) values('$email','$todayDiaryDate','$todayColor','$todayMainPicture','$todayKeyword');";
         $insertDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $insertDiarySql));
         
