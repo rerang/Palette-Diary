@@ -259,3 +259,39 @@
     
     border-radius: 50%;
 }
+
+
+
+
+.askDeleteDiaryBtnArea{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    padding: 1rem; 
+    column-gap: 2rem;
+}
+.askDeleteDiaryBtn{
+    background-color: #cbd8ff; 
+    border-radius: 20px; 
+    width: 100px;
+    padding: 0.25rem 0;
+}
+#askDeleteDiaryModal{
+    width: 350px;
+    height: 120px;
+    position: fixed; 
+    z-index: 50; 
+    top: calc(50vh - 60px); 
+    left: calc(50vw - 70px); 
+    background-color:#f1f5ff; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); 
+    border: solid 1px #000; 
+    text-align: center; 
+    padding: 2rem;
+    font-family: Gowun Dodum;
+}
+#calenderModalBg{
+    position: fixed;
+    top: calc(50%-100vh/2);
+    left: calc(50%-100vw/2);
+}
