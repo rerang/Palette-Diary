@@ -24,9 +24,7 @@ const expired = () => {
 //calender get now month info
 const nowFullDate = new Date();
 const nowYear = nowFullDate.getFullYear();
-const nowMonth = String(nowFullDate.getMonth() + 1).padStart(2, '0'); //0~
-//const nowDate = String(nowFullDate.getDate()).padStart(2, '0');
-//const nowDay = nowFullDate.getDay(); //day of the week sun(0)~
+const nowMonth = String(nowFullDate.getMonth() + 1).padStart(2, '0');
 
 const calenderYear = document.querySelector("#calenderYear");
 const calenderMonth = document.querySelector("#calenderMonth");
@@ -38,7 +36,6 @@ const getNowMonthInfo = async(year, month) => {
   const lastFullDateOfMonth = new Date(year, month, 0);
   const lastDateOfMonth = lastFullDateOfMonth.getDate();
 
-  console.log(lastFullDateOfMonth, lastDateOfMonth);
   try{
     const res = await fetch(getMonthInfoUrl, {
       method: 'POST',
@@ -347,11 +344,11 @@ const closePreview = () => {
 
 
 const paintCalender = (_event) => {
-  console.log(_event);
   let year = Number(calenderYear.innerHTML);
   let month = Number(calenderMonth.innerHTML);
+  console.log("paintCal", calenderMonth.innerHTML, month);
   if(_event.target.id == "calenderLeftArrow"){
-    if(month == 0){
+    if(month == 1){
       year -= 1;
       month = 12;
     }
@@ -362,7 +359,7 @@ const paintCalender = (_event) => {
   else if(_event.target.id == "calenderRightArrow"){
     if(month == 12){
       year += 1;
-      month = 0;
+      month = 1;
     }
     else{
       month++;

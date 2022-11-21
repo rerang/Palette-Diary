@@ -21,9 +21,17 @@ if(user_type == "admin"){
 const email = payload['email'];
 const colorStatStatColorRankArea = document.querySelector("#colorStatStatColorRankArea");
 const colorStatStatKeywordImgArea = document.querySelector("#colorStatStatKeywordImgArea");
+const colorStat = document.querySelector("#colorStat");
 const getWeekStatUrl = `http://125.140.42.36:8082/public/src/colorStat/weekStatistics.php`;
 const getMonthStatUrl = `http://125.140.42.36:8082/public/src/colorStat/monthStatistics.php`;
-   
+
+const clearStatStatArea = () => {
+    document.remove(colorStat.lastChild);
+    colorStat.innerHTML = `
+    <div class="colorStatStatNone">
+        일기를 작성해주세요.
+    </div>`;
+}
 const displayColor = (color, colorCnt) => {
     const maxColorCnt = Math.max(...colorCnt);
 
@@ -65,6 +73,9 @@ const displayStat = async() => {
                 displayColor(dataResult.color, dataResult.colorCount);
                 displayKeyword(dataResult.imgPath);
             }
+            else{
+                clearStatStatArea();
+            }
           }
         )
     }catch (e) {
@@ -72,4 +83,3 @@ const displayStat = async() => {
     }
 }
 displayStat();
-

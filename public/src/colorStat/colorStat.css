@@ -72,9 +72,18 @@
 .colorStatStatColorRankBar{
     padding: 0 1rem;
     border-radius: 10px;
-    
 }
 .colorStatStatKeywordImg{
     width: calc((900px - 5rem)/2 - 4rem);
     height: calc(340px - 4rem);
+}
+.colorStatStatNone{
+    border: #000 2px solid;
+    border-radius: 15px;
+    height: 340px;
+    margin: 2rem 2rem;
+    width: calc(100% - 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
