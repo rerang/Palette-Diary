@@ -11,7 +11,7 @@ $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
 //imgur client id
 $client_id="dcfa41bdc501573";
-
+ 
 try {
     
     $json = json_decode(file_get_contents('php://input'), TRUE);
@@ -22,7 +22,7 @@ try {
     $email = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', explode("=", $cookie)[1])[1]))), TRUE)['email'];
     
     if($_FILES['file']['size'] > 0) { 
-        $img = $_FILES['img'];
+        $img = $_FILES['file'];
 
         if($img['name']=='') {throw new exception('image not exist', 412);}
         else {
@@ -56,6 +56,8 @@ try {
     else {
         throw new exception('image upload error', 400);
     }
+    
+    $stat = "success";
 }catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];

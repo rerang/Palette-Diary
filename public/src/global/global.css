@@ -6,6 +6,9 @@
     min-width: 380px;
     padding-top: 4rem;
 }
+.bodyArea{
+    min-height: 700px;
+}
 body {
     background-image: url(/public/img/basicBackground.png);
     background-repeat: no-repeat;

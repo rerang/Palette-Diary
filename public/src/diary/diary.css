@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
-    justify-items: center;
+    align-items: center;
 }
 .writeDiaryIcon{
     width: 5.5rem;
@@ -37,12 +37,20 @@
     background-color: #fff;
     border-radius: 5px;
     padding: 1rem 0;
+    display: flex;
+    align-items: center;
 }
-.writeDiaryColor{
+.writeDiaryColorWrapper{
     border-radius: 50%;
     width: 55px;
     height: 58px;
     border: #000 solid 1px;
+}
+.writeDiaryKeyword{
+    padding: 0 10px;
+}
+.writeDiaryKeyword:focus{
+    outline: none;
 }
 .writeDiaryKeywordArea{
     background-color: #fff;
@@ -234,4 +242,19 @@
     font-size: 1rem;
     line-height: 1.5;
 
+}
+
+.writeDiaryColorInput{
+    width: 55px;
+    height: 58px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+.writeDiaryColorInput::-webkit-color-swatch{
+    
+    border-radius: 50%;
 }
