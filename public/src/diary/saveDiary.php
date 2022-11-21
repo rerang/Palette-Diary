@@ -34,19 +34,19 @@ try {
     $todaySubPicture2 = $json['subPic2'];
     
     if($todayDiaryCode == "") {// 다이어리 코드가 없다==새로 쓰는 일기
-        $insertDiarySql = "insert into diary(email, d_date, color, mainPic, keyword) values('$email','$todayDiaryDate','$todayColor','$todayMainPicture','$todayKeyword');";
-        $insertDiaryResult = mysqli_fetch_assoc(mysqli_query($conn, $insertDiarySql));
+        $insertDiarySql = "insert into diary(email, d_date, color, main_pic, keyword) values('$email','$todayDiaryDate','$todayColor','$todayMainPicture','$todayKeyword');";
+        $insertDiaryResult = mysqli_query($conn, $insertDiarySql);
         
-        if(!$insertDiaryResult) {
+        if($insertDiaryResult == false) {
             throw new exception('DB Fail - Can Not Insert Diary', 422);
         }
 
         $insertDiaryCode = $insertDiaryResult['diary_code'];
 
         $insertDiaryDetailSql = "insert into diary_detail (diary_code, diary_body, subPic1, subPic2) values('$insertDiaryCode', '$todayDiaryBody','$todaySubPicture1','$todaySubPicture2');";
-        $insertDiaryDetailResult = mysqli_fetch_assoc(mysqli_query($conn, $insertDiaryDetailSql));
+        $insertDiaryDetailResult = mysqli_query($conn, $insertDiaryDetailSql);
 
-        if(!$insertDiaryDetailResult) {
+        if($insertDiaryDetailResult == false) {
             throw new exception('DB Fail - Can Not Insert User', 422);
         }
  
