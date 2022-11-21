@@ -9,12 +9,6 @@ $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 
-//FTP connect
-$ftp_server = "125.140.42.36";
-$ftp_port = 21;
-$ftp_user_name = "paletteDiary";
-$ftp_user_pass = "paletteDiary";
-$ftp_send_file = "./Palette-Diary/diaryPicture/";
 
 try {
     $json = json_decode(file_get_contents('php://input'), TRUE);
@@ -41,7 +35,9 @@ try {
             throw new exception('DB Fail - Can Not Insert Diary', 422);
         }
 
-        $insertDiaryCode = $insertDiaryResult['diary_code'];
+        $selectMaxDiaryCodeSql = "select * from diary where diary_code>=(select MAX(diary_code) from diary);";
+        $selectMaxDiaryCodeResult = mysqli_fetch_assoc(mysqli_query($conn, $selectMaxDiaryCodeSql));         
+        $insertDiaryCode=$selectMaxDiaryCodeResult['diary_code'];
 
         $insertDiaryDetailSql = "insert into diary_detail (diary_code, diary_body, subPic1, subPic2) values('$insertDiaryCode', '$todayDiaryBody','$todaySubPicture1','$todaySubPicture2');";
         $insertDiaryDetailResult = mysqli_query($conn, $insertDiaryDetailSql);
