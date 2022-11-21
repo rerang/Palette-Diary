@@ -18,12 +18,19 @@ if(user_type == "admin"){
 }
 
 //colorStat
+const colorStatPresentWeek = document.querySelector("#colorStatPresentWeek");
+const colorStatPresentMonth = document.querySelector("#colorStatPresentMonth");
 const email = payload['email'];
 const colorStatStatColorRankArea = document.querySelector("#colorStatStatColorRankArea");
-const colorStatStatKeywordImgArea = document.querySelector("#colorStatStatKeywordImgArea");
+const colorStatStatKeywordImg = document.querySelector(".colorStatStatKeywordImg");
 const getWeekStatUrl = `http://125.140.42.36:8082/public/src/colorStat/weekStatistics.php`;
 const getMonthStatUrl = `http://125.140.42.36:8082/public/src/colorStat/monthStatistics.php`;
    
+
+const displayError = () => {
+  colorStatStatColorRankArea.innerHTML = "일기를 작성해주세요!";
+  colorStatStatKeywordImg.innerHTML = "일기를 작성해주세요!";
+}
 const displayColor = (color, colorCnt) => {
     const maxColorCnt = Math.max(...colorCnt);
     for(let i = 0; i<color.length; i++){
@@ -37,16 +44,51 @@ const displayColor = (color, colorCnt) => {
         colorStatStatColorRankArea.appendChild(colorStatStatColorRankBarArea);
     }
 }
-const displayKeyword = (imgPath) => {
-    let colorStatStatKeywordImg = document.createElement("img");
-    colorStatStatKeywordImg.setAttribute("src", imgPath);
-    colorStatStatKeywordImg.classList.add("colorStatStatKeywordImg");
-    colorStatStatKeywordImgArea.appendChild(colorStatStatKeywordImg);
+const displayKeyword = (keywordArr, color) => {
+  let keywords = keywordArr.join("").split("#");
+  const keywordCnt = {};
+  let data = [];
+  keywords.forEach((x) => { 
+    keywordCnt[x] = (keywordCnt[x] || 0) + 1; 
+  });
+  Object.keys(keywordCnt).forEach(key => {
+    data.push({"x" : key, "value" : keywordCnt[key] * 100});
+  })
+  
+  anychart.onDocumentReady(function () {
+    let chart = anychart.tagCloud(data, {
+      mode: "byWord", //byChar
+      maxItems: 16
+    });
+
+    let customColorScale = anychart.scales.linearColor();
+    customColorScale.colors(color);
+    chart.colorScale(customColorScale);
+    chart.colorRange().enabled(false);
+
+    chart.angles([0, 90, 180]);
+    chart.textSpacing(3);
+    chart.scale(anychart.scales.log());
+    chart.minWidth('70%');
+    chart.minHeight('70%');
+    chart.normal().fontWeight(600);
+
+    chart.tooltip().format("{%yPercentOfTotal}%");
+
+    chart.container("container");
+    chart.draw();
+  });
+
 }
-//at first load, show week stat
-const displayStat = async() => {
+
+
+const displayStat = async(duration) => {
+  let url = duration == 'week' ? getWeekStatUrl : getMonthStatUrl;
+  colorStatStatColorRankArea.innerHTML = "";
+  colorStatStatKeywordImg.innerHTML = "";
+
     try{
-        const res = await fetch(getMonthStatUrl, {
+        const res = await fetch(url, {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -59,8 +101,12 @@ const displayStat = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
+              if(dataResult.color.length !== 0){
                 displayColor(dataResult.color, dataResult.colorCount);
-                // displayKeyword(dataResult.imgPath);
+                displayKeyword(dataResult.keywordArr, dataResult.color);
+              }else{
+                displayError();
+              }   
             }
           }
         )
@@ -68,42 +114,23 @@ const displayStat = async() => {
         console.log("Fetch Error", e);
     }
 }
-displayStat();
 
-  anychart.onDocumentReady(function () {
-    var data = [
-        {
-            "x": "IT",
-            "value": 590000000,
-            category: "Sino-Tibetan"
-        },
-        {
-            "x": "Python",
-            "value": 283000000,
-            category: "Indo-European"
-        },
-        {
-            "x": "소프트웨어",
-            "value": 544000000,
-            category: "Indo-European"
-        },
-        {
-            "x": "JAVA",
-            "value": 527000000,
-            category: "Indo-European"
-        }, {
-            "x": "C++",
-            "value": 422000000,
-            category: "Afro-Asiatic"
-        }, {
-            "x": "HTML",
-            "value": 620000000,
-            category: "Afro-Asiatic"
-        }
-    ];
-    var chart = anychart.tagCloud(data);
-    chart.angles([0]);
-    chart.container("container");
-    // chart.getCredits().setEnabled(false);
-    chart.draw();
-});
+displayStat('week');
+
+const ChangeColorStatDurationAppearance = () => {
+  colorStatPresentWeek.classList.toggle("colorStatDurationSelected");
+  colorStatPresentMonth.classList.toggle("colorStatDurationSelected");
+}
+
+colorStatPresentWeek.addEventListener("click", () => {
+  if(!colorStatPresentWeek.classList.contains("colorStatDurationSelected")){
+    ChangeColorStatDurationAppearance();
+    displayStat('week');
+  }
+})
+colorStatPresentMonth.addEventListener("click", () => {
+  if(!colorStatPresentMonth.classList.contains("colorStatDurationSelected")){
+    ChangeColorStatDurationAppearance();
+    displayStat('month');
+  }
+})

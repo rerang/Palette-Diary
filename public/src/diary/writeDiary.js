@@ -24,9 +24,16 @@ const expired = () => {
 //write diary
 const email = payload['email'];
 const writeDiaryUrl = "http://125.140.42.36:8082/public/src/diary/saveDiary.php";
+const diaryPicUploadUrl = "http://125.140.42.36:8082/public/src/diary/uploadDiaryPicture.php";
+const writeDiarySaveBtn = document.querySelector("#writeDiarySaveBtn");
 
 const saveDiary = async() => {
     let colorValue = document.querySelector("#writeDiaryColor").value;
+    let keywordValue = document.querySelector("#writeDiaryKeyword").value;
+    if(keywordValue[0] !== "#"){
+      keywordValue = "#" + keywordValue;
+    }
+    keywordValue = keywordValue.replace(/(\s*)/g, "");
   try{
     const res = await fetch(writeDiaryUrl, {
     method: 'POST',
@@ -36,7 +43,7 @@ const saveDiary = async() => {
     body: JSON.stringify({
         email : email, 
         color : colorValue, 
-        keyword
+        keyword:keywordValue
     })
     })
     const data = res.json();
@@ -54,17 +61,28 @@ const saveDiary = async() => {
       console.log("Fetch Error", e);
   } 
 }
-saveDiaryBtn.addEventListener(saveDiary);
+writeDiarySaveBtn.addEventListener("click", saveDiary);
 
 //write diary - pic
-const profileImgFile = document.querySelector("#profileImgFile");
-const updateProfileImg = async() => {
+const MainPicInput = document.querySelector("#MainPicInput");
+const SubPic1Input = document.querySelector("#SubPic1Input");
+const SubPic2Input = document.querySelector("#SubPic2Input");
+const writeDiaryMainPic = document.querySelector("#writeDiaryMainPic");
+const writeDiarySubPic1 = document.querySelector("#writeDiarySubPic1");
+const writeDiarySubPic2 = document.querySelector("#writeDiarySubPic2");
+const writeDiaryPicPreview = document.querySelector("#writeDiaryPicPreview");
+
+const updateImg = async(num) => {
   let file = new FormData();
-  file.append('file', profileImgFile.files[0]);
-  console.log(profileImgFile.files[0]);
-  console.log(file);
+  if(num == 0){
+    file.append('file', MainPicInput.files[0]);
+  }else if(num == 1){
+    file.append('file', SubPic1Input.files[0]);
+  }else{
+    file.append('file', SubPic2Input.files[0]);
+  }
     try{
-        const res = await fetch(uploadProfileUrl, {
+        const res = await fetch(diaryPicUploadUrl, {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -75,8 +93,14 @@ const updateProfileImg = async() => {
         data.then(
           dataResult => {
             if(dataResult.result_code == "success"){
-              const path = dataResult.imgPath;
-              window.location.reload();
+              if(num == 0){
+                writeDiaryMainPic.setAttribute("src", dataResult.url);
+                writeDiaryPicPreview.setAttribute("src", dataResult.url);
+              }else if(num == 1){
+                writeDiarySubPic1.setAttribute("src", dataResult.url);
+              }else{
+                writeDiarySubPic2.setAttribute("src", dataResult.url);
+              }
             }
           }
         )
@@ -84,4 +108,28 @@ const updateProfileImg = async() => {
         console.log("Fetch Error", e);
     }
 }
-profileImgFile.addEventListener("change", updateProfileImg);
+MainPicInput.addEventListener("change", () => {updateImg(0)});
+SubPic1Input.addEventListener("change", () => {updateImg(1)});
+SubPic2Input.addEventListener("change", () => {updateImg(2)});
+
+const writeDiaryYear = document.querySelector("#writeDiaryYear");
+const writeDiaryMonth = document.querySelector("#writeDiaryMonth");
+const writeDiaryDay = document.querySelector("#writeDiaryDay");
+
+const dateSetting = () => {
+  let date = new Date();
+  writeDiaryYear.innerHTML = date.getFullYear();
+  writeDiaryMonth.innerHTML = date.getMonth() + 1;
+  writeDiaryDay.innerHTML = date.getDate();
+}
+
+dateSetting();
+
+
+const writeDiaryKeyword = document.querySelector("#writeDiaryKeyword");
+const checkSpace = () => {
+  let reg = /\s$/;
+  writeDiaryKeyword.value = writeDiaryKeyword.value.replace(reg, " #");
+}
+
+writeDiaryKeyword.addEventListener("input", checkSpace);

@@ -53,33 +53,33 @@
                         </div>
                         <div class="writeDiaryColorKeyword grid grid-cols-[1fr_2fr] gap-2 h-full">
                             <div class="writeDiaryColorArea flex flex-col justify-center">
-                                <input type='color' id='writeDiaryColor' value='#fff' class="writeDiaryColorInput">
+                                <input type='color' id='writeDiaryColor' value='#ffffff' class="writeDiaryColorInput">
                             </div>
                             <div class="writeDiaryKeywordArea flex flex-col justify-center">
-                                <span class="writeDiaryKeyword" id="writeDiaryKeyword"></span>
+                                <input type="text" class="writeDiaryKeyword" id="writeDiaryKeyword" value="#">
                             </div>
                         </div>
-                        <div class="writeDiaryPicArea">
+                        <div class="writeDiaryPicArea">  
                             <div class="diaryPicArea">
                                 <div class="writeDiaryPicFormArea">
                                     <form method="POST" class="writeDiaryPicForm" enctype="multipart/form-data">
-                                        <input type="file" name="file" class="writeDiaryPicFile">
+                                        <input type="file" name="file" class="writeDiaryPicFile" id="MainPicInput">
                                     </form>
-                                    <img src="" class="writeDiaryPic" id="writeDiaryMainPic">
+                                    <img src="../../img/noImg.png" class="writeDiaryPic" id="writeDiaryMainPic">
                                 </div>
 
                                 <div class="writeDiaryPicFormArea">
                                     <form method="POST" class="writeDiaryPicForm" enctype="multipart/form-data">
-                                        <input type="file" name="file" class="writeDiaryPicFile">
+                                        <input type="file" name="file" class="writeDiaryPicFile" id="SubPic1Input">
                                     </form>
-                                    <img src="" class="writeDiaryPic" id="writeDiarySubPic1">
+                                    <img src="../../img/noImg.png" class="writeDiaryPic" id="writeDiarySubPic1">
                                 </div>
                                 
                                 <div class="writeDiaryPicFormArea">
                                     <form method="POST" class="writeDiaryPicForm" enctype="multipart/form-data">
-                                        <input type="file" name="file" class="writeDiaryPicFile">
+                                        <input type="file" name="file" class="writeDiaryPicFile" id="SubPic2Input">
                                     </form>
-                                    <img src="" class="writeDiaryPic" id="writeDiarySubPic2">
+                                    <img src="../../img/noImg.png" class="writeDiaryPic" id="writeDiarySubPic2">
                                 </div>
                             </div>
                             <div class="diaryPicPreview">

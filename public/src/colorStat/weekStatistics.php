@@ -90,7 +90,7 @@ try {
             break;
     }
 
-    $selectDiaryColorInfoSql = "select color, count(color) from diary where d_date in ('$sundayData','$mondayData', '$tuesdayData', '$wednesdayData','$thursdayData', '$fridayData', '$saturdayData') and email='$email' group by color order by 'count(color)' desc limit 5;";
+    $selectDiaryColorInfoSql = "select color, count(color) from diary where d_date in ('$sundayData','$mondayData', '$tuesdayData', '$wednesdayData','$thursdayData', '$fridayData', '$saturdayData') and email='$email' group by color order by count(color) desc limit 5;";
     $selectDiaryColorInfoResult = mysqli_query($conn, $selectDiaryColorInfoSql);
 
     if(empty($selectDiaryColorInfoResult)==true) {
@@ -118,67 +118,21 @@ try {
         while ($keywordRecord = mysqli_fetch_assoc($selectDiaryKeywordInfoResult)){
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
-
-        for($i=0; $i<count($diaryKeywordArr); $i++) {
-            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+       for($i=0; $i<count($diaryKeywordArr); $i++) {
+            array_push($keywordWordcloudData, $diaryKeywordArr[$i].rand(20,100));
         }
         
         mysqli_close($conn);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
-
-        $keywordString = implode(" ",$diaryKeywordArr); 
-        $KeywordDataFile = fopen("KeywordData.txt", "w") or die("Unable to open file!");
-        fwrite($KeywordDataFile, $keywordString);
-        fclose($KeywordDataFile);
-
-<<<<<<< HEAD
-        $pythonExe =shall_exec("wordCloud.py");
-        echo $pythonExe;
-=======
-        $pythonExe = shell_exec("wordCloud.py");
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
-
-        $filename = "KeywordWordcloud.png";
-        $handle = fopen("KeywordWordcloud.png", "r");
-        $data = fread($handle, filesize($filename));
-        $pvars   = array('image' => base64_encode($data));
-        $timeout = 30;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
-        curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        curl_close ($curl);
-
-        $pms = json_decode($out,true);
-        $imgPath = $pms['data']['link'];
-
-<<<<<<< HEAD
-        //unlink("KeywordWordcloud.png");
-        //unlink("KeywordData.txt");
-
-=======
->>>>>>> 7e9109e22436fc497c24418c4ae63ee255f320a9
-=======
-        unlink("KeywordWordcloud.png");
-        unlink("KeywordData.txt");
-
->>>>>>> 7db33c6f8daba39801de77ad4183267a74dc420a
         $stat = "success";
+
     }
 } catch(exception $e) {
     $stat = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
-} finally{
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'imgPath' => $imgPath, 'result_code' => $stat, 'error'=> $error]);
+} 
+finally{
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 
+    'wordCloudData' => $keywordWordcloudData, 'keywordArr' => $diaryKeywordArr, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }

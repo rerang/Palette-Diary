@@ -59,8 +59,6 @@ const profileImgFile = document.querySelector("#profileImgFile");
 const updateProfileImg = async() => {
   let file = new FormData();
   file.append('file', profileImgFile.files[0]);
-  console.log(profileImgFile.files[0]);
-  console.log(file);
     try{
         const res = await fetch(uploadProfileUrl, {
           method: 'POST',

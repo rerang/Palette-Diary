@@ -38,13 +38,19 @@
     border-radius: 5px;
     padding: 1rem 0;
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 .writeDiaryColorWrapper{
     border-radius: 50%;
     width: 55px;
     height: 58px;
     border: #000 solid 1px;
+}
+.writeDiaryKeyword{
+    padding: 0 10px;
+}
+.writeDiaryKeyword:focus{
+    outline: none;
 }
 .writeDiaryKeywordArea{
     background-color: #fff;

@@ -54,7 +54,7 @@ try {
             array_push($diaryKeywordArr, $keywordRecord ['keyword']);
         }
        for($i=0; $i<count($diaryKeywordArr); $i++) {
-            array_push($keywordWordcloudData, $diaryKeywordArr[i].rand(20,100));
+            array_push($keywordWordcloudData, $diaryKeywordArr[$i].rand(20,100));
         }
         
         mysqli_close($conn);
@@ -66,7 +66,8 @@ try {
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 } 
 finally{//, 'imgPath' => $imgPath
-    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['color' => $diaryColorArr, 'colorCount' => $diaryColorCountArr, 'result_code' => $stat, 
+    'wordCloudData' => $keywordWordcloudData, 'keywordArr' => $diaryKeywordArr, 'error'=> $error]);
     header('Content-type: application/json'); 
     echo $data;
 }
