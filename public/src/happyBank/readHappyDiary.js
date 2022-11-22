@@ -19,8 +19,8 @@ if(user_type == "admin"){
 
 //get diary
 const viewHappyDiaryUrl = "http://125.140.42.36:8082/public/src/happyBank/viewHappyDiary.php";
-const happy_diary_code = localStorage.getItem("happy_diary_code");
 const getHappyBankDiary = async() => {
+  let happy_diary_code = localStorage.getItem("happy_diary_code");
   try{
     const res = await fetch(viewHappyDiaryUrl, {
     method: 'POST',
@@ -64,7 +64,12 @@ const paintHappyDiary = (happyDiaryData) => {
 
   happyBankDiaryKeyword.innerHTML = happyDiaryData['keyword'];
   if(happyDiaryData['mainPic'] !== null){
-    happyBankDiaryMainPic.setAttribute("src", happyDiaryData['mainPic']);
+    if(happyDiaryData['mainPic'] == "../../img/noPic.png"){
+      happyBankDiaryMainPic.setAttribute("src", "../../img/noDisplayPic.png");
+    }else{
+      happyBankDiaryMainPic.setAttribute("src", happyDiaryData['mainPic']);
+    }
+    
   }
 
   happyBankDiaryBodyArea.innerHTML = happyDiaryData['diary_body'];
@@ -75,7 +80,7 @@ getHappyBankDiary();
 //close happy diary
 const happyBankDiaryCloseBtn = document.querySelector("#happyBankDiaryCloseBtn");
 const goHappyDiaryPage = () => {
-  localStorage.removeItem("happy_diary_code", happy_diary_code);
+  localStorage.removeItem("happy_diary_code");
   window.location.href = "http://125.140.42.36:8082/public/src/happyBank/happyBank.html";
 }
 happyBankDiaryCloseBtn.addEventListener("click", goHappyDiaryPage);

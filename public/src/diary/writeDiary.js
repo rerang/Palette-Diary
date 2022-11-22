@@ -28,7 +28,7 @@ const writeDiaryDay = document.querySelector("#writeDiaryDay");
 
 let dateString = "";
 
-const dateSetting = () => {
+const writeDateSetting = () => {
   let date = new Date(localStorage.getItem("writeDiaryDate"));
   writeDiaryYear.innerHTML = date.getFullYear();
   writeDiaryMonth.innerHTML = date.getMonth() + 1;
@@ -36,8 +36,80 @@ const dateSetting = () => {
   dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }
 
-dateSetting();
 
+
+const paintDiary = (diaryData) => {
+  const writeDiaryYear = document.querySelector("#writeDiaryYear");
+  const writeDiaryMonth = document.querySelector("#writeDiaryMonth");
+  const writeDiaryDay = document.querySelector("#writeDiaryDay");
+  const writeDiaryColor = document.querySelector("#writeDiaryColor");
+  const writeDiaryKeyword = document.querySelector("#writeDiaryKeyword");
+  const writeDiaryMainPic = document.querySelector("#writeDiaryMainPic");
+  const writeDiaryPicPreview = document.querySelector("#writeDiaryPicPreview");
+  const writeDiarySubPic1 = document.querySelector("#writeDiarySubPic1");
+  const writeDiarySubPic2 = document.querySelector("#writeDiarySubPic2");
+  const writeDiaryBody = document.querySelector("#writeDiaryBody");
+
+  const dateArr = diaryData.date.split("-");
+  writeDiaryYear.innerHTML = dateArr[0];
+  writeDiaryMonth.innerHTML = dateArr[1];
+  writeDiaryDay.innerHTML = dateArr[2];
+  dateString = diaryData.date;
+
+  writeDiaryColor.value = diaryData.color;
+
+  writeDiaryKeyword.value = diaryData.keyword;
+  if(diaryData.mainPic !== null){
+    let imgurl = diaryData.mainPic;
+    writeDiaryMainPic.setAttribute("src", imgurl);
+    writeDiaryPicPreview.setAttribute("src", imgurl);
+  }
+  if(diaryData.subPic1 !== null){
+    let imgurl = diaryData.subPic1;
+    writeDiarySubPic1.setAttribute("src", imgurl);
+  }
+  if(diaryData.subPic2 !== null){
+    let imgurl = diaryData.subPic2;
+    writeDiarySubPic2.setAttribute("src", imgurl);
+  }
+
+  writeDiaryBody.value = diaryData.diary_body;
+}
+const getDiaryUrl = "http://125.140.42.36:8082/public/src/diary/getDiary.php";
+const getEditDiary = async(code) => {
+  try{
+    const res = await fetch(getDiaryUrl, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+    },
+    body: JSON.stringify({
+        diary_code : code
+    })
+    })
+    const data = res.json();
+    data.then(
+        dataResult => {
+            if(dataResult.result_code == "success"){ 
+              paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
+            }
+            else if(dataResult.error.errorCode == 423){
+              expired();
+            }
+        }
+    )
+  }catch (e) {
+      console.log("Fetch Error", e);
+  } 
+}
+const checkWriteAndEdit = () => {
+  if(localStorage.getItem("writeDiaryCode") == null){//write
+    writeDateSetting();
+  }else{
+    getEditDiary(localStorage.getItem("writeDiaryCode"));
+  }
+}
+checkWriteAndEdit()
 
 //write diary - pic
 const MainPicInput = document.querySelector("#MainPicInput");
@@ -90,8 +162,9 @@ SubPic2Input.addEventListener("change", () => {updateImg(2)});
 
 //ask happy diary
 const askHappyDiaryModalBg = document.querySelector("#askHappyDiaryModalBg");
+const saveHappyDiaryUrl = "http://125.140.42.36:8082/public/src/happyBank/saveHappyDiary.php";
 
-const askHappyDiary = (_event) => {
+const askHappyDiary = (code) => {
   let askHappyDiaryModal = document.createElement("div");
   askHappyDiaryModal.id="askHappyDiaryModal";
   askHappyDiaryModal.innerHTML = `<span>해피 다이어리에 저장 하시겠습니까?</span>
@@ -99,21 +172,44 @@ const askHappyDiary = (_event) => {
   <button class="askHappyDiaryBtn" id="askHappyDiaryTrueBtn">예</button>
   <button class="askHappyDiaryBtn" id="askHappyDiaryFalseBtn">아니오</button>
   </div>`;
-  diaryModalBg.classList.remove("hidden");
+  askHappyDiaryModalBg.classList.remove("hidden");
   document.querySelector("body").appendChild(askHappyDiaryModal);
-  document.querySelector("#askHappyDiaryTrueBtn").addEventListener("click", saveHappyDiary, true);
-  document.querySelector("#askHappyDiaryFalseBtn").addEventListener("click", removeModal, true);
-}
-const removeModal = () => {
-  let askHappyDiaryModal = document.querySelector("#askHappyDiaryModal");
-  askHappyDiaryModal.remove();
-  askHappyDiaryModalBg.classList.add("hidden");
+  document.querySelector("#askHappyDiaryTrueBtn").addEventListener("click", ()=>{saveHappyDiary(code)}, true);
+  document.querySelector("#askHappyDiaryFalseBtn").addEventListener("click", goCalenderPage, true);
 }
 const goCalenderPage = (_event) => {
-    localStorage.removeItem("readDiaryCode", readDiaryCode);
+    localStorage.removeItem("writeDiaryDate");
+    localStorage.removeItem("writeDiaryCode");
     window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
 }
-
+const saveHappyDiary = async(code) => {
+try{
+  const res = await fetch(saveHappyDiaryUrl, {
+  method: 'POST',
+  mode: 'cors',
+  headers: {
+  },
+  body: JSON.stringify({
+    diary_code : code
+  })
+  })
+  const data = res.json();
+  data.then(
+      dataResult => {
+          if(dataResult.result_code == "success"){ 
+            localStorage.removeItem("writeDiaryDate");
+            localStorage.removeItem("writeDiaryCode"); 
+            location.href = "/public/src/calender/calender.html";
+          }
+          else if(dataResult.error.errorCode == 423){
+            expired();
+          }
+      }
+  )
+}catch (e) {
+    console.log("Fetch Error", e);
+} 
+}
 
 //write diary
 const email = payload['email'];
@@ -129,6 +225,7 @@ const saveDiary = async() => {
       keywordValue = "#" + keywordValue;
     }
     keywordValue = keywordValue.replace(/(\s*)/g, "");
+    let code = localStorage.getItem("writeDiaryCode") == null ? "" : localStorage.getItem("writeDiaryCode");
   try{
     const res = await fetch(writeDiaryUrl, {
     method: 'POST',
@@ -136,7 +233,7 @@ const saveDiary = async() => {
     headers: {
     },
     body: JSON.stringify({
-        diary_code : "",
+        diary_code : code,
         color : colorValue, 
         keyword : keywordValue,
         d_date : dateString,
@@ -149,9 +246,8 @@ const saveDiary = async() => {
     const data = res.json();
     data.then(
         dataResult => {
-          console.log(dataResult);
             if(dataResult.result_code == "success"){  
-              location.href = "/public/src/calender/calender.html";
+              askHappyDiary(localStorage.getItem("writeDiaryCode") == null ? dataResult.diary_code : localStorage.getItem("writeDiaryCode"));
             }
             else if(dataResult.error.errorCode == 423){
               expired();

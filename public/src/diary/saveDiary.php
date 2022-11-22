@@ -49,17 +49,17 @@ try {
 
     else {// 기존 일기 수정 시
 
-        $updateDiarySql = "update diary set color ='$todayColor', keyword='$todayKeyword', mainPic='$todayMainPicture' where diary_code='$todayDiaryCode';";
+        $updateDiarySql = "update diary set color ='$todayColor', keyword='$todayKeyword', main_pic='$todayMainPicture' where diary_code='$todayDiaryCode';";
         $updateDiaryResult = mysqli_query($conn, $updateDiarySql);
 
-        if(!$updateDiaryResult) {
+        if($updateDiaryResult == false) {
             throw new exception('DB Fail - Can Not Update Diary', 423);
         }
 
-        $updateDiaryDetailSql = "update diary_detail set diary_body ='$todayDiaryBody', subPic1='$todaySubPicture1', subPic2='$todaySubPicture2' where diary_code='$todayDiaryCode';";
+        $updateDiaryDetailSql = "update diary_detail set diary_body ='$todayDiaryBody', sub_pic1='$todaySubPicture1', sub_pic_2='$todaySubPicture2' where diary_code='$todayDiaryCode';";
         $updateDiaryDetailResult = mysqli_query($conn, $updateDiaryDetailSql);
 
-        if(!$updateDiaryDetailResult) {
+        if($updateDiaryDetailResult == false) {
             throw new exception('DB Fail - Can Not Update Diary', 423);
         }
 

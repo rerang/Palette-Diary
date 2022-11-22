@@ -21,6 +21,25 @@ const expired = () => {
   window.location.href = "http://125.140.42.36:8082/";
 }
 
+
+//go other pages
+const goWriteDiaryPage = (_event, date) => {
+  console.log(date);
+  if(date !== undefined){
+    localStorage.setItem("writeDiaryDate", date);
+  }else{
+    localStorage.setItem("writeDiaryDate", _event.target.id);
+  }
+  
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/writeDiary.html";
+}
+
+const goReadDiaryPage = (_event) => {
+  localStorage.setItem("readDiaryCode", _event.target.parentElement.parentElement.parentElement.id);
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/readDiary.html";
+}
+
+
 //calender get now month info
 const nowFullDate = new Date();
 const nowYear = nowFullDate.getFullYear();
@@ -77,6 +96,7 @@ const getNowMonthInfo = async(year, month) => {
             }
             dateArea.id = year+"-"+month+"-"+(i+1);
             dateArea.addEventListener("click", viewCalenderPreview);
+            dateArea.addEventListener('dblclick', (event) => {goWriteDiaryPage(event, year+"-"+month+"-"+(i+1))});
             calenderDayArea.append(dateArea);
           }
         }
@@ -278,16 +298,6 @@ const closePreview = () => {
 }
 
 
-//go other pages
-const goWriteDiaryPage = (_event) => {
-  localStorage.setItem("writeDiaryDate", _event.target.id);
-  window.location.href = "http://125.140.42.36:8082/public/src/diary/writeDiary.html";
-}
-
-const goReadDiaryPage = (_event) => {
-  localStorage.setItem("readDiaryCode", _event.target.parentElement.parentElement.parentElement.id);
-  window.location.href = "http://125.140.42.36:8082/public/src/diary/readDiary.html";
-}
 
 
 

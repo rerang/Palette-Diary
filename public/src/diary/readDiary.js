@@ -21,6 +21,7 @@ const expired = () => {
     window.location.href = "http://125.140.42.36:8082/";
 }
 
+
 //get and paint diary
 const diaryYear = document.querySelector("#diaryYear");
 const diaryMonth = document.querySelector("#diaryMonth");
@@ -76,10 +77,10 @@ const getDiary = async() => {
     })
     const data = res.json();
     data.then(
-        dataResult => {paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
-            
-            if(dataResult.result_code == "success"){ 
-              }
+        dataResult => { 
+          if(dataResult.result_code == "success"){
+           paintDiary({date:dataResult.d_date, color:dataResult.color, keyword:dataResult.keyword, mainPic:dataResult.mainPic, diary_body:dataResult.diary_body, subPic1:dataResult.subPic1, subPic2:dataResult.subPic2});
+          }
             else if(dataResult.error.errorCode == 423){
               expired();
             }
@@ -153,3 +154,11 @@ const deleteDiary = async() => {
 }
 
 diaryDeleteBtn.addEventListener("click", askDeleteDiary);
+
+//goto edit diary page
+const diaryEditBtn = document.querySelector("#diaryEditBtn");
+const goWriteDiaryPage = (_event) => {
+  localStorage.setItem("writeDiaryCode", readDiaryCode);
+  window.location.href = "http://125.140.42.36:8082/public/src/diary/writeDiary.html";
+}
+diaryEditBtn.addEventListener("click", goWriteDiaryPage);
