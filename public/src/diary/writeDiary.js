@@ -247,7 +247,7 @@ const saveDiary = async() => {
     data.then(
         dataResult => {
             if(dataResult.result_code == "success"){  
-              askHappyDiary(localStorage.getItem("writeDiaryCode") == null ? dataResult.diary_code : localStorage.getItem("writeDiaryCode"));
+              askHappyDiary(dataResult.diary_code);
             }
             else if(dataResult.error.errorCode == 423){
               expired();

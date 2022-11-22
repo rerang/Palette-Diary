@@ -26,6 +26,7 @@ try {
     $todayDiaryBody = $json['diary_body'];
     $todaySubPicture1 = $json['subPic1'];
     $todaySubPicture2 = $json['subPic2'];
+    $diary_code = "";
     
     if($todayDiaryCode == "") {// 다이어리 코드가 없다==새로 쓰는 일기
         $insertDiarySql = "insert into diary(email, d_date, color, main_pic, keyword) values('$email','$todayDiaryDate','$todayColor','$todayMainPicture','$todayKeyword');";
@@ -36,6 +37,7 @@ try {
         }
 
         $insertDiaryCode = $conn->insert_id;
+        $diary_code = $insertDiaryCode;
 
         $insertDiaryDetailSql = "insert into diary_detail(diary_code, diary_body, sub_pic1, sub_pic_2) values('$insertDiaryCode', '$todayDiaryBody','$todaySubPicture1','$todaySubPicture2');";
         $insertDiaryDetailResult = mysqli_query($conn, $insertDiaryDetailSql);
@@ -62,7 +64,7 @@ try {
         if($updateDiaryDetailResult == false) {
             throw new exception('DB Fail - Can Not Update Diary', 423);
         }
-
+        $diary_code = $todayDiaryCode;
         $stat = "success";
     }
 
@@ -72,7 +74,7 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
-    $data = json_encode(['result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['result_code' => $stat, 'error'=> $error, 'diary_code' => $diary_code]);
     header('Content-type: application/json'); 
     echo $data;
 }
