@@ -88,6 +88,32 @@ MainPicInput.addEventListener("change", () => {updateImg(0)});
 SubPic1Input.addEventListener("change", () => {updateImg(1)});
 SubPic2Input.addEventListener("change", () => {updateImg(2)});
 
+//ask happy diary
+const askHappyDiaryModalBg = document.querySelector("#askHappyDiaryModalBg");
+
+const askHappyDiary = (_event) => {
+  let askHappyDiaryModal = document.createElement("div");
+  askHappyDiaryModal.id="askHappyDiaryModal";
+  askHappyDiaryModal.innerHTML = `<span>해피 다이어리에 저장 하시겠습니까?</span>
+  <div class="askHappyDiaryBtnArea">
+  <button class="askHappyDiaryBtn" id="askHappyDiaryTrueBtn">예</button>
+  <button class="askHappyDiaryBtn" id="askHappyDiaryFalseBtn">아니오</button>
+  </div>`;
+  diaryModalBg.classList.remove("hidden");
+  document.querySelector("body").appendChild(askHappyDiaryModal);
+  document.querySelector("#askHappyDiaryTrueBtn").addEventListener("click", saveHappyDiary, true);
+  document.querySelector("#askHappyDiaryFalseBtn").addEventListener("click", removeModal, true);
+}
+const removeModal = () => {
+  let askHappyDiaryModal = document.querySelector("#askHappyDiaryModal");
+  askHappyDiaryModal.remove();
+  askHappyDiaryModalBg.classList.add("hidden");
+}
+const goCalenderPage = (_event) => {
+    localStorage.removeItem("readDiaryCode", readDiaryCode);
+    window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+}
+
 
 //write diary
 const email = payload['email'];
@@ -125,7 +151,7 @@ const saveDiary = async() => {
         dataResult => {
           console.log(dataResult);
             if(dataResult.result_code == "success"){  
-              location.href = "/";
+              location.href = "/public/src/calender/calender.html";
             }
             else if(dataResult.error.errorCode == 423){
               expired();

@@ -110,6 +110,15 @@ const askDeleteDiary = (_event) => {
   document.querySelector("#askDeleteDiaryTrueBtn").addEventListener("click", deleteDiary, true);
   document.querySelector("#askDeleteDiaryFalseBtn").addEventListener("click", removeModal, true);
 }
+const removeModal = () => {
+  let askDeleteDiaryModal = document.querySelector("#askDeleteDiaryModal");
+  askDeleteDiaryModal.remove();
+  diaryModalBg.classList.add("hidden");
+}
+const goCalenderPage = (_event) => {
+    localStorage.removeItem("readDiaryCode", readDiaryCode);
+    window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
+}
 const deleteDiary = async() => {
   removeModal();
   const deleteDiaryCode = readDiaryCode;
@@ -127,11 +136,10 @@ const deleteDiary = async() => {
     data.then(
       dataResult => {
         if(dataResult.result_code == "success"){
-            goCalenderPage();
+          goCalenderPage();
         }
         else{
           if(dataResult.error.errorCode == 409){
-            alert(dataResult.error.errorMsg);
           }
           else{
             alert("문제가 발생하였습니다. 관리자에게 문의하세요");
@@ -142,13 +150,6 @@ const deleteDiary = async() => {
   }catch (e) {
       console.log("Fetch Error", e);
   }
-}
-const removeModal = () => {
-  diaryModalBg.classList.add("hidden");
-}
-const goCalenderPage = (_event) => {
-    localStorage.removeItem("readDiaryCode", readDiaryCode);
-    window.location.href = "http://125.140.42.36:8082/public/src/calender/calender.html";
 }
 
 diaryDeleteBtn.addEventListener("click", askDeleteDiary);

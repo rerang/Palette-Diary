@@ -9,7 +9,6 @@ $s_password = "dbpassword";
 $dbname = "palette_diary";
 $conn = mysqli_connect($host, $s_username, $s_password, $dbname);
 try {
-
     $dbDiaryColor=NULL;
     $dbDiaryKeyword=NULL;
     $dbDiaryDate=NULL;

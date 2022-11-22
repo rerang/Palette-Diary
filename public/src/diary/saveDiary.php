@@ -41,9 +41,9 @@ try {
             throw new exception('DB Fail - Can Not Insert Diary', 422);
         }
 
-        $insertDiaryCode = $insertDiaryResult['diary_code'];
+        $insertDiaryCode = $conn->insert_id;
 
-        $insertDiaryDetailSql = "insert into diary_detail (diary_code, diary_body, subPic1, subPic2) values('$insertDiaryCode', '$todayDiaryBody','$todaySubPicture1','$todaySubPicture2');";
+        $insertDiaryDetailSql = "insert into diary_detail(diary_code, diary_body, sub_pic1, sub_pic_2) values('$insertDiaryCode', '$todayDiaryBody','$todaySubPicture1','$todaySubPicture2');";
         $insertDiaryDetailResult = mysqli_query($conn, $insertDiaryDetailSql);
 
         if($insertDiaryDetailResult == false) {
