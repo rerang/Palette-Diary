@@ -189,7 +189,7 @@ const viewCalenderPreview = async(_event) => {
             let displayArr = dateInfoArr[0];
             calenderPreview.id = displayArr[3];
             calenderPreviewColor.setAttribute("style", "background-color:"+displayArr[0]+";");
-            if(displayArr[1] !== null){
+            if(displayArr[1] !== "../../img/noPic.png"){
               calenderPreviewMainPicArea.innerHTML = `<img src="`+displayArr[1]+`" id="calenderPreviewMainPic"></img>`;
             }
             else{
@@ -256,7 +256,7 @@ const turnLaterPreview = () => {
   const calenderPreviewKeyword = document.querySelector("#calenderPreviewKeyword");
 
   calenderPreviewColor.setAttribute("style", "background-color:" + paintPreviewInfo[0]+";");
-  if(paintPreviewInfo[1] !== null){
+  if(paintPreviewInfo[1] !== "../../img/noPic.png"){
     calenderPreviewMainPicArea.innerHTML = `<img src="` + paintPreviewInfo[1]+`" id="calenderPreviewMainPic"></img>`;
   }
   else{

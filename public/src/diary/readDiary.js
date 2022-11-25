@@ -32,6 +32,7 @@ const diaryMainPic = document.querySelector("#diaryMainPic");
 const diarySubPic1 = document.querySelector("#diarySubPic1");
 const diarySubPic2 = document.querySelector("#diarySubPic2");
 const diaryBodyArea = document.querySelector("#diaryBodyArea");
+const diaryPicPreview = document.querySelector("#diaryPicPreview");
 
 
 const paintDiary = (diaryData) => {
@@ -45,15 +46,16 @@ const paintDiary = (diaryData) => {
 
   diaryKeyword.innerHTML = diaryData.keyword;
   if(diaryData.mainPic !== null){
-    let imgurl = diaryData.mainPic == "" ? "../../assets/noPic.png" : diaryData.mainPic;
+    let imgurl = diaryData.mainPic == "../../assets/noPic.png" ? "../../assets/noDisplayPic.png" : diaryData.mainPic;
     diaryMainPic.setAttribute("src", imgurl);
+    diaryPicPreview.setAttribute("src", imgurl);
   }
   if(diaryData.subPic1 !== null){
-    let imgurl = diaryData.subPic1 == "" ? "../../assets/noPic.png" : diaryData.subPic1;
+    let imgurl = diaryData.subPic1 == "../../assets/noPic.png" ? "../../assets/noDisplayPic.png" : diaryData.subPic1;
     diarySubPic1.setAttribute("src", imgurl);
   }
   if(diaryData.subPic2 !== null){
-    let imgurl = diaryData.subPic2 == "" ? "../../assets/noPic.png" : diaryData.subPic2;
+    let imgurl = diaryData.subPic2 == "../../assets/noPic.png" ? "../../assets/noDisplayPic.png" : diaryData.subPic2;
     diarySubPic2.setAttribute("src", imgurl);
   }
 

@@ -47,8 +47,8 @@ try {
         if((empty($selectDiaryResult['d_date'])==false)) {
             $dbDiaryDate = $selectDiaryResult['d_date'];
         }
-        if((empty($selectDiaryResult['mainPic'])==false)) {
-            $dbDiarymainPic= $selectDiaryResult['mainPic'];
+        if((empty($selectDiaryResult['main_pic'])==false)) {
+            $dbDiarymainPic= $selectDiaryResult['main_pic'];
         }
     }
 
@@ -62,11 +62,11 @@ try {
         if((empty($selectDiaryDetailResult['diary_body'])==false)) {
             $dbDiaryBody = $selectDiaryDetailResult['diary_body'];
         }
-        if((empty($selectDiaryDetailResult['subPic1'])==false)) {
-            $dbDiarySubPic1 = $selectDiaryDetailResult['subPic1'];
+        if((empty($selectDiaryDetailResult['sub_pic1'])==false)) {
+            $dbDiarySubPic1 = $selectDiaryDetailResult['sub_pic1'];
         }
-        if((empty($selectDiaryDetailResult['subPic2'])==false)) {
-            $dbDiarySubPic2 = $selectDiaryDetailResult['subPic2'];
+        if((empty($selectDiaryDetailResult['sub_pic_2'])==false)) {
+            $dbDiarySubPic2 = $selectDiaryDetailResult['sub_pic_2'];
         }
         $stat="success";
     }   

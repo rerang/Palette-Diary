@@ -122,6 +122,7 @@ const writeDiaryPicPreview = document.querySelector("#writeDiaryPicPreview");
 
 const updateImg = async(num) => {
   let file = new FormData();
+  console.log(file);
   if(num == 0){
     file.append('file', MainPicInput.files[0]);
   }else if(num == 1){
