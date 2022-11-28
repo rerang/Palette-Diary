@@ -71,7 +71,7 @@ try {
     $stat   = "error";
     $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 } finally{
-    $data =  json_encode(['result_code' => $stat, 'error'=>$error]);
+    $data =  json_encode(['$backgroundImgUrl'=>$backgroundImgUrl,'result_code' => $stat, 'error'=>$error]);
     header('Content-type: application/json'); 
     echo $data;
 }
