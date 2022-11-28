@@ -46,7 +46,7 @@ try {
             $pms = json_decode($out,true);
             $backgroundImgUrl = $pms['data']['link'];
 
-            if($backgroundImgUrl="") {
+            if(empty($backgroundImgUrl)==false) {
                 $insertThemeSql = "insert into theme(theme_name, background_pic, color_palette) values('$theme_name', '$backgroundImgUrl', '$paletteArrString');";
                 $insertThemeResult = mysqli_query($conn, $insertThemeSql);
                 mysqli_close($conn);
