@@ -30,6 +30,7 @@ try{
   $getThemeInfoSql="select * from theme where theme_code='$db_themeCode'";
   $getThemeInfoResult = mysqli_fetch_assoc(mysqli_query($conn, $getThemeInfoSql));
   $color_palette = $getThemeInfoResult['color_palette'];
+  $background_pic = $getThemeInfoResult['background_pic'];
 
   if(password_verify($password, $db_password)) { // 비밀번호 일치
     $HEADER = json_encode(array('alg' => "HS256", 'typ' => "JWT"));
@@ -51,7 +52,7 @@ try{
 
   }
   else { // 비밀번호 불일치
-    throw new exception('옳지 않은 비밀번호 입니다.', 405);
+    throw new exception('password not correct', 405);
   }
 
 }catch(exception $e) {
@@ -59,7 +60,7 @@ try{
   $error = ['errorMsg' => $e->getMessage(), 'errorCode' => $e->getCode()];
 }finally{
   if($stat == "success"){
-    $data = json_encode(['token' => $token, 'theme_code' => $db_themeCode, 'color_palette' => $color_palette, 'result_code' => $stat, 'error'=> $error]);
+    $data = json_encode(['token' => $token, 'theme_code' => $db_themeCode, 'color_palette' => $color_palette, 'background_pic' => $background_pic, 'result_code' => $stat, 'error'=> $error]);
   }
   else{
     $data = json_encode(['result_code' => $stat, 'error'=> $error]);
