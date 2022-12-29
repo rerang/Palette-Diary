@@ -18,18 +18,45 @@ const checkValidation = (themeName, backgroundPic, paletteArr) => {
         alert("색상 정의 내용이 옳지 않습니다.");
         return false;
       }
-      else return themeName, backgroundPic, paletteArr;
+      else return true
 }
 const insertThemeUrl = `http://125.140.42.36:8082/public/src/admin/adminThemeManagement/insertTheme.php`;
+const insertThemePicUrl = `http://125.140.42.36:8082/public/src/admin/adminThemeManagement/adminThemeUpload.php`;
+const backgroundPic = document.querySelector("#backgroundPic");
+const themeManagementFormInputArea = document.querySelector("#themeManagementFormInputArea");
+const updateImg = async(_event) => {
+    let file = new FormData();
+    file.append('file', backgroundPic.files[0]);
+    try{
+        const res = await fetch(insertThemePicUrl, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+        },
+        body: file,
+        })
+        const data = res.json();
+        data.then(
+            dataResult => {
+                if(dataResult.result_code == "success"){ 
+                    backgroundPic.setAttribute("src", dataResult.url);
+                }
+            }
+        )
+    }catch (e) {
+        console.log("Fetch Error", e);
+    }
+}
+backgroundPic.addEventListener("change", updateImg);
+
+
 const checkValiAndAddTheme = async(_event) =>{
-    _event.preventDefault();
-    let themeName = _event.target.parentNode[0].value.trim();
-    let themeFile = new FormData();
-    themeFile.append('file', _event.target.parentNode[1].files[0]);
+    let themeUrl = backgroundPic.getAttribute("src");
     let paletteArr = [_event.target.parentNode[2].value.trim(), _event.target.parentNode[3].value.trim(), _event.target.parentNode[4].value.trim(),
     _event.target.parentNode[5].value.trim(), _event.target.parentNode[6].value.trim(), _event.target.parentNode[7].value.trim()];
-    console.log(paletteArr.join(""));
-    if(!checkValidation(themeName, themeFile, paletteArr)){
+    let themeName = document.querySelector("#themeName").value;
+
+    if(!checkValidation(themeName, themeUrl, paletteArr)){
         return;
     }
     else{
@@ -41,8 +68,8 @@ const checkValiAndAddTheme = async(_event) =>{
                 },
                 body: JSON.stringify({
                     theme_name: themeName,
-                    paletteArrString: paletteArr.join("")
-                    //,file도 같이 보내기.
+                    paletteArrString: String(paletteArr.join("")),
+                    theme : themeUrl
                 })
             })
             const data = res.json();
@@ -55,6 +82,7 @@ const checkValiAndAddTheme = async(_event) =>{
             )
         }catch (e) {
             console.log("Fetch Error", e);
+            //alert("no");
         }
     }
 } 
